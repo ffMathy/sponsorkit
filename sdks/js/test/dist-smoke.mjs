@@ -13,7 +13,7 @@ assert.equal(await targetsHash("github:octocat"), "0309e87b72e9ebbb324075c26f584
 assert.equal(typeof fileStorage, "function");
 assert.match(
   new BrowserSponsorkit({ github: "octocat", env: {} }).checkoutUrl(),
-  /^https:\/\/sponsorkit\.github\.io\/sponsorkit\.io\/checkout\/\?targets=github%3Aoctocat$/,
+  /^https:\/\/ffmathy\.github\.io\/sponsorkit\/checkout\/\?targets=github%3Aoctocat$/,
 );
 assert.throws(
   () => new Sponsorkit({ github: "-bad-" }),

@@ -30,8 +30,8 @@ repository into a local folder and use that folder as a package source.
 :::
 
 ```bash title="Terminal"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-dotnet pack sponsorkit.io/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
+git clone https://github.com/ffMathy/sponsorkit.git
+dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
 
 cd my-app
 dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget

@@ -91,7 +91,7 @@ def make(api: Api | None = None, **kw: Any) -> Sponsorkit:
         {"github": "-bad"},
         {"github": "ok", "api_base_url": "ftp://x"},
         {"github": "ok", "site_base_url": "ftp://x"},
-        {"github": "ok", "site_base_url": "sponsorkit.github.io"},
+        {"github": "ok", "site_base_url": "ffmathy.github.io"},
         {"github": "ok", "site_base_url": "https://example.com/?x=1"},
         {"github": "ok", "site_base_url": "https://example.com/#x"},
         {"github": "ok", "site_base_url": "https://example.com/base?"},
@@ -136,11 +136,11 @@ def test_env_flag_semantics(value: str, disabled: bool) -> None:
 @pytest.mark.parametrize(
     ("kwargs", "api", "site"),
     [
-        ({}, "https://api.sponsorkit.io", "https://sponsorkit.github.io/sponsorkit.io"),
+        ({}, "https://api.sponsorkit.io", "https://ffmathy.github.io/sponsorkit"),
         (
             {"api_base_url": "", "site_base_url": ""},
             "https://api.sponsorkit.io",
-            "https://sponsorkit.github.io/sponsorkit.io",
+            "https://ffmathy.github.io/sponsorkit",
         ),
         ({"api_base_url": "http://h:1//"}, "http://h:1", "http://h:1"),
         ({"api_base_url": "http://h:1", "site_base_url": ""}, "http://h:1", "http://h:1"),
@@ -396,7 +396,7 @@ def test_disabled_does_nothing(tmp_path: Path) -> None:
         sk.open_checkout()
     assert e.value.code == "disabled"
     assert sk.checkout_url(frequency="monthly").startswith(
-        "https://sponsorkit.github.io/sponsorkit.io/checkout/?"
+        "https://ffmathy.github.io/sponsorkit/checkout/?"
     )
     assert not (tmp_path / "s").exists()
 

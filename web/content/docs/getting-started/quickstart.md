@@ -22,31 +22,31 @@ commands to use after the release.
 
 :::tabs
 ```bash tab="JavaScript" key="js"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-(cd sponsorkit.io && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
+git clone https://github.com/ffMathy/sponsorkit.git
+(cd sponsorkit && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
 mkdir my-cli && cd my-cli && npm init -y
-npm install ../sponsorkit.io/sdks/js/sponsorkit-sdk-0.1.0.tgz
+npm install ../sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
 ```
 
 ```bash tab=".NET" key="dotnet"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-dotnet pack sponsorkit.io/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
+git clone https://github.com/ffMathy/sponsorkit.git
+dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
 dotnet new console -n my-cli && cd my-cli
 dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
 ```
 
 ```bash tab="Python" key="python"
-python -m pip install "sponsorkit @ git+https://github.com/sponsorkit/sponsorkit.io@main#subdirectory=sdks/python"
+python -m pip install "sponsorkit @ git+https://github.com/ffMathy/sponsorkit@main#subdirectory=sdks/python"
 ```
 
 ```bash tab="Go" key="go"
 go mod init example.com/my-cli
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@main
+go get github.com/ffMathy/sponsorkit/sdks/go@main
 ```
 
 ```bash tab="Rust" key="rust"
 cargo new my-cli && cd my-cli
-cargo add sponsorkit --git https://github.com/sponsorkit/sponsorkit.io
+cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit
 cargo add tokio --features macros,rt-multi-thread
 ```
 :::
@@ -244,7 +244,7 @@ import (
 	"os"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {

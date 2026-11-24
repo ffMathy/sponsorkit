@@ -6,7 +6,7 @@ Everything runs locally on four loopback origins, three of them different sites:
 | Part | URL | Runs |
 |---|---|---|
 | API | `http://localhost:28787` | `wrangler dev` on `app/src`, config generated from `app/wrangler.jsonc` |
-| Site | `http://127.0.0.2:28788/sponsorkit.io/` | the `web/` static export (`BASE_PATH=/sponsorkit.io`, `TRAILING_SLASH=1`, `NEXT_PUBLIC_SPONSORKIT_API_BASE=<API>`) behind a GitHub Pages-like server |
+| Site | `http://127.0.0.2:28788/sponsorkit/` | the `web/` static export (`BASE_PATH=/sponsorkit`, `TRAILING_SLASH=1`, `NEXT_PUBLIC_SPONSORKIT_API_BASE=<API>`) behind a GitHub Pages-like server |
 | App | `http://127.0.0.1:28789/` | a third-party page that loads `sdks/js/dist` with `apiBaseUrl` + `siteBaseUrl` |
 | Fake providers | `http://127.0.0.3:28790` | fake GitHub / Open Collective OAuth (with PKCE checks) and GraphQL (`lib/fake-providers.mjs`) |
 

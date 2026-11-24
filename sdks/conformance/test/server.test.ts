@@ -85,7 +85,7 @@ describe("CLI", () => {
       const res = await fetch(`http://127.0.0.1:${m![1]}/api/v1/health`);
       expect(await res.json()).toEqual({ ok: true, providers: { github: "ok", opencollective: "ok" } });
       const st = (await (await fetch(`http://127.0.0.1:${m![1]}/__control`)).json()) as { siteBaseUrl: string };
-      expect(st.siteBaseUrl).toMatch(/^http:\/\/127\.0\.0\.1:\d+\/sponsorkit\.io$/);
+      expect(st.siteBaseUrl).toMatch(/^http:\/\/127\.0\.0\.1:\d+\/sponsorkit$/);
       expect(st.siteBaseUrl).not.toContain(`:${m![1]}/`);
       expect((await fetch(`${st.siteBaseUrl}/checkout/thanks/`)).status).toBe(200);
     } finally {
@@ -111,7 +111,7 @@ describe("CLI", () => {
       // Harnesses that match the prefix `^LISTENING (\d+)` still get the API port.
       expect(/^LISTENING (\d+)/.exec(line)![1]).toBe(String(port));
       const st = (await (await fetch(`http://127.0.0.1:${port}/__control`)).json()) as { siteBaseUrl: string };
-      expect(st.siteBaseUrl).toBe(`http://127.0.0.1:${sitePort}/sponsorkit.io`);
+      expect(st.siteBaseUrl).toBe(`http://127.0.0.1:${sitePort}/sponsorkit`);
     } finally {
       proc.kill();
       await proc.exited;

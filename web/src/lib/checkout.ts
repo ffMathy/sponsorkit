@@ -2,7 +2,7 @@
  * Checkout eligibility and provider redirect URLs (PROTOCOL §6).
  *
  * Pure and deterministic: the page passes in `/api/v1/targets` data and its own site base URL
- * (`location.origin` + base path, e.g. `https://sponsorkit.github.io/sponsorkit.io`).
+ * (`location.origin` + base path, e.g. `https://ffmathy.github.io/sponsorkit`).
  */
 import type { Frequency, Provider, Target, TargetInfo, TargetTier } from "@sponsorkit/shared";
 

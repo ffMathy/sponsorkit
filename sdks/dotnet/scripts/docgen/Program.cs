@@ -63,7 +63,7 @@ internal sealed class MemberDoc
 
 internal sealed class Generator
 {
-    private const string RepoUrl = "https://github.com/sponsorkit/sponsorkit.io";
+    private const string RepoUrl = "https://github.com/ffMathy/sponsorkit";
     private const string SrcRel = "sdks/dotnet/src/Sponsorkit";
     private static readonly string[] GroupOrder = { "Constructors", "Values", "Constants", "Properties", "Methods", "Operators", "Fields" };
 

@@ -209,7 +209,7 @@ class Sponsorkit:
         site_base_url: Sponsorkit site base URL (origin plus optional path), used for the sign-in
             page (``<site_base_url>/connect/``), the checkout page (``<site_base_url>/checkout/``),
             :meth:`checkout_url` and the redirect after a loopback checkout sign-in. Default:
-            ``api_base_url`` when that is set, else ``https://sponsorkit.github.io/sponsorkit.io``.
+            ``api_base_url`` when that is set, else ``https://ffmathy.github.io/sponsorkit``.
             ``None`` and ``""`` count as unset; trailing slashes are trimmed.
         open_browser: ``open_browser(url)`` replaces the system browser. Returning ``False`` or raising
             means the browser could not be opened.

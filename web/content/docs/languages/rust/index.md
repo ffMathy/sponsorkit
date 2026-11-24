@@ -37,7 +37,7 @@ Cargo finds the crate inside the repository by its name, so you can depend on a 
 
 ```toml title="Cargo.toml"
 [dependencies]
-sponsorkit = { git = "https://github.com/sponsorkit/sponsorkit.io", branch = "main" }
+sponsorkit = { git = "https://github.com/ffMathy/sponsorkit", branch = "main" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 
@@ -48,12 +48,12 @@ once releases are tagged, `tag = "sdks/rust/v0.1.0"`.
 To work against a clone of the repository:
 
 ```bash title="Terminal"
-git clone https://github.com/sponsorkit/sponsorkit.io.git ../sponsorkit.io
+git clone https://github.com/ffMathy/sponsorkit.git ../sponsorkit
 ```
 
 ```toml title="Cargo.toml"
 [dependencies]
-sponsorkit = { path = "../sponsorkit.io/sdks/rust" }
+sponsorkit = { path = "../sponsorkit/sdks/rust" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 

@@ -1,14 +1,14 @@
 /**
  * Build-time site settings, shared by next.config.ts and the scripts in web/scripts (PROTOCOL §0.2).
  *
- * Defaults target the GitHub Pages project site (https://sponsorkit.github.io/sponsorkit.io) with the
+ * Defaults target the GitHub Pages project site (https://ffmathy.github.io/sponsorkit) with the
  * API on https://api.sponsorkit.io. Every value can be overridden from the environment:
  *
  * | Variable                          | Default                                   | Meaning |
  * |-----------------------------------|-------------------------------------------|---------|
- * | `BASE_PATH`                       | `/sponsorkit.io`                          | Next.js basePath. `BASE_PATH=` (empty) builds at the root. |
+ * | `BASE_PATH`                       | `/sponsorkit`                             | Next.js basePath. `BASE_PATH=` (empty) builds at the root. |
  * | `TRAILING_SLASH`                  | `1`                                       | `0` exports `x.html` instead of `x/index.html`. |
- * | `SITE_URL`                        | `https://sponsorkit.github.io<BASE_PATH>` | Absolute site base URL (canonical URLs, og:url, sitemap). |
+ * | `SITE_URL`                        | `https://ffmathy.github.io<BASE_PATH>`    | Absolute site base URL (canonical URLs, og:url, sitemap). |
  * | `NEXT_PUBLIC_SPONSORKIT_API_BASE` | `https://api.sponsorkit.io`               | API origin. Empty = same origin (`/api/…`). |
  *
  * Single-origin self-hosting (site and API behind one origin, served at its root):
@@ -16,8 +16,8 @@
  * (or `bun run build:root`, which sets BASE_PATH and the API base to empty).
  */
 
-export const DEFAULT_BASE_PATH = "/sponsorkit.io";
-export const DEFAULT_SITE_ORIGIN = "https://sponsorkit.github.io";
+export const DEFAULT_BASE_PATH = "/sponsorkit";
+export const DEFAULT_SITE_ORIGIN = "https://ffmathy.github.io";
 export const DEFAULT_API_BASE = "https://api.sponsorkit.io";
 
 export interface SiteConfig {

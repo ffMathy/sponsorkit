@@ -39,7 +39,7 @@ import (
 	"fmt"
 	"log"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -81,7 +81,7 @@ There are two sign-in flows. By default (`signInMethod: "auto"`) the SDK chooses
 
 **Paste-back** is used when there's no browser on this machine, for example over SSH or in a container:
 
-1. The SDK prints a `https://sponsorkit.github.io/sponsorkit.io/connect/?…&delivery=paste` URL to stderr.
+1. The SDK prints a `https://ffmathy.github.io/sponsorkit/connect/?…&delivery=paste` URL to stderr.
 2. The person opens it on any device, such as their laptop or phone.
 3. After consent, the page shows a code with a copy button. It's valid for 10 minutes.
 4. The person pastes it into the terminal, and the SDK exchanges it.
@@ -202,7 +202,7 @@ import (
 	"os/signal"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {

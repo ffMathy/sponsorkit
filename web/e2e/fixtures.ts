@@ -2,11 +2,11 @@ import type { BrowserContext, Route } from "@playwright/test";
 import type { TargetInfo, TargetsResponse } from "@sponsorkit/shared";
 
 /** Base path the export is served under (see playwright.config.ts). */
-export const BASE_PATH = (process.env.BASE_PATH ?? "/sponsorkit.io").replace(/\/+$/, "");
+export const BASE_PATH = (process.env.BASE_PATH ?? "/sponsorkit").replace(/\/+$/, "");
 /** API origin the build calls (NEXT_PUBLIC_SPONSORKIT_API_BASE, default https://api.sponsorkit.io). */
 export const API = (process.env.NEXT_PUBLIC_SPONSORKIT_API_BASE ?? "https://api.sponsorkit.io").replace(/\/+$/, "");
 
-/** Root-relative URL of a site path under the base path: `p("/connect/?…")` → `/sponsorkit.io/connect/?…`. */
+/** Root-relative URL of a site path under the base path: `p("/connect/?…")` → `/sponsorkit/connect/?…`. */
 export function p(path: string): string {
   return `${BASE_PATH}${path}`;
 }

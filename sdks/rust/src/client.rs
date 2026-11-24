@@ -22,7 +22,7 @@ use crate::types::ContributionResult;
 pub const DEFAULT_API_BASE_URL: &str = "https://api.sponsorkit.io";
 /// The default site base URL (origin plus base path), used for every page
 /// URL: `/connect/`, `/checkout/` and [`Sponsorkit::checkout_url`].
-pub const DEFAULT_SITE_BASE_URL: &str = "https://sponsorkit.github.io/sponsorkit.io";
+pub const DEFAULT_SITE_BASE_URL: &str = "https://ffmathy.github.io/sponsorkit";
 /// The default cache TTL (1 hour).
 pub const DEFAULT_CACHE_TTL: Duration = Duration::from_secs(3600);
 /// The minimum cache TTL accepted by [`Options::cache_ttl`] (60 s).
@@ -101,7 +101,7 @@ pub struct Options {
     /// URL: `<site_base_url>/connect/`, `<site_base_url>/checkout/`,
     /// [`Sponsorkit::checkout_url`] and the loopback redirect after a checkout
     /// sign-in. Default [`DEFAULT_SITE_BASE_URL`]
-    /// (`https://sponsorkit.github.io/sponsorkit.io`), **or `api_base_url`
+    /// (`https://ffmathy.github.io/sponsorkit`), **or `api_base_url`
     /// when that is set and this is not** (single-origin self-hosting, tests).
     /// Trailing slashes are trimmed; an empty string counts as unset.
     pub site_base_url: Option<String>,

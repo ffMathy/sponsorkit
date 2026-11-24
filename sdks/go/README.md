@@ -2,14 +2,14 @@
 
 Build financial contributions (GitHub Sponsors and Open Collective) directly into your Go program. There is no Sponsorkit account, API key, dashboard or webhook: you name the account(s) you receive sponsorships on, and write your own rule.
 
-- **Module:** `github.com/sponsorkit/sponsorkit.io/sdks/go` (package `sponsorkit`)
-- **Version:** 0.1.0 · **License:** MIT · **Homepage:** <https://sponsorkit.github.io/sponsorkit.io> · **Source:** <https://github.com/sponsorkit/sponsorkit.io>
+- **Module:** `github.com/ffMathy/sponsorkit/sdks/go` (package `sponsorkit`)
+- **Version:** 0.1.0 · **License:** MIT · **Homepage:** <https://ffmathy.github.io/sponsorkit> · **Source:** <https://github.com/ffMathy/sponsorkit>
 - **Requirements:** Go 1.23+, standard library only.
 
 ## Install
 
 ```sh
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@latest
+go get github.com/ffMathy/sponsorkit/sdks/go@latest
 ```
 
 ## Quickstart
@@ -23,7 +23,7 @@ import (
 	"log"
 	"os"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -79,7 +79,7 @@ All methods are safe for concurrent use. Methods that may do I/O take a `context
 | `StorageDir` | `os.UserConfigDir()/sponsorkit` | Where the state file lives. If there is no per-user config directory (HOME and XDG_CONFIG_HOME unset, or not absolute paths), state is kept in process memory only: nothing is written to the working directory and `New` still succeeds. |
 | `Storage` | `&DirStorage{Dir: StorageDir}` | Replace file storage (e.g. with a keychain-backed implementation). |
 | `APIBaseURL` | `https://api.sponsorkit.io` | API origin, used for every API call (`/api/v1/…`). Self-hosting, tests. Trailing slashes are trimmed. |
-| `SiteBaseURL` | `https://sponsorkit.github.io/sponsorkit.io`, **or `APIBaseURL` when only that is set** | Site base URL (origin plus optional base path), used for every page URL: `<SiteBaseURL>/connect/`, `<SiteBaseURL>/checkout/`, `CheckoutURL` and the loopback redirect after a checkout sign-in. An empty string counts as unset; trailing slashes are trimmed. Setting only `APIBaseURL` keeps single-origin self-hosting working. |
+| `SiteBaseURL` | `https://ffmathy.github.io/sponsorkit`, **or `APIBaseURL` when only that is set** | Site base URL (origin plus optional base path), used for every page URL: `<SiteBaseURL>/connect/`, `<SiteBaseURL>/checkout/`, `CheckoutURL` and the loopback redirect after a checkout sign-in. An empty string counts as unset; trailing slashes are trimmed. Setting only `APIBaseURL` keeps single-origin self-hosting working. |
 | `HTTPClient` | `&http.Client{}` | HTTP client for API calls. `RequestTimeout` applies whichever client you pass. |
 | `RequestTimeout` | 30 s | Bounds every HTTP request, including reading the response. `sponsorkit.NoRequestTimeout` (any negative value) disables it; the zero value means the 30 s default (the protocol's `requestTimeout: 0` is `NoRequestTimeout` in Go). A timeout is a network error: `GetFinancialContribution` serves the stale cache, `SignIn` returns `network_error`. |
 | `OpenBrowser` | `OpenSystemBrowser` | Opens a URL (`xdg-open` / `open` / `rundll32`, never a shell). An opener that exits non-zero within 1.5 s counts as a failure, so `SignInAuto` falls back to paste-back; one still running after 1.5 s counts as opened. The loopback callback is accepted while `OpenBrowser` is still running. |
@@ -146,7 +146,7 @@ if errors.As(err, &skErr) && skErr.Code == sponsorkit.CodeDisabled { /* … */ }
 
 ## Sign-in flows
 
-- **Loopback** (default with a display): listens on `127.0.0.1:<random>`, opens `https://sponsorkit.github.io/sponsorkit.io/connect/?…&delivery=loopback` (the `SiteBaseURL`) in the browser and waits for the callback, up to `SignInTimeout` (5 minutes by default). During `OpenCheckout` the callback then redirects the browser to `<SiteBaseURL>/checkout/?…&step=choose`.
+- **Loopback** (default with a display): listens on `127.0.0.1:<random>`, opens `https://ffmathy.github.io/sponsorkit/connect/?…&delivery=loopback` (the `SiteBaseURL`) in the browser and waits for the callback, up to `SignInTimeout` (5 minutes by default). During `OpenCheckout` the callback then redirects the browser to `<SiteBaseURL>/checkout/?…&step=choose`.
 - **Paste-back** (SSH, containers, no display, when `127.0.0.1` can't be bound, or when the browser can't be opened): prints a `<SiteBaseURL>/connect/?…&delivery=paste` URL to stderr; the user opens it on any device and pastes the code back.
 
 A `GET /callback` without a non-empty `code` or `error` gets `400` and the loopback receiver keeps waiting.

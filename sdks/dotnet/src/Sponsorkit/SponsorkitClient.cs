@@ -596,7 +596,7 @@ public sealed class SponsorkitClient
     /// Suits nags, READMEs and <c>--help</c> output.
     /// </summary>
     /// <param name="options">Preferred provider, amount (minor units), currency and frequency.</param>
-    /// <returns>An absolute URL such as <c>https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Aoctocat&amp;frequency=monthly</c> (on <see cref="SiteBaseUrl"/>).</returns>
+    /// <returns>An absolute URL such as <c>https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat&amp;frequency=monthly</c> (on <see cref="SiteBaseUrl"/>).</returns>
     /// <exception cref="SponsorkitError"><c>invalid_config</c>: an unconfigured provider, or an invalid frequency, amount or currency.</exception>
     public string CheckoutUrl(CheckoutUrlOptions? options = null) => PageUrl(CheckoutPage, CheckoutQuery(options ?? new CheckoutUrlOptions()));
 

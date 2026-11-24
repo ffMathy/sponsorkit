@@ -3,7 +3,7 @@
  * Builds what the e2e test serves:
  *  1. the JS SDK (sdks/js → sdks/js/dist, `tsup`);
  *  2. the site (web/ static export) for the local split deployment:
- *       BASE_PATH=/sponsorkit.io TRAILING_SLASH=1 SITE_URL=<local site base URL>
+ *       BASE_PATH=/sponsorkit TRAILING_SLASH=1 SITE_URL=<local site base URL>
  *       NEXT_PUBLIC_SPONSORKIT_API_BASE=<local API origin>
  *     The export is moved to e2e/.cache/site, and any existing web/out is put back afterwards, so
  *     the developer's own build is left as it was.

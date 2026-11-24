@@ -54,7 +54,7 @@ dependencies = ["sponsorkit~=0.1.0"]   # >=0.1.0, <0.2
 ### Go {#go}
 
 ```bash title="Terminal"
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@v0.1.0
+go get github.com/ffMathy/sponsorkit/sdks/go@v0.1.0
 ```
 
 `go.mod` always records an exact version, and Go's minimal version selection never upgrades it on its own. The

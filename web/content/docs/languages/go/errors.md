@@ -39,7 +39,7 @@ import (
 	"errors"
 	"fmt"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -147,7 +147,7 @@ import (
 	"fmt"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {

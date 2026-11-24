@@ -110,7 +110,7 @@ public sealed class ClientTests : IDisposable
     {
         var sk = new SponsorkitClient(new SponsorkitOptions { GitHub = "octocat", Environment = new Dictionary<string, string>() });
         var url = sk.CheckoutUrl(new CheckoutUrlOptions { Provider = "github", Amount = 500, Currency = "usd", Frequency = Frequencies.Monthly });
-        Assert.Equal("https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Aoctocat&provider=github&amount=500&currency=USD&frequency=monthly", url);
+        Assert.Equal("https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat&provider=github&amount=500&currency=USD&frequency=monthly", url);
         Assert.Equal(SponsorkitErrorCodes.InvalidConfig, Assert.Throws<SponsorkitError>(() => sk.CheckoutUrl(new CheckoutUrlOptions { Currency = "" })).Code);
     }
 
@@ -134,8 +134,8 @@ public sealed class ClientTests : IDisposable
     }
 
     [Theory]
-    [InlineData(null, null, "https://api.sponsorkit.io", "https://sponsorkit.github.io/sponsorkit.io")]
-    [InlineData("", "", "https://api.sponsorkit.io", "https://sponsorkit.github.io/sponsorkit.io")]
+    [InlineData(null, null, "https://api.sponsorkit.io", "https://ffmathy.github.io/sponsorkit")]
+    [InlineData("", "", "https://api.sponsorkit.io", "https://ffmathy.github.io/sponsorkit")]
     [InlineData("https://sk.example.com//", null, "https://sk.example.com", "https://sk.example.com")]
     [InlineData("https://sk.example.com", "", "https://sk.example.com", "https://sk.example.com")]
     [InlineData(null, "https://example.github.io/sk/", "https://api.sponsorkit.io", "https://example.github.io/sk")]

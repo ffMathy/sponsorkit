@@ -11,8 +11,8 @@
     <Copyright>Copyright (c) Sponsorkit contributors</Copyright>
     <Version>0.1.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://sponsorkit.github.io/sponsorkit.io</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/sponsorkit/sponsorkit.io</RepositoryUrl>
+    <PackageProjectUrl>https://ffmathy.github.io/sponsorkit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ffMathy/sponsorkit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 </Project>

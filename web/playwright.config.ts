@@ -4,7 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
 const PORT = Number(process.env.E2E_PORT ?? 4173);
 // The export is served under its base path, like GitHub Pages (web/site-config.ts). Keep in sync
 // with the build: `BASE_PATH= bun run build` needs `BASE_PATH=` here too.
-const BASE_PATH = (process.env.BASE_PATH ?? "/sponsorkit.io").replace(/\/+$/, "");
+const BASE_PATH = (process.env.BASE_PATH ?? "/sponsorkit").replace(/\/+$/, "");
 // Use the pre-installed Chromium when present (CI images / sandboxes); otherwise Playwright's own.
 const CHROMIUM = process.env.PLAYWRIGHT_CHROMIUM_PATH ?? "/opt/pw-browsers/chromium";
 const executablePath = existsSync(CHROMIUM) ? CHROMIUM : undefined;

@@ -6,7 +6,7 @@ sidebar_label: Overview
 
 The five SDKs are clients of one small HTTP API, served by a single stateless Cloudflare Worker at
 `https://api.sponsorkit.io`. The pages people see (this website, including the consent and checkout pages) are a
-separate static site on GitHub Pages at `https://sponsorkit.github.io/sponsorkit.io`. Most apps never call the API
+separate static site on GitHub Pages at `https://ffmathy.github.io/sponsorkit`. Most apps never call the API
 directly. Read this section if you want to:
 
 - **call the API without an SDK**, for example to verify sessions from a backend in another language:
@@ -20,12 +20,12 @@ directly. Read this section if you want to:
 
 The normative definitions live in the repository, next to the code:
 
-- [`docs/PROTOCOL.md`](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/PROTOCOL.md): exactly what goes
+- [`docs/PROTOCOL.md`](https://github.com/ffMathy/sponsorkit/blob/main/docs/PROTOCOL.md): exactly what goes
   over the wire, including where the site and the API live. The Worker, the static pages, the conformance suite
   and every SDK follow it.
-- [`docs/SPEC.md`](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/SPEC.md): why Sponsorkit works the
+- [`docs/SPEC.md`](https://github.com/ffMathy/sponsorkit/blob/main/docs/SPEC.md): why Sponsorkit works the
   way it does, including the trade-offs and the decisions behind them.
-- [`sdks/conformance`](https://github.com/sponsorkit/sponsorkit.io/tree/main/sdks/conformance): a fake API and the
+- [`sdks/conformance`](https://github.com/ffMathy/sponsorkit/tree/main/sdks/conformance): a fake API and the
   scenarios every SDK must pass. A new SDK is complete when it passes all of them.
 
 ## At a glance

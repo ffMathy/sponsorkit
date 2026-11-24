@@ -27,7 +27,7 @@ import (
 	"context"
 	"testing"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func TestMockModes(t *testing.T) {
@@ -108,7 +108,7 @@ import (
 	"context"
 	"testing"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 // isSponsor is the rule under test: any active contribution of at least $5.
@@ -172,7 +172,7 @@ import (
 	"testing"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func TestWeeklyNag(t *testing.T) {
@@ -227,7 +227,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 // memStorage is an in-memory sponsorkit.Storage.

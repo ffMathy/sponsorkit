@@ -20,8 +20,8 @@ describe("parseDoneHash (PROTOCOL §4.5)", () => {
     expect(s.kind === "code" && s.continueQuery && checkoutContinueHref(s.continueQuery, "")).toBe(
       "/checkout/?targets=github%3Aoctocat&amount=500&step=choose",
     );
-    expect(s.kind === "code" && s.continueQuery && checkoutContinueHref(s.continueQuery, "/sponsorkit.io")).toBe(
-      "/sponsorkit.io/checkout/?targets=github%3Aoctocat&amount=500&step=choose",
+    expect(s.kind === "code" && s.continueQuery && checkoutContinueHref(s.continueQuery, "/sponsorkit")).toBe(
+      "/sponsorkit/checkout/?targets=github%3Aoctocat&amount=500&step=choose",
     );
   });
 

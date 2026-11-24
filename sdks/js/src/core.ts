@@ -69,7 +69,7 @@ export interface SponsorkitCoreOptions {
   apiBaseUrl?: string;
   /**
    * Site base URL (origin plus optional base path) used for every page: `/connect/`, `/checkout/`,
-   * `checkoutUrl()` and the loopback checkout redirect. Default `https://sponsorkit.github.io/sponsorkit.io`,
+   * `checkoutUrl()` and the loopback checkout redirect. Default `https://ffmathy.github.io/sponsorkit`,
    * or `apiBaseUrl` when that is set and this isn't (single-origin self-hosting, tests).
    * An empty string counts as unset; trailing slashes are trimmed.
    */

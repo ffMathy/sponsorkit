@@ -50,6 +50,6 @@
 // is off unless Options.DevChecks or SPONSORKIT_DEV_CHECKS turns it on. ResetProcessState simulates a new process.
 //
 // The wire protocol is specified in docs/PROTOCOL.md of
-// https://github.com/sponsorkit/sponsorkit.io; this package passes the
+// https://github.com/ffMathy/sponsorkit; this package passes the
 // language-neutral conformance suite in sdks/conformance.
 package sponsorkit

@@ -35,7 +35,7 @@ These come from [`SponsorkitCoreOptions`](/docs/reference/js/sdk/sponsorkitcoreo
 | `mock` | `MockOption` | none | Mock mode: a preset name or `{ contributions }`. Overrides `SPONSORKIT_MOCK`. See [Testing](testing.md). |
 | `storage` | `SponsorkitStorage` or Web Storage object | platform default | Where the session token, cache and nag state live. See [Platform notes](platform-notes.md#where-state-is-stored). |
 | `apiBaseUrl` | `string` | `"https://api.sponsorkit.io"` | API origin, used for every API call (`/api/v1/…`), for [self-hosting](/docs/reference-http/self-hosting) and tests. Must be `http` or `https`; only the origin is used. An empty string counts as unset. |
-| `siteBaseUrl` | `string` | `"https://sponsorkit.github.io/sponsorkit.io"`, or `apiBaseUrl` when only that is set | Site base URL (origin plus optional path), used for the `/connect/` and `/checkout/` pages, `checkoutUrl()` and the loopback checkout redirect. In the browser, sign-in messages are accepted only from its origin. An empty string counts as unset; trailing slashes are trimmed. |
+| `siteBaseUrl` | `string` | `"https://ffmathy.github.io/sponsorkit"`, or `apiBaseUrl` when only that is set | Site base URL (origin plus optional path), used for the `/connect/` and `/checkout/` pages, `checkoutUrl()` and the loopback checkout redirect. In the browser, sign-in messages are accepted only from its origin. An empty string counts as unset; trailing slashes are trimmed. |
 | `env` | `Record<string, string \| undefined>` | `process.env` | Environment used for the variables below. When given, it **replaces** the process environment for them; it is not merged. |
 | `devChecks` | `boolean` | see below | Checks once per process that the targets exist (`GET /api/v1/targets`), and throws `invalid_config` on the first async call if one doesn't. |
 | `signInTimeout` | `number` | `300` | Seconds to wait for a sign-in (popup, loopback or paste-back) before rejecting with `timeout`. Must be positive. |
@@ -108,7 +108,7 @@ The defaults are exported as constants, in case you want to show them or build o
 | Constant | Value |
 |---|---|
 | `DEFAULT_API_BASE_URL` | `"https://api.sponsorkit.io"` |
-| `DEFAULT_SITE_BASE_URL` | `"https://sponsorkit.github.io/sponsorkit.io"` |
+| `DEFAULT_SITE_BASE_URL` | `"https://ffmathy.github.io/sponsorkit"` |
 | `DEFAULT_CACHE_TTL` | `3600` |
 | `DEFAULT_CHECKOUT_POLL_INTERVAL` | `60` |
 | `DEFAULT_CHECKOUT_TIMEOUT` | `600` |

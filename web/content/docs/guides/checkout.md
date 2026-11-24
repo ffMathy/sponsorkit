@@ -95,7 +95,7 @@ import (
 	"fmt"
 	"log"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -255,7 +255,7 @@ import { Sponsorkit } from "@sponsorkit/sdk";
 
 const sk = new Sponsorkit({ github: "octocat" });
 console.log(sk.checkoutUrl({ frequency: "monthly", amount: 500 }));
-// https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Aoctocat&amount=500&frequency=monthly
+// https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat&amount=500&frequency=monthly
 ```
 ```csharp title="Link.cs"
 using Sponsorkit;
@@ -276,7 +276,7 @@ import (
 	"fmt"
 	"log"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {

@@ -5,7 +5,7 @@ order: 20
 ---
 
 In the browser, Sponsorkit signs people in and runs checkout in a **popup** on the Sponsorkit website
-(`sponsorkit.github.io/sponsorkit.io`), then hands the result back to your page. You don't register an app, a
+(`ffmathy.github.io/sponsorkit`), then hands the result back to your page. You don't register an app, a
 callback URL or an origin: the popup only posts the sign-in code back to the page that opened it, and the consent
 screen shows that page's origin.
 

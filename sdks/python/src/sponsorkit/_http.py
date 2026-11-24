@@ -17,7 +17,7 @@ from .errors import SponsorkitError
 
 DEFAULT_API_BASE_URL = "https://api.sponsorkit.io"
 """Default ``api_base_url``: the Sponsorkit API origin (PROTOCOL §7)."""
-DEFAULT_SITE_BASE_URL = "https://sponsorkit.github.io/sponsorkit.io"
+DEFAULT_SITE_BASE_URL = "https://ffmathy.github.io/sponsorkit"
 """Default ``site_base_url``: the Sponsorkit site (sign-in and checkout pages, PROTOCOL §7)."""
 USER_AGENT = f"sponsorkit-python/{__version__}"
 DEFAULT_HTTP_TIMEOUT = 30.0

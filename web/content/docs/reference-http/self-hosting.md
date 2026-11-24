@@ -25,8 +25,8 @@ exactly the site's origin, so the Worker has to know where the site lives.
 | | Official instance | Example used below |
 |---|---|---|
 | API origin | `https://api.sponsorkit.io` | `https://sponsorkit-api.example.com` |
-| Site base URL (origin plus path) | `https://sponsorkit.github.io/sponsorkit.io` | `https://example.github.io/sponsorkit.io` |
-| Site origin | `https://sponsorkit.github.io` | `https://example.github.io` |
+| Site base URL (origin plus path) | `https://ffmathy.github.io/sponsorkit` | `https://example.github.io/sponsorkit` |
+| Site origin | `https://ffmathy.github.io` | `https://example.github.io` |
 
 You can also serve both from **one origin** (see [Single origin](#single-origin)).
 
@@ -36,7 +36,7 @@ Cloudflare setup.
 
 You need a Cloudflare account (the free plan is enough to start) with a domain on it for the API,
 somewhere to host static files (a GitHub repository with GitHub Pages is enough), [Bun](https://bun.sh/), and a
-clone or fork of the [repository](https://github.com/sponsorkit/sponsorkit.io).
+clone or fork of the [repository](https://github.com/ffMathy/sponsorkit).
 
 ## 1. Create the OAuth apps
 
@@ -47,7 +47,7 @@ each. The callback URL is always on the **API** origin: `<API origin>/api/oauth/
 
 | Field | Value |
 |---|---|
-| Homepage URL | `https://example.github.io/sponsorkit.io` (your site) |
+| Homepage URL | `https://example.github.io/sponsorkit` (your site) |
 | Authorization callback URL | `https://sponsorkit-api.example.com/api/oauth/github/callback` |
 
 Note the client ID and generate a client secret. Sponsorkit requests the `read:user read:org` scopes, and uses
@@ -104,7 +104,7 @@ Edit `app/wrangler.jsonc`:
   | Var | Example | Meaning |
   |---|---|---|
   | `PUBLIC_ORIGIN` | `https://sponsorkit-api.example.com` | The API origin. The OAuth callback URLs are built from it, so it must match the apps from step 1. |
-  | `SITE_BASE_URL` | `https://example.github.io/sponsorkit.io` | Where the site lives (origin plus base path). Sign-in results are delivered to `<SITE_BASE_URL>/connect/done/`, error pages link to its `/connect/` and `/checkout/` pages, and error `type` URLs point to its docs. |
+  | `SITE_BASE_URL` | `https://example.github.io/sponsorkit` | Where the site lives (origin plus base path). Sign-in results are delivered to `<SITE_BASE_URL>/connect/done/`, error pages link to its `/connect/` and `/checkout/` pages, and error `type` URLs point to its docs. |
   | `SITE_ORIGIN` | `https://example.github.io` | The only `Origin` the Worker accepts on `POST /api/oauth/:provider/start`. It must be the bare origin of `SITE_BASE_URL`. |
 
 - Optionally rename the Worker (`name`).
@@ -154,16 +154,16 @@ The site is a Next.js static export. Three build-time variables tell it where it
 
 | Variable | Official value | Meaning |
 |---|---|---|
-| `BASE_PATH` | `/sponsorkit.io` | The path the site is served under. Empty (`BASE_PATH=`) for a site at the root of its origin. |
-| `SITE_URL` | `https://sponsorkit.github.io/sponsorkit.io` | The absolute site base URL, for canonical URLs, `sitemap.xml` and `robots.txt`. Defaults to `https://sponsorkit.github.io<BASE_PATH>`. |
+| `BASE_PATH` | `/sponsorkit` | The path the site is served under. Empty (`BASE_PATH=`) for a site at the root of its origin. |
+| `SITE_URL` | `https://ffmathy.github.io/sponsorkit` | The absolute site base URL, for canonical URLs, `sitemap.xml` and `robots.txt`. Defaults to `https://ffmathy.github.io<BASE_PATH>`. |
 | `NEXT_PUBLIC_SPONSORKIT_API_BASE` | `https://api.sponsorkit.io` | The API origin the pages call. An empty string means the same origin as the site. |
 
 `TRAILING_SLASH` defaults to `1`: every page is exported as `<path>/index.html` and linked as `<path>/`, which is
 what GitHub Pages and most static hosts serve. Build and check:
 
 ```bash title="Build the site"
-export BASE_PATH=/sponsorkit.io
-export SITE_URL=https://example.github.io/sponsorkit.io
+export BASE_PATH=/sponsorkit
+export SITE_URL=https://example.github.io/sponsorkit
 export NEXT_PUBLIC_SPONSORKIT_API_BASE=https://sponsorkit-api.example.com
 bun run --cwd web build             # static export → web/out
 bun run --cwd web docs:check-links  # every internal link resolves under the base path
@@ -270,7 +270,7 @@ import { Sponsorkit } from "@sponsorkit/sdk";
 export const sk = new Sponsorkit({
   github: "octocat",
   apiBaseUrl: "https://sponsorkit-api.example.com",
-  siteBaseUrl: "https://example.github.io/sponsorkit.io",
+  siteBaseUrl: "https://example.github.io/sponsorkit",
 });
 ```
 ```csharp title="Program.cs"
@@ -280,7 +280,7 @@ var sk = new SponsorkitClient(new SponsorkitOptions
 {
     GitHub = "octocat",
     ApiBaseUrl = "https://sponsorkit-api.example.com",
-    SiteBaseUrl = "https://example.github.io/sponsorkit.io",
+    SiteBaseUrl = "https://example.github.io/sponsorkit",
 });
 Console.WriteLine(sk.ApiBaseUrl);
 ```
@@ -290,7 +290,7 @@ from sponsorkit import Sponsorkit
 sk = Sponsorkit(
     github="octocat",
     api_base_url="https://sponsorkit-api.example.com",
-    site_base_url="https://example.github.io/sponsorkit.io",
+    site_base_url="https://example.github.io/sponsorkit",
 )
 ```
 ```go title="main.go"
@@ -300,14 +300,14 @@ import (
 	"fmt"
 	"log"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
 	sk, err := sponsorkit.New(sponsorkit.Options{
 		GitHub:      "octocat",
 		APIBaseURL:  "https://sponsorkit-api.example.com",
-		SiteBaseURL: "https://example.github.io/sponsorkit.io",
+		SiteBaseURL: "https://example.github.io/sponsorkit",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -322,7 +322,7 @@ fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),
         api_base_url: Some("https://sponsorkit-api.example.com".into()),
-        site_base_url: Some("https://example.github.io/sponsorkit.io".into()),
+        site_base_url: Some("https://example.github.io/sponsorkit".into()),
         ..Default::default()
     })?;
     println!("{}", sk.targets().param());
@@ -333,7 +333,7 @@ fn main() -> Result<(), sponsorkit::Error> {
 
 With a [single origin](#single-origin), pass only `apiBaseUrl`: when `siteBaseUrl` is unset, it defaults to
 `apiBaseUrl`. Unset entirely, they default to `https://api.sponsorkit.io` and
-`https://sponsorkit.github.io/sponsorkit.io`.
+`https://ffmathy.github.io/sponsorkit`.
 
 The browser SDK only accepts sign-in messages whose origin is the origin of `siteBaseUrl`, so a wrong
 `siteBaseUrl` shows up as a sign-in that never completes.

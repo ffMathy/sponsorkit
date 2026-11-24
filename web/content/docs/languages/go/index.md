@@ -1,6 +1,6 @@
 ---
 title: Sponsorkit for Go
-description: Install and use the Go SDK (github.com/sponsorkit/sponsorkit.io/sdks/go) in CLIs, desktop tools and servers.
+description: Install and use the Go SDK (github.com/ffMathy/sponsorkit/sdks/go) in CLIs, desktop tools and servers.
 sidebar_label: Overview
 ---
 
@@ -16,7 +16,7 @@ standard library.
 | Go | 1.23 or later (the module's `go.mod` says `go 1.23`) |
 | Dependencies | None outside the standard library, and no cgo |
 | Operating systems | Linux, macOS, Windows and the BSDs for sign-in and checkout (they open the system browser). `VerifySession` and mock mode run anywhere Go does. |
-| Module path | `github.com/sponsorkit/sponsorkit.io/sdks/go` |
+| Module path | `github.com/ffMathy/sponsorkit/sdks/go` |
 | Package name | `sponsorkit` |
 
 ## Install
@@ -37,7 +37,7 @@ Pick the way that suits your project:
 From your module's directory:
 
 ```bash title="Terminal"
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@latest
+go get github.com/ffMathy/sponsorkit/sdks/go@latest
 ```
 
 `go get` adds a `require` line to `go.mod` and the checksums to `go.sum`. Ask for a branch or commit with
@@ -49,7 +49,7 @@ After the first release, add the requirement by hand, then let Go fill in `go.su
 instead, which writes the pseudo-version for you.
 
 ```text title="go.mod"
-require github.com/sponsorkit/sponsorkit.io/sdks/go v0.1.0
+require github.com/ffMathy/sponsorkit/sdks/go v0.1.0
 ```
 
 ```bash title="Terminal"
@@ -60,7 +60,7 @@ go mod tidy
 To build without network access, vendor your dependencies after adding the requirement:
 
 ```bash title="Terminal"
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@latest
+go get github.com/ffMathy/sponsorkit/sdks/go@latest
 go mod vendor
 ```
 
@@ -70,16 +70,16 @@ go mod vendor
 To work against a clone of the repository, use a workspace (nothing to undo in `go.mod`):
 
 ```bash title="Terminal"
-git clone https://github.com/sponsorkit/sponsorkit.io.git ../sponsorkit.io
-go work init . ../sponsorkit.io/sdks/go
+git clone https://github.com/ffMathy/sponsorkit.git ../sponsorkit
+go work init . ../sponsorkit/sdks/go
 ```
 
 Or add a `replace` directive to `go.mod`:
 
 ```text title="go.mod"
-require github.com/sponsorkit/sponsorkit.io/sdks/go v0.0.0
+require github.com/ffMathy/sponsorkit/sdks/go v0.0.0
 
-replace github.com/sponsorkit/sponsorkit.io/sdks/go => ../sponsorkit.io/sdks/go
+replace github.com/ffMathy/sponsorkit/sdks/go => ../sponsorkit/sdks/go
 ```
 :::
 ::::
@@ -87,7 +87,7 @@ replace github.com/sponsorkit/sponsorkit.io/sdks/go => ../sponsorkit.io/sdks/go
 Then import it. The package is already named `sponsorkit`; the alias only makes the import read clearly:
 
 ```go title="main.go"
-import sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+import sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 ```
 
 :::note[Releases and pre-releases]
@@ -108,7 +108,7 @@ import (
 	"log"
 	"os"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -157,5 +157,5 @@ methods and `VerifySession` is a `*sponsorkit.Error` with a `Code`, and a `*Clie
 | [Platform notes](platform-notes.md) | Contexts and goroutines, where state is stored, browsers, stdin, proxies. |
 
 The [API reference](/docs/reference/go) lists every type, function, method, field and constant, generated from the
-package's doc comments. The same documentation is on [pkg.go.dev](https://pkg.go.dev/github.com/sponsorkit/sponsorkit.io/sdks/go)
-and in your terminal with `go doc github.com/sponsorkit/sponsorkit.io/sdks/go`.
+package's doc comments. The same documentation is on [pkg.go.dev](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go)
+and in your terminal with `go doc github.com/ffMathy/sponsorkit/sdks/go`.

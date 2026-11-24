@@ -26,17 +26,17 @@ the Git repository:
 ::::tabs{group="pypi"}
 :::tab[pip]{key="pip"}
 ```bash title="Terminal"
-python -m pip install "sponsorkit @ git+https://github.com/sponsorkit/sponsorkit.io@main#subdirectory=sdks/python"
+python -m pip install "sponsorkit @ git+https://github.com/ffMathy/sponsorkit@main#subdirectory=sdks/python"
 ```
 :::
 :::tab[uv]{key="uv"}
 ```bash title="Terminal"
-uv add "sponsorkit @ git+https://github.com/sponsorkit/sponsorkit.io#subdirectory=sdks/python"
+uv add "sponsorkit @ git+https://github.com/ffMathy/sponsorkit#subdirectory=sdks/python"
 ```
 :::
 :::tab[Poetry]{key="poetry"}
 ```bash title="Terminal"
-poetry add "git+https://github.com/sponsorkit/sponsorkit.io.git#subdirectory=sdks/python"
+poetry add "git+https://github.com/ffMathy/sponsorkit.git#subdirectory=sdks/python"
 ```
 :::
 ::::

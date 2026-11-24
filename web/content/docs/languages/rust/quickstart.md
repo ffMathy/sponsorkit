@@ -20,7 +20,7 @@ tabs](index.md#install) show the same thing in `Cargo.toml`.
 ```bash title="Terminal"
 cargo new my-cli
 cd my-cli
-cargo add sponsorkit --git https://github.com/sponsorkit/sponsorkit.io --branch main
+cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit --branch main
 cargo add tokio --features macros,rt-multi-thread
 ```
 

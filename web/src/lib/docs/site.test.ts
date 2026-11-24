@@ -55,10 +55,10 @@ describe("loadDocsSite", () => {
     const { site, web } = fixture();
     const targets = site.byUrl.get("/docs/concepts/targets")!;
     expect(targets.file).toBe(path.join(web, "content/docs/concepts/targets.md"));
-    expect(targets.editUrl).toBe("https://github.com/sponsorkit/sponsorkit.io/edit/main/web/content/docs/concepts/targets.md");
+    expect(targets.editUrl).toBe("https://github.com/ffMathy/sponsorkit/edit/main/web/content/docs/concepts/targets.md");
     const client = site.byUrl.get("/docs/reference/go/client")!;
     expect(client).toMatchObject({ realm: "reference", lang: "go", kind: "struct", symbol: "sponsorkit.Client", editUrl: null });
-    expect(client.sourceUrl).toBe("https://github.com/sponsorkit/sponsorkit.io/blob/main/sdks/go/client.go#L10");
+    expect(client.sourceUrl).toBe("https://github.com/ffMathy/sponsorkit/blob/main/sdks/go/client.go#L10");
     expect(site.byUrl.has("/docs/contributing-docs")).toBe(false);
   });
 

@@ -23,7 +23,7 @@ python -c "import sponsorkit; print(sponsorkit.__version__)"
 ```
 
 ```bash tab="Go" key="go"
-go list -m github.com/sponsorkit/sponsorkit.io/sdks/go
+go list -m github.com/ffMathy/sponsorkit/sdks/go
 ```
 
 ```bash tab="Rust" key="rust"

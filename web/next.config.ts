@@ -6,7 +6,7 @@ import { siteConfig } from "./site-config";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.join(here, "..");
 
-// GitHub Pages project site by default: basePath /sponsorkit.io, trailing slashes, API on
+// GitHub Pages project site by default: basePath /sponsorkit, trailing slashes, API on
 // https://api.sponsorkit.io. Overrides and single-origin self-hosting: see site-config.ts.
 const site = siteConfig();
 

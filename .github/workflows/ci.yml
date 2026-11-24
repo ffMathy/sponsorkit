@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      # Base path and URL of the Pages site (/sponsorkit.io and https://sponsorkit.github.io/sponsorkit.io,
+      # Base path and URL of the Pages site (/sponsorkit and https://ffmathy.github.io/sponsorkit,
       # or "" and the custom domain once one is set). Fails while Pages is not enabled (Settings → Pages →
       # Source: GitHub Actions) and on some fork pull requests; the next step then uses the defaults.
       - name: Configure GitHub Pages
@@ -74,8 +74,8 @@ jobs:
             site_url="$PAGES_BASE_URL"
             echo "pages-enabled=true" >> "$GITHUB_OUTPUT"
           else
-            base_path="/sponsorkit.io"
-            site_url="https://sponsorkit.github.io/sponsorkit.io"
+            base_path="/sponsorkit"
+            site_url="https://ffmathy.github.io/sponsorkit"
             echo "pages-enabled=false" >> "$GITHUB_OUTPUT"
             echo "::warning title=GitHub Pages::GitHub Pages is not configured for this repository (Settings → Pages → Source: GitHub Actions); building for $site_url and not deploying."
           fi

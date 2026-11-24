@@ -11,7 +11,7 @@ Each section below covers one language. The commands assume a published release.
 No Sponsorkit SDK is on npm, NuGet, PyPI or crates.io yet (Go modules are fetched from GitHub and work
 today). Some of these package names aren't reserved yet, so a package someone else publishes under them would
 not be this project. Until the first release is announced in the
-[repository](https://github.com/sponsorkit/sponsorkit.io), use [build from source](from-source.md) instead of
+[repository](https://github.com/ffMathy/sponsorkit), use [build from source](from-source.md) instead of
 the registry commands on this page.
 :::
 
@@ -169,15 +169,15 @@ your users run `pipx install your-tool`, it comes along. To try a script without
 
 ## Go {#go}
 
-The module path is `github.com/sponsorkit/sponsorkit.io/sdks/go` and the package name is `sponsorkit`. It needs
+The module path is `github.com/ffMathy/sponsorkit/sdks/go` and the package name is `sponsorkit`. It needs
 Go 1.23 or later (its `go.mod` says `go 1.23`) and uses only the standard library.
 
 ```bash title="Terminal"
-go get github.com/sponsorkit/sponsorkit.io/sdks/go
+go get github.com/ffMathy/sponsorkit/sdks/go
 ```
 
 ```go title="main.go"
-import sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+import sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 ```
 
 The alias is optional, since the package is already named `sponsorkit`, but it makes the import read clearly. Go

@@ -12,11 +12,11 @@ Sponsorkit is served from two places. They are separate origins (cross-site) by 
 
 | Part | What | Default base URL | Paths |
 |---|---|---|---|
-| **Site** | The static Next.js export of `web/`: landing, docs, `/connect/`, `/connect/done/`, `/checkout/`, `/checkout/thanks/`, 404. Hosted on GitHub Pages as a project site. | `https://sponsorkit.github.io/sponsorkit.io` (origin `https://sponsorkit.github.io`, base path `/sponsorkit.io`) | Page paths are relative to the site base URL and **always end in `/`** (GitHub Pages serves directories). |
+| **Site** | The static Next.js export of `web/`: landing, docs, `/connect/`, `/connect/done/`, `/checkout/`, `/checkout/thanks/`, 404. Hosted on GitHub Pages as a project site. | `https://ffmathy.github.io/sponsorkit` (origin `https://ffmathy.github.io`, base path `/sponsorkit`) | Page paths are relative to the site base URL and **always end in `/`** (GitHub Pages serves directories). |
 | **API** | The Cloudflare Worker (`app/`), API only, no static assets. | `https://api.sponsorkit.io` (an origin, no path) | `/api/v1/…` and `/api/oauth/…`, relative to the API origin. |
 
-- **Site base URL** (`SITE_BASE_URL`, SDK `siteBaseUrl`): origin plus optional base path, with no trailing slash. Page URLs are `<site base URL><page path>`, e.g. `https://sponsorkit.github.io/sponsorkit.io/connect/?targets=…`.
-- **Site origin** (`SITE_ORIGIN`): the origin of the site base URL, e.g. `https://sponsorkit.github.io`. It is what browsers send in `Origin` and what `postMessage` reports as `event.origin`.
+- **Site base URL** (`SITE_BASE_URL`, SDK `siteBaseUrl`): origin plus optional base path, with no trailing slash. Page URLs are `<site base URL><page path>`, e.g. `https://ffmathy.github.io/sponsorkit/connect/?targets=…`.
+- **Site origin** (`SITE_ORIGIN`): the origin of the site base URL, e.g. `https://ffmathy.github.io`. It is what browsers send in `Origin` and what `postMessage` reports as `event.origin`.
 - **API origin** (`PUBLIC_ORIGIN`, SDK `apiBaseUrl`): scheme, host and port only.
 - **Single-origin self-hosting** remains supported: serve the site and the API behind one origin and set `SITE_ORIGIN` = API origin (and `SITE_BASE_URL` = that origin plus the site's base path, if any). Nothing else changes.
 - In this document, **"site page `/x/`"** means `<site base URL>/x/`, and **"API path `/api/…`"** means `<API origin>/api/…`.
@@ -26,8 +26,8 @@ Sponsorkit is served from two places. They are separate origins (cross-site) by 
 | Var | Production value (`app/wrangler.jsonc`) | Meaning | Fallback when unset |
 |---|---|---|---|
 | `PUBLIC_ORIGIN` | `https://api.sponsorkit.io` | The API origin. Used for the provider callback URLs. | The request's origin. |
-| `SITE_BASE_URL` | `https://sponsorkit.github.io/sponsorkit.io` | Where deliveries, consent links and docs links point. | `PUBLIC_ORIGIN` (single origin). |
-| `SITE_ORIGIN` | `https://sponsorkit.github.io` | The only `Origin` accepted by `POST /api/oauth/:provider/start` (§4.3). | The origin of `SITE_BASE_URL`. |
+| `SITE_BASE_URL` | `https://ffmathy.github.io/sponsorkit` | Where deliveries, consent links and docs links point. | `PUBLIC_ORIGIN` (single origin). |
+| `SITE_ORIGIN` | `https://ffmathy.github.io` | The only `Origin` accepted by `POST /api/oauth/:provider/start` (§4.3). | The origin of `SITE_BASE_URL`. |
 
 - Trailing slashes are trimmed. `SITE_ORIGIN` must be a bare origin (no path) and must equal the origin of `SITE_BASE_URL`; otherwise sign-in fails closed with the HTML "Sign-in unavailable" page (`500`).
 - The API hostname is configurable: change `PUBLIC_ORIGIN`, the Worker's custom-domain route, and the OAuth apps' callback URLs together.
@@ -36,7 +36,7 @@ Sponsorkit is served from two places. They are separate origins (cross-site) by 
 
 | Variable | Production value | Meaning |
 |---|---|---|
-| `BASE_PATH` | `/sponsorkit.io` | Next.js `basePath`. |
+| `BASE_PATH` | `/sponsorkit` | Next.js `basePath`. |
 | `TRAILING_SLASH` | `1` | Export every page as `<path>/index.html`. |
 | `NEXT_PUBLIC_SPONSORKIT_API_BASE` | `https://api.sponsorkit.io` (the default when the variable is undefined) | The API origin the pages call. **Empty string = same origin** (single-origin self-hosting): the pages use root-relative `/api/…` URLs. |
 
@@ -60,7 +60,7 @@ The pages call `GET /api/v1/targets` with `fetch` (CORS, no credentials, §3) an
 ## 3. HTTP API (`/api/v1`)
 
 - All responses are JSON.
-- **Errors** are `application/problem+json`: `{ type, title, status, code, detail? }`. `type` is `<SITE_BASE_URL>/docs/reference-http/http-api/#errors`, which by default is `https://sponsorkit.github.io/sponsorkit.io/docs/reference-http/http-api/#errors`. Clients must not branch on `type`; they branch on `code`. `code` is one of:
+- **Errors** are `application/problem+json`: `{ type, title, status, code, detail? }`. `type` is `<SITE_BASE_URL>/docs/reference-http/http-api/#errors`, which by default is `https://ffmathy.github.io/sponsorkit/docs/reference-http/http-api/#errors`. Clients must not branch on `type`; they branch on `code`. `code` is one of:
   - `invalid_request`
   - `invalid_target`
   - `invalid_code`
@@ -206,7 +206,7 @@ Additional rules:
 
 **Residual risks.**
 
-- **Every document on `SITE_ORIGIN` is trusted.** On GitHub Pages, `https://sponsorkit.github.io` is shared by the `sponsorkit` account's user site and **every** project site of that account. Any of them could submit a start. So only trusted repositories may publish to GitHub Pages under that account. Moving the site to its own custom domain removes the risk; then update `SITE_ORIGIN` and `SITE_BASE_URL`. An XSS bug anywhere on the site origin has the same effect.
+- **Every document on `SITE_ORIGIN` is trusted.** On GitHub Pages, `https://ffmathy.github.io` is shared by **every** Pages site of the `ffMathy` personal account: its user site and every project site. Any of them could submit a start. So only trusted repositories of `ffMathy` may publish to GitHub Pages. Moving the site to its own custom domain removes the risk; then update `SITE_ORIGIN` and `SITE_BASE_URL`. An XSS bug anywhere on the site origin has the same effect.
 - **Framing.** GitHub Pages can't send anti-framing headers. A framed consent page could be overlaid to trick a click. Two things mitigate it: the pages hide the provider buttons when framed (§4.1), and the Worker rejects `Sec-Fetch-Dest` other than `document`. Browsers without Fetch Metadata that also run the page with scripts disabled remain exposed. Even then, a cookie set in a cross-site frame is blocked by `SameSite`, and the providers refuse to be framed, so the flow can't complete inside a frame.
 - **Social engineering.** An attacker can still send a supporter to a real consent page with attacker-chosen parameters. That is the existing threat model: the consent page shows who is asking (`origin`, the `redirect_uri` host, or `app_name` labelled "says it is") and the targets, and the supporter decides.
 - **Proxies that strip `Origin`.** Rare middleboxes or privacy extensions that strip or null `Origin` break sign-in for that supporter. It fails closed and doesn't open a hole.
@@ -314,7 +314,7 @@ A provider is **eligible** if all of these hold:
     - Every other currency uses 2.
     - The Worker reports Open Collective amounts in the same ISO minor units, converted from Open Collective's fixed ×100 storage.
   - `interval=month|year` for `monthly`/`yearly`; it is omitted for one-time;
-  - `redirect=<site base URL>/checkout/thanks/`, URL-encoded. By default that is `https://sponsorkit.github.io/sponsorkit.io/checkout/thanks/`. The page builds it from its own site base URL (`location.origin` + `NEXT_PUBLIC_BASE_PATH`).
+  - `redirect=<site base URL>/checkout/thanks/`, URL-encoded. By default that is `https://ffmathy.github.io/sponsorkit/checkout/thanks/`. The page builds it from its own site base URL (`location.origin` + `NEXT_PUBLIC_BASE_PATH`).
 - **Checkout page URLs** built by SDKs (`openCheckout`, `checkoutUrl()`) are `<siteBaseUrl>/checkout/?<params>`. Sign-in URLs are `<siteBaseUrl>/connect/?<params>`.
 
 ## 7. SDK behaviour hooks (required for testability)
@@ -324,7 +324,7 @@ Every SDK must accept the following options, using names idiomatic to its langua
 | Option | Default | Used by |
 |---|---|---|
 | `apiBaseUrl` | `https://api.sponsorkit.io` | The API origin, used for every API call (`/api/v1/…`). The conformance server runs on `http://127.0.0.1:<port>`. |
-| `siteBaseUrl` | `https://sponsorkit.github.io/sponsorkit.io`, **or `apiBaseUrl` when `apiBaseUrl` is set and `siteBaseUrl` isn't** | The site base URL (origin plus optional base path), used for every page URL: `/connect/`, `/checkout/`, `checkoutUrl()`, and the loopback checkout redirect. |
+| `siteBaseUrl` | `https://ffmathy.github.io/sponsorkit`, **or `apiBaseUrl` when `apiBaseUrl` is set and `siteBaseUrl` isn't** | The site base URL (origin plus optional base path), used for every page URL: `/connect/`, `/checkout/`, `checkoutUrl()`, and the loopback checkout redirect. |
 | `openBrowser(url)` | Opens the system browser (native) or `window.open` (browser) | The tests replace it with an HTTP GET that follows redirects. |
 | `promptForCode()` | Reads a line from stdin | Paste-back sign-in. The tests return a fixed code. |
 | `storageDir` / `storage` | Per-user config directory or `localStorage` | The tests use a temporary directory. |
@@ -341,10 +341,10 @@ Every SDK must accept the following options, using names idiomatic to its langua
 
 **Base URL rules.**
 
-- **Defaulting.** `apiBaseUrl` defaults to `https://api.sponsorkit.io`. `siteBaseUrl` defaults to `apiBaseUrl` when `apiBaseUrl` was set explicitly, and otherwise to `https://sponsorkit.github.io/sponsorkit.io`. This keeps single-origin self-hosting and the conformance tests working with `apiBaseUrl` alone. An empty string counts as unset. (Reference: `resolveBaseUrls` in `packages/shared/src/urls.ts`.)
+- **Defaulting.** `apiBaseUrl` defaults to `https://api.sponsorkit.io`. `siteBaseUrl` defaults to `apiBaseUrl` when `apiBaseUrl` was set explicitly, and otherwise to `https://ffmathy.github.io/sponsorkit`. This keeps single-origin self-hosting and the conformance tests working with `apiBaseUrl` alone. An empty string counts as unset. (Reference: `resolveBaseUrls` in `packages/shared/src/urls.ts`.)
 - **Normalization.** Trailing slashes are trimmed from both. `apiBaseUrl` is an origin. `siteBaseUrl` may carry a path.
 - **Page paths** always use the trailing-slash form: `<siteBaseUrl>/connect/?…`, `<siteBaseUrl>/checkout/?…`.
-- **postMessage origin (browser SDK).** The SDK accepts a `message` event only when `event.origin` exactly equals the **origin of `siteBaseUrl`** (for example `https://sponsorkit.github.io`), never the API origin. It also checks `event.source` is the popup it opened, then validates the payload against `WindowMessage`. Any other message is ignored.
+- **postMessage origin (browser SDK).** The SDK accepts a `message` event only when `event.origin` exactly equals the **origin of `siteBaseUrl`** (for example `https://ffmathy.github.io`), never the API origin. It also checks `event.source` is the popup it opened, then validates the payload against `WindowMessage`. Any other message is ignored.
 
 **SDK error codes.** Every error thrown carries `SponsorkitError.code`, which is one of:
 

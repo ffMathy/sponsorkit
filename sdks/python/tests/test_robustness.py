@@ -214,9 +214,9 @@ def test_default_opener_uses_the_launcher_exit_status(monkeypatch: pytest.Monkey
     monkeypatch.setattr(client_mod, "_launch", fake_launch)
     monkeypatch.setattr(client_mod, "_launcher_argv", lambda url: ["xdg-open", url])
     assert (
-        client_mod._default_open_browser("https://sponsorkit.github.io/sponsorkit.io/connect/?x=1") is False
+        client_mod._default_open_browser("https://ffmathy.github.io/sponsorkit/connect/?x=1") is False
     )
-    assert calls == [["xdg-open", "https://sponsorkit.github.io/sponsorkit.io/connect/?x=1"]]
+    assert calls == [["xdg-open", "https://ffmathy.github.io/sponsorkit/connect/?x=1"]]
     assert client_mod._default_open_browser("file:///etc/passwd") is False
     assert len(calls) == 1
 

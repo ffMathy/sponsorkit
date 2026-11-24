@@ -10,8 +10,8 @@ afterAll(() => GlobalRegistrator.unregister());
 
 const sdk = () => import("../../src/index");
 /** Default site base URL (pages) and its origin (postMessage); the API is a different origin. */
-const SITE = "https://sponsorkit.github.io/sponsorkit.io";
-const SITE_ORIGIN = "https://sponsorkit.github.io";
+const SITE = "https://ffmathy.github.io/sponsorkit";
+const SITE_ORIGIN = "https://ffmathy.github.io";
 const API = "https://api.sponsorkit.io";
 const HASH = "3363d36356e472dab64ce744efd4e8bad412dd7f152bfd357ba96aa97180ac0e";
 

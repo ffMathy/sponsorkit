@@ -3,7 +3,7 @@
 > Status: **v8, implemented.** See §11 for what still has to be verified against the live providers.
 > Last updated: 2026-11-18.
 >
-> **Hosting split (v8.1):** the whole website moves to **GitHub Pages** (`https://sponsorkit.github.io/sponsorkit.io`). The Worker becomes **API-only** on `https://api.sponsorkit.io`. Sign-in now starts with an `Origin`-checked form POST, because the site and the API are cross-site (§3, PROTOCOL §0 and §4.3).
+> **Hosting split (v8.1):** the whole website moves to **GitHub Pages** (`https://ffmathy.github.io/sponsorkit`). The Worker becomes **API-only** on `https://api.sponsorkit.io`. Sign-in now starts with an `Origin`-checked form POST, because the site and the API are cross-site (§3, PROTOCOL §0 and §4.3).
 >
 > **What changed in v8:** Sponsorkit is now a **single stateless Worker with no database**.
 > - Session tokens are encrypted blobs. Each one carries the supporter's provider token(s) and the consented target set.
@@ -75,7 +75,7 @@ Patreon and other providers are deferred (D3). They will be added later through 
 ## 3. Architecture
 
 ```
-        SITE: https://sponsorkit.github.io/sponsorkit.io   (GitHub Pages, static Next.js export)
+        SITE: https://ffmathy.github.io/sponsorkit   (GitHub Pages, static Next.js export)
                  ┌────────────────────────────────────────────────────────────┐
  Supporter ────▶ │ /  /docs/  /connect/  /connect/done/  /checkout/            │
  (browser)       │ /checkout/thanks/  404           ← free, no Worker at all   │
@@ -98,7 +98,7 @@ Patreon and other providers are deferred (D3). They will be added later through 
 ```
 
 - **Two origins.**
-  - The **site** is the static export of `web/`, hosted on GitHub Pages as a project site. Its origin is `https://sponsorkit.github.io` and its base path is `/sponsorkit.io`. Page URLs end in `/` because Pages serves directories.
+  - The **site** is the static export of `web/`, hosted on GitHub Pages as a project site. Its origin is `https://ffmathy.github.io` and its base path is `/sponsorkit`. Page URLs end in `/` because Pages serves directories.
   - The **API** is the Worker on its own custom domain, `https://api.sponsorkit.io` by default and configurable. Paths stay `/api/v1/…` and `/api/oauth/…`, and the OAuth provider callback URLs are on the API domain.
 - **Why cross-site is safe.** The consent page on the site starts sign-in with a top-level form POST to the API. The Worker accepts it only when the browser-set `Origin` header equals `SITE_ORIGIN`. Other sites can't forge that header, so the consent screen can't be skipped (PROTOCOL §4.3, "Security: cross-site consent start"). The browser-nonce cookie lives on the API domain, and is set and read only in top-level navigations. The site needs no cookies.
 - **Single-origin self-hosting** still works. Serve the site and the API behind one origin, set `SITE_ORIGIN` to that origin, and give SDKs only `apiBaseUrl`.
@@ -106,7 +106,7 @@ Patreon and other providers are deferred (D3). They will be added later through 
 - **Runtime:**
   - TypeScript on **Cloudflare Workers**, using the **Hono** framework. Hono also runs on Node and Bun, so the Worker can be self-hosted.
   - Bun is used for local development, scripts and tests.
-- **Web:** a Next.js static export, built with `BASE_PATH=/sponsorkit.io TRAILING_SLASH=1`. It contains the landing page, the docs (MDX), and the client-rendered supporter pages `/connect/`, `/connect/done/`, `/checkout/` and `/checkout/thanks/`.
+- **Web:** a Next.js static export, built with `BASE_PATH=/sponsorkit TRAILING_SLASH=1`. It contains the landing page, the docs (MDX), and the client-rendered supporter pages `/connect/`, `/connect/done/`, `/checkout/` and `/checkout/thanks/`.
   - It is deployed to **GitHub Pages** by a GitHub Actions workflow (`actions/upload-pages-artifact` + `actions/deploy-pages`).
   - The pages call the API at `NEXT_PUBLIC_SPONSORKIT_API_BASE`, which defaults to `https://api.sponsorkit.io`. Empty means same origin.
 - **API:** the Worker serves only `/api/*`. It has no static-assets binding, and everything else is `404`.
@@ -323,7 +323,7 @@ Sponsorkit acts as an OAuth-style authorization server for the SDKs. Provider OA
 |---|---|
 | Browser | `signIn()`, called from a click handler, synchronously opens a popup to `<siteBaseUrl>/connect/?targets=…&challenge=…&delivery=web_message&origin=…`. The user picks a provider, sees the consent screen and completes provider OAuth. The code is posted back to the app, and the SDK exchanges it. If popups are blocked, `delivery=redirect` is used when `returnTo` is set. Otherwise `signIn()` rejects with `popup_blocked`. |
 | CLI / desktop with a local browser | **Loopback.** The SDK listens on `127.0.0.1:{random}/callback` and opens the system browser. |
-| Headless / SSH / container | **Paste-back.** The SDK prints a `sponsorkit.github.io/sponsorkit.io/connect/?…&delivery=paste` URL, which the user opens on any device. After consent, the page shows the sign-in code with a copy button, and the user pastes it into the terminal. The page names the targets and the `appName`. The code is valid for 10 minutes and useless without the SDK's verifier. |
+| Headless / SSH / container | **Paste-back.** The SDK prints a `ffmathy.github.io/sponsorkit/connect/?…&delivery=paste` URL, which the user opens on any device. After consent, the page shows the sign-in code with a copy button, and the user pastes it into the terminal. The page names the targets and the `appName`. The code is valid for 10 minutes and useless without the SDK's verifier. |
 | Auto-pick | Native SDKs try loopback first. They fall back to paste-back when there is no display, when `SSH_CONNECTION` is set, or when opening the browser fails. |
 
 **Adding a second identity.** `signIn({ provider: "opencollective" })` while already signed in runs the same flow. The SDK then sends `{ code, codeVerifier, sessionToken }` to `/auth/token`. The Worker unseals both and returns a new session token containing both identities, after checking that both are bound to the same target set.
@@ -363,7 +363,7 @@ const sk = new Sponsorkit({
   mock: undefined,                    // §7.4
   storage: undefined,                 // default: localStorage / per-user config dir
   apiBaseUrl: undefined,              // API origin; default https://api.sponsorkit.io
-  siteBaseUrl: undefined,             // pages (/connect/, /checkout/); default https://sponsorkit.github.io/sponsorkit.io,
+  siteBaseUrl: undefined,             // pages (/connect/, /checkout/); default https://ffmathy.github.io/sponsorkit,
                                       //   or apiBaseUrl when only apiBaseUrl is set (single-origin self-hosting, tests)
 });
 
@@ -468,7 +468,7 @@ if (await nag.due(fc => fc.active().length === 0)) {
 
 | | JS/TS | .NET | Python | Go | Rust |
 |---|---|---|---|---|---|
-| Package | `@sponsorkit/sdk` | `Sponsorkit` | `sponsorkit` | `github.com/sponsorkit/sponsorkit.io/sdks/go` | `sponsorkit` |
+| Package | `@sponsorkit/sdk` | `Sponsorkit` | `sponsorkit` | `github.com/ffMathy/sponsorkit/sdks/go` | `sponsorkit` |
 | Get | `getFinancialContribution()` | `GetFinancialContributionAsync(ct)` | `get_financial_contribution()` / `aget_…` | `GetFinancialContribution(ctx)` | `get_financial_contribution(GetOptions::default()).await?` |
 | Sign in | popup, redirect, loopback, paste | loopback, paste | loopback, paste | loopback, paste | loopback, paste |
 | UI elements | ✅ | – | – | – | – |
@@ -525,7 +525,7 @@ Rate limits (starting values):
 - **Logs:** Workers Logs, structured JSON. Logs never contain tokens, codes or identities.
 - **Deploy:**
   - **API:** GitHub Actions runs `wrangler deploy`. Preview deployments use Workers versions. There are no migrations.
-  - **Site:** a GitHub Actions workflow builds `web/` with `BASE_PATH=/sponsorkit.io TRAILING_SLASH=1` and `NEXT_PUBLIC_SPONSORKIT_API_BASE=https://api.sponsorkit.io`. It publishes `web/out` with `actions/upload-pages-artifact` and `actions/deploy-pages` (permissions `pages: write`, `id-token: write`; environment `github-pages`).
+  - **Site:** a GitHub Actions workflow builds `web/` with `BASE_PATH=/sponsorkit TRAILING_SLASH=1` and `NEXT_PUBLIC_SPONSORKIT_API_BASE=https://api.sponsorkit.io`. It publishes `web/out` with `actions/upload-pages-artifact` and `actions/deploy-pages` (permissions `pages: write`, `id-token: write`; environment `github-pages`).
   - The two deploy independently. API changes that pages depend on ship first.
 - **Sealing-key rotation:**
   1. Add the new key.
@@ -581,9 +581,9 @@ All of this lands in this PR as reviewable commits:
 | # | Decision | Outcome |
 |---|---|---|
 | D1 | Stripe processing fees | Moot: Stripe removed (D8). |
-| D2 | Hosting | ✅ API: one Cloudflare Worker (free plan, API only) on `api.sponsorkit.io`. Site: GitHub Pages project site `sponsorkit.github.io/sponsorkit.io`. |
+| D2 | Hosting | ✅ API: one Cloudflare Worker (free plan, API only) on `api.sponsorkit.io`. Site: GitHub Pages project site `ffmathy.github.io/sponsorkit`. |
 | D3 | Patreon | ✅ Deferred: its shared-app consent would require reading all of a user's memberships. |
-| D4 | Package names | ✅ `@sponsorkit/sdk`, `Sponsorkit`, `sponsorkit` (PyPI and crates.io), `github.com/sponsorkit/sponsorkit.io/sdks/go`. Fall back to `sponsorkit-sdk` if a name is taken. |
+| D4 | Package names | ✅ `@sponsorkit/sdk`, `Sponsorkit`, `sponsorkit` (PyPI and crates.io), `github.com/ffMathy/sponsorkit/sdks/go`. Fall back to `sponsorkit-sdk` if a name is taken. |
 | D5 | Org sponsorships | ✅ Always included, marked `via: "organization"`. |
 | D6 | GitHub scope | ✅ `read:user read:org`. Switch to `user` only if amounts are missing, and disclose it. |
 | D7 | Webhooks | ✅ None. |
@@ -606,7 +606,7 @@ All of this lands in this PR as reviewable commits:
    - `sponsorkit.io` as a zone, so the Worker can use the **API custom domain** `api.sponsorkit.io` (the `custom_domain` route in `app/wrangler.jsonc`). For a different API hostname, change the route, `PUBLIC_ORIGIN` and both OAuth callback URLs together;
    - an API token that can edit Workers, plus your account ID.
    - The Worker has **no** static-assets binding and no route on the apex `sponsorkit.io`.
-   - Optionally, point the apex `sponsorkit.io` at the site with a redirect rule to `https://sponsorkit.github.io/sponsorkit.io/`.
+   - Optionally, point the apex `sponsorkit.io` at the site with a redirect rule to `https://ffmathy.github.io/sponsorkit/`.
 4. **Worker secrets**, set with `wrangler secret put` (see `app/.dev.vars.example` for formats and key generation):
    - `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`
    - `OPENCOLLECTIVE_CLIENT_ID`, `OPENCOLLECTIVE_CLIENT_SECRET`
@@ -614,14 +614,14 @@ All of this lands in this PR as reviewable commits:
    - `GITHUB_METADATA_TOKEN`
    - **Worker vars** (not secrets), set in `app/wrangler.jsonc` under `vars`:
      - `PUBLIC_ORIGIN=https://api.sponsorkit.io`;
-     - `SITE_ORIGIN=https://sponsorkit.github.io`, the only `Origin` accepted by the OAuth start;
-     - `SITE_BASE_URL=https://sponsorkit.github.io/sponsorkit.io`, used for `/connect/done/` deliveries, consent links and problem `type` URLs.
+     - `SITE_ORIGIN=https://ffmathy.github.io`, the only `Origin` accepted by the OAuth start;
+     - `SITE_BASE_URL=https://ffmathy.github.io/sponsorkit`, used for `/connect/done/` deliveries, consent links and problem `type` URLs.
 5. **GitHub repository settings for deploys:**
    - secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`;
    - the variable `DEPLOY_ENABLED=true`;
    - a `production` environment.
-   - **GitHub Pages enabled** under Settings → Pages, with **Source: GitHub Actions**. The deploy workflow uses the `github-pages` environment, which GitHub creates. The repository must be named `sponsorkit.io` under the `sponsorkit` account so the site is `https://sponsorkit.github.io/sponsorkit.io/`.
-   - Only trusted repositories of the `sponsorkit` account may publish to GitHub Pages: they share the origin `https://sponsorkit.github.io`, which the Worker trusts to start sign-in (PROTOCOL §4.3, residual risks).
+   - **GitHub Pages enabled** under Settings → Pages, with **Source: GitHub Actions**. The deploy workflow uses the `github-pages` environment, which GitHub creates. The repository must be `ffMathy/sponsorkit` so the site is `https://ffmathy.github.io/sponsorkit/`.
+   - Every GitHub Pages site of the `ffMathy` personal account (its user site and every project site) shares the origin `https://ffmathy.github.io`, which the Worker trusts to start sign-in (PROTOCOL §4.3, residual risks). So only trusted repositories of `ffMathy` may publish to GitHub Pages.
 6. **Package registries:**
    - Reserve the names: `@sponsorkit/sdk` on npm, `Sponsorkit` on NuGet, and `sponsorkit` on PyPI and crates.io.
    - Configure trusted publishing for `.github/workflows/release.yml` (environment `release`). NuGet also needs the repository variable `NUGET_USER`.

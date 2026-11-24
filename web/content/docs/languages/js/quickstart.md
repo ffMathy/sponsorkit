@@ -14,9 +14,9 @@ two is enough).
 first release:
 
 ```bash title="Terminal"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-(cd sponsorkit.io && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
-npm install ./sponsorkit.io/sdks/js/sponsorkit-sdk-0.1.0.tgz
+git clone https://github.com/ffMathy/sponsorkit.git
+(cd sponsorkit && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
+npm install ./sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
 ```
 
 ## A web app

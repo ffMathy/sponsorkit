@@ -2,7 +2,7 @@
 
 Stateless, API-only Cloudflare Worker (Hono) implementing `docs/PROTOCOL.md` §3 (HTTP API), §4.3–4.4 (provider OAuth) and §5 (sealed values). No database: OAuth state, sign-in codes and sessions are AES-256-GCM sealed blobs.
 
-It runs on its own custom domain (`https://api.sponsorkit.io`) and serves only `/api/v1/*` and `/api/oauth/*`; every other path is a `404 not_found` problem. The site (`web/`: landing, docs, `/connect/`, `/checkout/`, …) is a static export on GitHub Pages (`https://sponsorkit.github.io/sponsorkit.io`), a different site (PROTOCOL §0).
+It runs on its own custom domain (`https://api.sponsorkit.io`) and serves only `/api/v1/*` and `/api/oauth/*`; every other path is a `404 not_found` problem. The site (`web/`: landing, docs, `/connect/`, `/checkout/`, …) is a static export on GitHub Pages (`https://ffmathy.github.io/sponsorkit`), a different site (PROTOCOL §0).
 
 ```
 src/
@@ -34,8 +34,8 @@ Secrets are documented in `.dev.vars.example`. Rate-limit bindings (`RL_AUTH`, `
 | Var | Production (`wrangler.jsonc`) | Meaning | When unset |
 |---|---|---|---|
 | `PUBLIC_ORIGIN` | `https://api.sponsorkit.io` | API origin; OAuth callback URLs are `<PUBLIC_ORIGIN>/api/oauth/<provider>/callback` | the request's origin |
-| `SITE_BASE_URL` | `https://sponsorkit.github.io/sponsorkit.io` | site base URL: `/connect/done/` deliveries, consent links, problem `type` | `PUBLIC_ORIGIN` |
-| `SITE_ORIGIN` | `https://sponsorkit.github.io` | the only `Origin` accepted by `POST /api/oauth/:provider/start` | origin of `SITE_BASE_URL` |
+| `SITE_BASE_URL` | `https://ffmathy.github.io/sponsorkit` | site base URL: `/connect/done/` deliveries, consent links, problem `type` | `PUBLIC_ORIGIN` |
+| `SITE_ORIGIN` | `https://ffmathy.github.io` | the only `Origin` accepted by `POST /api/oauth/:provider/start` | origin of `SITE_BASE_URL` |
 
 Trailing slashes are trimmed. `SITE_ORIGIN` must be the bare origin of `SITE_BASE_URL`; otherwise sign-in fails closed with a 500 "Sign-in unavailable" page. Single-origin self-hosting: put the site and the API behind one origin and leave `SITE_*` unset (or set them to that origin).
 

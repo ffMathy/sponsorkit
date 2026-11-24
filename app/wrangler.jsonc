@@ -44,8 +44,8 @@
     // The API origin: OAuth callback URLs are <PUBLIC_ORIGIN>/api/oauth/<provider>/callback.
     "PUBLIC_ORIGIN": "https://api.sponsorkit.io",
     // Site base URL: sign-in deliveries (/connect/done/), consent links and problem `type` URLs.
-    "SITE_BASE_URL": "https://sponsorkit.github.io/sponsorkit.io",
+    "SITE_BASE_URL": "https://ffmathy.github.io/sponsorkit",
     // The only Origin accepted by POST /api/oauth/:provider/start.
-    "SITE_ORIGIN": "https://sponsorkit.github.io"
+    "SITE_ORIGIN": "https://ffmathy.github.io"
   }
 }

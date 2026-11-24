@@ -43,8 +43,8 @@ import { FAKE_IDENTITIES, defaultPool, namedContribution, targetInfo } from "./f
 export const CODE_TTL_SECONDS = 60;
 export const PASTE_CODE_TTL_SECONDS = 600;
 export const SESSION_TTL_SECONDS = 180 * 24 * 3600;
-/** Base path of the site listener, mirroring the GitHub Pages project site (`/sponsorkit.io`). */
-export const SITE_BASE_PATH = "/sponsorkit.io";
+/** Base path of the site listener, mirroring the GitHub Pages project site (`/sponsorkit`). */
+export const SITE_BASE_PATH = "/sponsorkit";
 
 /** Which listener received a request. */
 export type ServerRole = "api" | "site";
@@ -821,7 +821,7 @@ export interface RunningServer {
   baseUrl: string;
   /** Port of the separate site listener. */
   sitePort: number;
-  /** `http://127.0.0.1:<sitePort>/sponsorkit.io`: the `siteBaseUrl` of two-origin scenarios (`$SITE_BASE_URL`). */
+  /** `http://127.0.0.1:<sitePort>/sponsorkit`: the `siteBaseUrl` of two-origin scenarios (`$SITE_BASE_URL`). */
   siteBaseUrl: string;
   fake: FakeSponsorkit;
   stop(): Promise<void>;
