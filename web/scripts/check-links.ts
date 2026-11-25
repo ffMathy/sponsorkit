@@ -6,8 +6,8 @@
  *
  *   bun run --cwd web docs:check-links [--dir out]
  *
- * Uses the same BASE_PATH and SITE_URL as `next build` (web/site-config.ts: /sponsorkit.io and
- * https://sponsorkit.github.io/sponsorkit.io by default). Absolute links under SITE_URL (canonical,
+ * Uses the same BASE_PATH and SITE_URL as `next build` (web/site-config.ts: /sponsorkit and
+ * https://ffmathy.github.io/sponsorkit by default). Absolute links under SITE_URL (canonical,
  * og:url, sitemap.xml) are checked too. Other external links and /api/* are skipped, and so are
  * /_next/* <a> links.
  */

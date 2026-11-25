@@ -48,7 +48,7 @@ The SDK keeps one small JSON file per target set: the session token, the cached 
 ```go title="storage.go"
 package main
 
-import sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+import sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 
 // keychain is a sketch of a Storage backed by the OS credential store.
 type keychain struct{ service string }

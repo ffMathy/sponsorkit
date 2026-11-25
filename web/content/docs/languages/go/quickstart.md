@@ -18,7 +18,7 @@ You need Go 1.23 or later. There is no Sponsorkit account or API key to set up.
 ```bash title="Terminal"
 mkdir my-cli && cd my-cli
 go mod init example.com/my-cli
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@main
+go get github.com/ffMathy/sponsorkit/sdks/go@main
 ```
 
 ## 2. Write the program
@@ -37,7 +37,7 @@ import (
 	"os/signal"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {

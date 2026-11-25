@@ -4,7 +4,7 @@
  */
 import { DEFAULT_SITE_BASE_URL, SITE_PATHS, trimTrailingSlashes } from "@sponsorkit/shared";
 
-/** Next.js basePath: "" or "/sponsorkit.io". */
+/** Next.js basePath: "" or "/sponsorkit". */
 export const BASE_PATH = trimTrailingSlashes(process.env.NEXT_PUBLIC_BASE_PATH ?? "");
 
 /** Absolute site base URL used for canonical URLs, og:url and the sitemap (no trailing slash). */
@@ -15,7 +15,7 @@ export const TRAILING_SLASH = (process.env.NEXT_PUBLIC_TRAILING_SLASH ?? "1") ==
 
 export { SITE_PATHS };
 
-/** Root-relative URL of a site page, e.g. `sitePath("/checkout/")` → `/sponsorkit.io/checkout/`. */
+/** Root-relative URL of a site page, e.g. `sitePath("/checkout/")` → `/sponsorkit/checkout/`. */
 export function sitePath(path: string, basePath: string = BASE_PATH): string {
   return `${basePath}${path}`;
 }

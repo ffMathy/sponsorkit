@@ -64,7 +64,7 @@ Sponsorkit reports facts; deciding who counts as a sponsor is up to you. Put the
 ```go title="rule.go"
 package main
 
-import sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+import sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 
 // isSponsor: at least $5 a month, paid personally or by an organization, or any
 // one-time payment of $25 or more.
@@ -108,7 +108,7 @@ import (
 	"fmt"
 	"log"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {

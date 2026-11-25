@@ -57,11 +57,11 @@ public sealed class MatcherTests
     public void Request_expectations_can_pin_the_listener()
     {
         var log = (JsonArray)JsonNode.Parse("""
-            [{"server":"site","method":"GET","path":"/sponsorkit.io/connect/","query":{},"headers":{}}]
+            [{"server":"site","method":"GET","path":"/sponsorkit/connect/","query":{},"headers":{}}]
             """)!;
-        Assert.Empty(Matcher.MatchRequests(log, (JsonObject)JsonNode.Parse("""{"calls":[{"method":"GET","path":"/sponsorkit.io/connect/","server":"site","count":1}]}""")!));
-        Assert.Empty(Matcher.MatchRequests(log, (JsonObject)JsonNode.Parse("""{"calls":[{"method":"GET","path":"/sponsorkit.io/connect/","count":1}]}""")!));
-        Assert.NotEmpty(Matcher.MatchRequests(log, (JsonObject)JsonNode.Parse("""{"calls":[{"method":"GET","path":"/sponsorkit.io/connect/","server":"api"}]}""")!));
+        Assert.Empty(Matcher.MatchRequests(log, (JsonObject)JsonNode.Parse("""{"calls":[{"method":"GET","path":"/sponsorkit/connect/","server":"site","count":1}]}""")!));
+        Assert.Empty(Matcher.MatchRequests(log, (JsonObject)JsonNode.Parse("""{"calls":[{"method":"GET","path":"/sponsorkit/connect/","count":1}]}""")!));
+        Assert.NotEmpty(Matcher.MatchRequests(log, (JsonObject)JsonNode.Parse("""{"calls":[{"method":"GET","path":"/sponsorkit/connect/","server":"api"}]}""")!));
     }
 
     [Fact]

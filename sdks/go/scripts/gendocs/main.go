@@ -90,7 +90,7 @@ type gen struct {
 	memberOwners map[string][]string
 }
 
-const importPath = "github.com/sponsorkit/sponsorkit.io/sdks/go"
+const importPath = "github.com/ffMathy/sponsorkit/sdks/go"
 
 func run(src, out, prefix string) error {
 	fset := token.NewFileSet()
@@ -910,7 +910,7 @@ func (g *gen) function(file, typ string, f *doc.Func, anchor, self string) strin
 		b.WriteString(md + "\n")
 	}
 	src := g.source(f.Decl.Pos())
-	fmt.Fprintf(&b, "[View source](https://github.com/sponsorkit/sponsorkit.io/blob/main/%s)\n\n", src)
+	fmt.Fprintf(&b, "[View source](https://github.com/ffMathy/sponsorkit/blob/main/%s)\n\n", src)
 	b.WriteString(g.examples(file, f.Examples, anchor, 4))
 	return b.String()
 }

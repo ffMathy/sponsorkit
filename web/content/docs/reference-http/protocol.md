@@ -4,10 +4,10 @@ description: A readable tour of the Sponsorkit wire protocol, from targets and P
 order: 20
 ---
 
-The [wire protocol](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/PROTOCOL.md) is the contract
+The [wire protocol](https://github.com/ffMathy/sponsorkit/blob/main/docs/PROTOCOL.md) is the contract
 between the Worker (the API), the static pages (the site), the conformance suite and every SDK. This page walks through it in plain
 language. When the two disagree, PROTOCOL.md wins. The reasons behind the design are in the
-[specification](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/SPEC.md).
+[specification](https://github.com/ffMathy/sponsorkit/blob/main/docs/SPEC.md).
 
 You need this if you're writing an SDK for another language, reviewing Sponsorkit's security, or running your own
 instance. To use Sponsorkit from an app, the [guides](../guides/index.md) are a better start.
@@ -18,7 +18,7 @@ Sponsorkit runs in two places, on different origins:
 
 | Part | What | Default |
 |---|---|---|
-| **Site** | The static export of the website: landing page, docs, `/connect/`, `/connect/done/`, `/checkout/`, `/checkout/thanks/`. Hosted on GitHub Pages. | `https://sponsorkit.github.io/sponsorkit.io` |
+| **Site** | The static export of the website: landing page, docs, `/connect/`, `/connect/done/`, `/checkout/`, `/checkout/thanks/`. Hosted on GitHub Pages. | `https://ffmathy.github.io/sponsorkit` |
 | **API** | The Cloudflare Worker: `/api/v1/…` and `/api/oauth/…`, nothing else. | `https://api.sponsorkit.io` |
 
 Page URLs are relative to the site base URL and always end in `/` (GitHub Pages serves directories). API paths
@@ -74,8 +74,8 @@ requests from the consent page. Because the site and the API are on different si
 `GET` is never accepted, so no link or redirect can start a sign-in; a request without the right `Origin` gets a
 page that links to the consent screen. The consent pages use the referrer policy `strict-origin` (under
 `no-referrer` browsers would send `Origin: null`) and hide their provider buttons when framed. The residual risks
-(every page on the shared `sponsorkit.github.io` origin is trusted, framing, social engineering) are listed in
-[PROTOCOL.md §4.3](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/PROTOCOL.md#security-cross-site-consent-start).
+(every Pages site of the `ffMathy` personal account shares the trusted `https://ffmathy.github.io` origin, framing, social engineering) are listed in
+[PROTOCOL.md §4.3](https://github.com/ffMathy/sponsorkit/blob/main/docs/PROTOCOL.md#security-cross-site-consent-start).
 
 ### Delivery methods
 
@@ -191,7 +191,7 @@ in through one SDK is signed in for every app on the machine that uses the same 
 
 ## Conformance suite
 
-[`sdks/conformance`](https://github.com/sponsorkit/sponsorkit.io/tree/main/sdks/conformance) contains a fake
+[`sdks/conformance`](https://github.com/ffMathy/sponsorkit/tree/main/sdks/conformance) contains a fake
 Sponsorkit API (`bun sdks/conformance/server.ts`), which also serves the site's `/connect/` and `/checkout/` paths
 so tests only need to set `apiBaseUrl`, and a list of scenarios with expected results: sign-in flows,
 caching, outages, rate limits, checkout, nags, storage and `verifySession`. Every SDK runs every scenario in its

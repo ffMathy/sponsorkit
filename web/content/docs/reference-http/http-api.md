@@ -6,7 +6,7 @@ order: 10
 
 The SDKs are thin clients of this API. You only need it to build an SDK for another language, to verify sessions
 from a backend without an SDK, or to debug. Everything here is specified normatively in the
-[wire protocol](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/PROTOCOL.md#3-http-api-apiv1); this
+[wire protocol](https://github.com/ffMathy/sponsorkit/blob/main/docs/PROTOCOL.md#3-http-api-apiv1); this
 page explains it with examples.
 
 ## Conventions
@@ -14,7 +14,7 @@ page explains it with examples.
 - **Base URL:** `https://api.sponsorkit.io`, or your own API origin if you [self-host](self-hosting.md). Every
   path below is relative to it. The API is served on its own domain and serves nothing but `/api/v1/…` and
   `/api/oauth/…`; the website, including the consent and checkout pages, is a separate static site at
-  `https://sponsorkit.github.io/sponsorkit.io` (see [Browser pages and OAuth endpoints](#browser-pages-and-oauth-endpoints)).
+  `https://ffmathy.github.io/sponsorkit` (see [Browser pages and OAuth endpoints](#browser-pages-and-oauth-endpoints)).
 - **Format:** requests and responses are JSON. Amounts are integers in minor units with an ISO 4217 currency
   (`{ "value": 500, "currency": "USD" }` is $5.00). Timestamps are ISO 8601 strings.
 - **Authentication:** only `GET /api/v1/contributions` needs it, as `Authorization: Bearer sks_…`. There are no
@@ -33,7 +33,7 @@ Errors use [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) problem details wi
 
 ```json title="400 Bad Request"
 {
-  "type": "https://sponsorkit.github.io/sponsorkit.io/docs/reference-http/http-api/#errors",
+  "type": "https://ffmathy.github.io/sponsorkit/docs/reference-http/http-api/#errors",
   "title": "Invalid target",
   "status": 400,
   "code": "invalid_target",
@@ -300,7 +300,7 @@ Each provider is `"ok"` or `"degraded"`.
 ## Browser pages and OAuth endpoints
 
 Sign-in and checkout run in the browser, through static pages on the **site**
-(`https://sponsorkit.github.io/sponsorkit.io`) and two endpoints on the **API** (`https://api.sponsorkit.io`).
+(`https://ffmathy.github.io/sponsorkit`) and two endpoints on the **API** (`https://api.sponsorkit.io`).
 SDKs only build the first URL; the rest is navigation. Page URLs always end in `/`.
 
 | Where | URL | What it does |
@@ -312,10 +312,10 @@ SDKs only build the first URL; the rest is navigation. Page URLs always end in `
 | Site | `/checkout/?targets=…` | Signs in if a `challenge` is given, then picks a provider and redirects to it. |
 
 The start endpoint only accepts a form POST whose `Origin` header is exactly the site's origin
-(`https://sponsorkit.github.io`), which only the consent page can produce. Links, redirects, typed-in URLs and
+(`https://ffmathy.github.io`), which only the consent page can produce. Links, redirects, typed-in URLs and
 forms on other sites get an HTML `403` (or `405` for a `GET`) that links to the consent page, and nothing is
 started. The short-lived nonce cookie that binds the OAuth state to the browser is set on the API's domain.
 
 `delivery` is one of `web_message` (popup), `redirect`, `loopback` or `paste`. The parameters, the delivery
 rules and the checkout eligibility rules are summarized in [Wire protocol](protocol.md) and specified in
-[PROTOCOL.md §4](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/PROTOCOL.md#4-browser-pages--oauth-endpoints).
+[PROTOCOL.md §4](https://github.com/ffMathy/sponsorkit/blob/main/docs/PROTOCOL.md#4-browser-pages--oauth-endpoints).

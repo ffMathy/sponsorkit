@@ -85,10 +85,10 @@ describe("configuration", () => {
   test("checkoutUrl validates options and needs no network", () => {
     const sk = new Sponsorkit({ github: "OctoCat", env: {} });
     expect(sk.checkoutUrl({ amount: 500, currency: "usd", frequency: "monthly" })).toBe(
-      "https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Aoctocat&amount=500&currency=USD&frequency=monthly",
+      "https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat&amount=500&currency=USD&frequency=monthly",
     );
     expect(sk.apiBaseUrl).toBe("https://api.sponsorkit.io");
-    expect(sk.siteBaseUrl).toBe("https://sponsorkit.github.io/sponsorkit.io");
+    expect(sk.siteBaseUrl).toBe("https://ffmathy.github.io/sponsorkit");
     const self = new Sponsorkit({ github: "octocat", env: {}, apiBaseUrl: "https://kit.example/" });
     expect(self.siteBaseUrl).toBe("https://kit.example");
     expect(self.checkoutUrl()).toBe("https://kit.example/checkout/?targets=github%3Aoctocat");
@@ -361,10 +361,10 @@ describe("loopback receiver", () => {
   });
 
   test("redirects onward during checkout and reports errors", async () => {
-    const r = await startLoopbackReceiver("https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Ax&step=choose");
+    const r = await startLoopbackReceiver("https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Ax&step=choose");
     const res = await fetch(`${r.redirectUri}?code=skc_x`, { redirect: "manual" });
     expect(res.status).toBe(302);
-    expect(res.headers.get("location")).toBe("https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Ax&step=choose");
+    expect(res.headers.get("location")).toBe("https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Ax&step=choose");
     await r.close();
     const e = await startLoopbackReceiver();
     await fetch(`${e.redirectUri}?error=%3Cscript%3E`)

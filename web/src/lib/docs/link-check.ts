@@ -64,7 +64,7 @@ export interface LinkCheckInput {
   sitemap?: string;
   basePath?: string;
   /**
-   * Absolute site base URL (origin + base path), e.g. `https://sponsorkit.github.io/sponsorkit.io`.
+   * Absolute site base URL (origin + base path), e.g. `https://ffmathy.github.io/sponsorkit`.
    * Absolute links under it (canonical, og:url, sitemap) are checked like internal ones.
    */
   siteUrl?: string;

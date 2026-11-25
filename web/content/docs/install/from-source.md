@@ -1,10 +1,10 @@
 ---
 title: Build from source
-description: Use an unreleased SDK from the sponsorkit.io monorepo, directly from Git where the package manager supports it, or from a local build.
+description: Use an unreleased SDK from the ffMathy/sponsorkit monorepo, directly from Git where the package manager supports it, or from a local build.
 order: 50
 ---
 
-All five SDKs live in one repository, [sponsorkit/sponsorkit.io](https://github.com/sponsorkit/sponsorkit.io),
+All five SDKs live in one repository, [ffMathy/sponsorkit](https://github.com/ffMathy/sponsorkit),
 under `sdks/<language>/`. Use this page before the first release reaches a registry, or to try a change that
 isn't released yet.
 
@@ -27,8 +27,8 @@ and the SDK is a member of a Bun workspace whose development dependencies use th
 Build it once and install the tarball instead. You need [Bun](https://bun.sh) to build.
 
 ```bash title="Terminal"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-cd sponsorkit.io
+git clone https://github.com/ffMathy/sponsorkit.git
+cd sponsorkit
 bun install
 bun run --cwd sdks/js build
 cd sdks/js && npm pack          # writes sponsorkit-sdk-0.1.0.tgz
@@ -37,7 +37,7 @@ cd sdks/js && npm pack          # writes sponsorkit-sdk-0.1.0.tgz
 Then, in your project:
 
 ```bash title="Terminal"
-npm install /path/to/sponsorkit.io/sdks/js/sponsorkit-sdk-0.1.0.tgz
+npm install /path/to/sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
 ```
 
 The tarball is exactly what `npm publish` would upload, so imports, types and entry points behave like the
@@ -49,8 +49,8 @@ teammates need it too.
 Pack the library into a folder and use that folder as a package source:
 
 ```bash title="Terminal"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-dotnet pack sponsorkit.io/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
+git clone https://github.com/ffMathy/sponsorkit.git
+dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
 
 cd my-app
 dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
@@ -74,19 +74,19 @@ pip, uv and Poetry install straight from Git when you name the subdirectory:
 
 :::tabs{group="pypi"}
 ```bash tab="pip" key="pip"
-python -m pip install "sponsorkit @ git+https://github.com/sponsorkit/sponsorkit.io@main#subdirectory=sdks/python"
+python -m pip install "sponsorkit @ git+https://github.com/ffMathy/sponsorkit@main#subdirectory=sdks/python"
 ```
 
 ```bash tab="uv" key="uv"
-uv add "sponsorkit @ git+https://github.com/sponsorkit/sponsorkit.io#subdirectory=sdks/python"
+uv add "sponsorkit @ git+https://github.com/ffMathy/sponsorkit#subdirectory=sdks/python"
 ```
 
 ```bash tab="Poetry" key="poetry"
-poetry add "git+https://github.com/sponsorkit/sponsorkit.io.git#subdirectory=sdks/python"
+poetry add "git+https://github.com/ffMathy/sponsorkit.git#subdirectory=sdks/python"
 ```
 
 ```bash tab="Local checkout" key="local"
-python -m pip install ./sponsorkit.io/sdks/python        # or -e for an editable install
+python -m pip install ./sponsorkit/sdks/python        # or -e for an editable install
 ```
 :::
 
@@ -99,15 +99,15 @@ Nothing special: Go modules are fetched from the repository. Before the first `s
 branch or a commit and Go records a pseudo-version:
 
 ```bash title="Terminal"
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@main
+go get github.com/ffMathy/sponsorkit/sdks/go@main
 ```
 
 To work against a local checkout, add a `replace` directive to your `go.mod`:
 
 ```text title="go.mod"
-require github.com/sponsorkit/sponsorkit.io/sdks/go v0.0.0
+require github.com/ffMathy/sponsorkit/sdks/go v0.0.0
 
-replace github.com/sponsorkit/sponsorkit.io/sdks/go => ../sponsorkit.io/sdks/go
+replace github.com/ffMathy/sponsorkit/sdks/go => ../sponsorkit/sdks/go
 ```
 
 ## Rust {#rust}
@@ -116,9 +116,9 @@ Cargo searches a Git repository for the crate by name, so the subdirectory doesn
 
 ```toml title="Cargo.toml"
 [dependencies]
-sponsorkit = { git = "https://github.com/sponsorkit/sponsorkit.io", branch = "main" }
+sponsorkit = { git = "https://github.com/ffMathy/sponsorkit", branch = "main" }
 # or, from a local checkout:
-# sponsorkit = { path = "../sponsorkit.io/sdks/rust" }
+# sponsorkit = { path = "../sponsorkit/sdks/rust" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 
@@ -131,4 +131,4 @@ you publish a crate that depends on Sponsorkit.
 Each SDK has its own test suite, and all of them run the shared conformance scenarios against a fake API
 server, so you don't need network access or real accounts. From the repository root, run `bun install`
 first; the conformance server is written in TypeScript. The exact commands per SDK are in
-[`.github/workflows/ci.yml`](https://github.com/sponsorkit/sponsorkit.io/blob/main/.github/workflows/ci.yml).
+[`.github/workflows/ci.yml`](https://github.com/ffMathy/sponsorkit/blob/main/.github/workflows/ci.yml).

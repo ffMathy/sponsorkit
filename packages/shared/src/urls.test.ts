@@ -45,12 +45,12 @@ describe("site URLs", () => {
 
   test("pages use the trailing-slash form", () => {
     expect(siteUrl(DEFAULT_SITE_BASE_URL, SITE_PATHS.connect, new URLSearchParams({ targets: "github:a" }))).toBe(
-      "https://sponsorkit.github.io/sponsorkit.io/connect/?targets=github%3Aa",
+      "https://ffmathy.github.io/sponsorkit/connect/?targets=github%3Aa",
     );
     expect(siteUrl("https://x.dev/", SITE_PATHS.checkoutThanks)).toBe("https://x.dev/checkout/thanks/");
   });
 
   test("problem type points at the site's API error docs", () => {
-    expect(problemTypeUrl()).toBe("https://sponsorkit.github.io/sponsorkit.io/docs/reference-http/http-api/#errors");
+    expect(problemTypeUrl()).toBe("https://ffmathy.github.io/sponsorkit/docs/reference-http/http-api/#errors");
   });
 });

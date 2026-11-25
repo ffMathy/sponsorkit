@@ -25,7 +25,7 @@ const DefaultAPIBaseURL = "https://api.sponsorkit.io"
 
 // DefaultSiteBaseURL is the Sponsorkit site (origin plus base path), used for
 // every page URL: /connect/, /checkout/ and CheckoutURL.
-const DefaultSiteBaseURL = "https://sponsorkit.github.io/sponsorkit.io"
+const DefaultSiteBaseURL = "https://ffmathy.github.io/sponsorkit"
 
 // Page paths on the site. Always the trailing-slash form (PROTOCOL §7).
 const (

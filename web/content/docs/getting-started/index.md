@@ -36,7 +36,7 @@ decide who "counts" as a supporter. You write that rule, in your own code.
 ## How it works
 
 Your app talks to a small, stateless service: an HTTP API at `https://api.sponsorkit.io`, plus the consent and
-checkout pages of this website (`https://sponsorkit.github.io/sponsorkit.io`). The service has no database:
+checkout pages of this website (`https://ffmathy.github.io/sponsorkit`). The service has no database:
 everything it needs travels inside an encrypted session token that the SDK keeps on the supporter's device.
 
 ```text title="One sign-in, then cheap checks"

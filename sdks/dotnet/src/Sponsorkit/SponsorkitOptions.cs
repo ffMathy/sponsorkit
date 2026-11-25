@@ -62,7 +62,7 @@ public sealed class SponsorkitOptions
     /// <summary>
     /// The Sponsorkit site base URL (origin plus optional base path), used for every page URL: <c>/connect/</c>,
     /// <c>/checkout/</c>, <see cref="SponsorkitClient.CheckoutUrl"/> and the loopback redirect after a checkout sign-in.
-    /// Default <c>https://sponsorkit.github.io/sponsorkit.io</c>, or <see cref="ApiBaseUrl"/> when that is set and this
+    /// Default <c>https://ffmathy.github.io/sponsorkit</c>, or <see cref="ApiBaseUrl"/> when that is set and this
     /// is not (single-origin self-hosting). Trailing slashes are removed and an empty string counts as unset.
     /// </summary>
     public string? SiteBaseUrl { get; set; }

@@ -46,7 +46,7 @@ show its sign-in buttons inside a frame. A crafted link can't skip what the supp
 The short-lived `__Host-` cookie that binds the OAuth state to the browser is set by the API on its own domain,
 in a top-level navigation, so it is a first-party cookie and blocking third-party cookies doesn't affect it. The
 details, including the residual risks, are in the
-[wire protocol](https://github.com/sponsorkit/sponsorkit.io/blob/main/docs/PROTOCOL.md#security-cross-site-consent-start).
+[wire protocol](https://github.com/ffMathy/sponsorkit/blob/main/docs/PROTOCOL.md#security-cross-site-consent-start).
 
 ## What a session token can do
 

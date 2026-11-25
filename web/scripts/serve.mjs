@@ -2,8 +2,8 @@
 // Minimal static server for web/out, mirroring GitHub Pages (project site under a base path):
 // `<base>/connect/done/` → connect/done/index.html, `<base>/connect/done` → 301 to the slash form
 // when that directory exists, `<base>/x` → x.html, unknown paths → 404.html (status 404).
-// Usage: node scripts/serve.mjs [--port 4173] [--dir out] [--base /sponsorkit.io]
-// The base path defaults to BASE_PATH, else /sponsorkit.io (same default as web/site-config.ts);
+// Usage: node scripts/serve.mjs [--port 4173] [--dir out] [--base /sponsorkit]
+// The base path defaults to BASE_PATH, else /sponsorkit (same default as web/site-config.ts);
 // pass `--base ""` for a root build.
 import { createReadStream } from "node:fs";
 import { stat } from "node:fs/promises";
@@ -22,7 +22,7 @@ const root = path.resolve(here, "..", arg("dir", "out"));
 const port = Number(arg("port", process.env.PORT ?? "4173"));
 const host = arg("host", "127.0.0.1");
 const baseIdx = args.indexOf("--base");
-const basePath = (baseIdx >= 0 ? (args[baseIdx + 1] ?? "") : (process.env.BASE_PATH ?? "/sponsorkit.io")).replace(/\/+$/, "");
+const basePath = (baseIdx >= 0 ? (args[baseIdx + 1] ?? "") : (process.env.BASE_PATH ?? "/sponsorkit")).replace(/\/+$/, "");
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",

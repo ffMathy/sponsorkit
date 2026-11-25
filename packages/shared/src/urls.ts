@@ -5,9 +5,9 @@
  */
 
 /** Default site base URL: a GitHub Pages project site. Origin + base path, no trailing slash. */
-export const DEFAULT_SITE_BASE_URL = "https://sponsorkit.github.io/sponsorkit.io";
+export const DEFAULT_SITE_BASE_URL = "https://ffmathy.github.io/sponsorkit";
 /** Default site origin (the Worker's SITE_ORIGIN): the origin of DEFAULT_SITE_BASE_URL. */
-export const DEFAULT_SITE_ORIGIN = "https://sponsorkit.github.io";
+export const DEFAULT_SITE_ORIGIN = "https://ffmathy.github.io";
 /** Default API base URL (the Worker's PUBLIC_ORIGIN). An origin, no path, no trailing slash. */
 export const DEFAULT_API_BASE_URL = "https://api.sponsorkit.io";
 

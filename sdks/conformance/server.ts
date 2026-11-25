@@ -9,7 +9,7 @@
  *   - `LISTENING <apiPort>` by default (unchanged, so existing harnesses keep working);
  *   - `LISTENING <apiPort> SITE <sitePort>` with --print-site-port.
  * The API base URL is `http://127.0.0.1:<apiPort>`; the site base URL is
- * `http://127.0.0.1:<sitePort>/sponsorkit.io`, also given by `GET /__control` ->
+ * `http://127.0.0.1:<sitePort>/sponsorkit`, also given by `GET /__control` ->
  * `siteBaseUrl`. Port 0 (the default) picks a free port. Stops on
  * SIGINT/SIGTERM, and also when stdin reaches EOF if
  * SPONSORKIT_CONFORMANCE_EXIT_ON_STDIN_EOF=1 (so a crashed runner never leaks it).

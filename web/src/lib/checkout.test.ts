@@ -13,7 +13,7 @@ import {
 } from "./checkout";
 
 /** The site base URL (origin + base path), as the page passes it. */
-const ORIGIN = "https://sponsorkit.github.io/sponsorkit.io";
+const ORIGIN = "https://ffmathy.github.io/sponsorkit";
 
 function tier(id: string, value: number, frequency: TargetTier["frequency"], url: string | null = null): TargetTier {
   return { id, name: `Tier ${id}`, amount: { value, currency: "USD" }, frequency, url };
@@ -140,7 +140,7 @@ describe("Open Collective URL", () => {
     expect(url.origin + url.pathname).toBe("https://opencollective.com/sponsorkit/donate");
     expect(url.searchParams.get("amount")).toBe("5.5");
     expect(url.searchParams.get("interval")).toBe("month");
-    expect(url.searchParams.get("redirect")).toBe("https://sponsorkit.github.io/sponsorkit.io/checkout/thanks/");
+    expect(url.searchParams.get("redirect")).toBe("https://ffmathy.github.io/sponsorkit/checkout/thanks/");
   });
   it("uses interval=year and omits interval for one-time", () => {
     expect(new URL(openCollectiveCheckoutUrl(oc(), { frequency: "yearly" }, ORIGIN)).searchParams.get("interval")).toBe("year");

@@ -70,7 +70,7 @@ accepted even while your `openBrowser` is still running. A `/callback` request w
 
 ### Site and API
 
-The pages (`/connect/`, `/checkout/`) live on the Sponsorkit site, `https://sponsorkit.github.io/sponsorkit.io`;
+The pages (`/connect/`, `/checkout/`) live on the Sponsorkit site, `https://ffmathy.github.io/sponsorkit`;
 the API lives at `https://api.sponsorkit.io`. To self-host, set `apiBaseUrl`, and `siteBaseUrl` too when your
 pages are on a different origin or base path. With `apiBaseUrl` alone the SDK assumes one origin serves both
 (`siteBaseUrl` defaults to it). Empty strings count as unset and trailing slashes are trimmed.
@@ -99,7 +99,7 @@ Throws `SponsorkitError{code: "invalid_config"}` when no target is given or a ta
 | `storage` | platform | A `SponsorkitStorage` (`{ read(hash), write(hash, json) }`) or a Web Storage object. |
 | `storageDir` (node) | per-user config dir | `$XDG_CONFIG_HOME/sponsorkit` (else `$HOME/.config/sponsorkit`), `$HOME/Library/Application Support/sponsorkit`, `%APPDATA%\sponsorkit`. If none can be determined (e.g. `HOME` is unset), state is kept in memory for the process; the SDK never writes to the current directory. |
 | `apiBaseUrl` | `https://api.sponsorkit.io` | Origin of the API (every `/api/v1/…` call), for self-hosting or a test server. |
-| `siteBaseUrl` | `https://sponsorkit.github.io/sponsorkit.io`, or `apiBaseUrl` when only that is set | Site base URL (origin plus optional base path) for the pages: `<siteBaseUrl>/connect/`, `<siteBaseUrl>/checkout/`, `checkoutUrl()` and the loopback checkout redirect. In the browser, sign-in messages are accepted only from this URL's origin. |
+| `siteBaseUrl` | `https://ffmathy.github.io/sponsorkit`, or `apiBaseUrl` when only that is set | Site base URL (origin plus optional base path) for the pages: `<siteBaseUrl>/connect/`, `<siteBaseUrl>/checkout/`, `checkoutUrl()` and the loopback checkout redirect. In the browser, sign-in messages are accepted only from this URL's origin. |
 | `signInMethod` (node) | `"auto"` | `"auto" \| "loopback" \| "paste"`. |
 | `openBrowser(url)` (node) | system browser | Replace how URLs are opened. |
 | `promptForCode(url)` (node) | stdin | Replace how the paste-back code is read. Receives the URL to open. Pass it if your app reads stdin itself (see the paste-back note above). |

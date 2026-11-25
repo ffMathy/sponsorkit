@@ -58,7 +58,7 @@ test("apiBaseUrl normalization", () => {
 });
 
 test("siteBaseUrl normalization keeps the base path", () => {
-  expect(normalizeSiteBaseUrl("https://sponsorkit.github.io/sponsorkit.io/")).toBe("https://sponsorkit.github.io/sponsorkit.io");
+  expect(normalizeSiteBaseUrl("https://ffmathy.github.io/sponsorkit/")).toBe("https://ffmathy.github.io/sponsorkit");
   expect(normalizeSiteBaseUrl("http://127.0.0.1:1234//")).toBe("http://127.0.0.1:1234");
   expect(() => normalizeSiteBaseUrl("ftp://x")).toThrow(/siteBaseUrl/);
   expect(() => normalizeSiteBaseUrl("https://x.example/#a")).toThrow(/siteBaseUrl/);

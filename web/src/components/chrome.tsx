@@ -3,7 +3,7 @@ import { HeartIcon } from "./icons";
 import { Search } from "./search";
 import { ThemeToggle } from "./theme-toggle";
 
-export const REPO_URL = "https://github.com/sponsorkit/sponsorkit.io";
+export const REPO_URL = "https://github.com/ffMathy/sponsorkit";
 export const PROTOCOL_URL = `${REPO_URL}/blob/main/docs/PROTOCOL.md`;
 export const SPEC_URL = `${REPO_URL}/blob/main/docs/SPEC.md`;
 

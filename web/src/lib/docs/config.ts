@@ -8,7 +8,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 
-export const REPO_SLUG = "sponsorkit/sponsorkit.io";
+export const REPO_SLUG = "ffMathy/sponsorkit";
 export const REPO_URL = `https://github.com/${REPO_SLUG}`;
 export const EDIT_BASE_URL = `${REPO_URL}/edit/main/`;
 export const BLOB_BASE_URL = `${REPO_URL}/blob/main/`;
@@ -33,7 +33,7 @@ export const LANG_INFO: Record<RefLang, LangInfo> = {
   js: { label: "JavaScript / TypeScript", pkg: "@sponsorkit/sdk" },
   dotnet: { label: ".NET", pkg: "Sponsorkit" },
   python: { label: "Python", pkg: "sponsorkit" },
-  go: { label: "Go", pkg: "github.com/sponsorkit/sponsorkit.io/sdks/go" },
+  go: { label: "Go", pkg: "github.com/ffMathy/sponsorkit/sdks/go" },
   rust: { label: "Rust", pkg: "sponsorkit" },
 };
 

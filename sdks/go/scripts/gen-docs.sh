@@ -6,7 +6,7 @@
 # with SPONSORKIT_DOCS_OUT=<out-dir>, SPONSORKIT_DOCS_LANG=go and SPONSORKIT_REPO_ROOT set.
 #
 # The generator lives in scripts/gendocs, a separate Go module (standard library only: go/doc and
-# go/doc/comment), so it is not part of the published github.com/sponsorkit/sponsorkit.io/sdks/go
+# go/doc/comment), so it is not part of the published github.com/ffMathy/sponsorkit/sdks/go
 # module. It needs no network access. It writes _meta.json, index.md, one page per exported type,
 # functions.md and constants.md into <out-dir>. Check the output with
 #   bun run --cwd web docs:validate go --dir <out-dir>

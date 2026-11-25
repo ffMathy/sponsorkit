@@ -35,7 +35,7 @@ and helps them start. You write the rule; Sponsorkit reports the facts.
 | JavaScript / TypeScript | `@sponsorkit/sdk` | [Guide](languages/js/index.md) | [Reference](/docs/reference/js) |
 | .NET | `Sponsorkit` | [Guide](languages/dotnet/index.md) | [Reference](/docs/reference/dotnet) |
 | Python | `sponsorkit` | [Guide](languages/python/index.md) | [Reference](/docs/reference/python) |
-| Go | `github.com/sponsorkit/sponsorkit.io/sdks/go` | [Guide](languages/go/index.md) | [Reference](/docs/reference/go) |
+| Go | `github.com/ffMathy/sponsorkit/sdks/go` | [Guide](languages/go/index.md) | [Reference](/docs/reference/go) |
 | Rust | `sponsorkit` | [Guide](languages/rust/index.md) | [Reference](/docs/reference/rust) |
 
 Every SDK has the same behaviour, the same result shape and the same

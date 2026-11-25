@@ -772,7 +772,7 @@ function functionSection(d: Doc, from: string): string[] {
     if (refs.length) out.push(`**Type:** ${refs.join(", ")}`, "");
   }
   out.push(...renderExamples(d.symbol, from, entry, "**Example**"));
-  out.push(`[View source](https://github.com/sponsorkit/sponsorkit.io/blob/main/${sourceRef(d.decl)})`, "");
+  out.push(`[View source](https://github.com/ffMathy/sponsorkit/blob/main/${sourceRef(d.decl)})`, "");
   return out;
 }
 

@@ -106,7 +106,7 @@ import { Sponsorkit } from "@sponsorkit/sdk/node";
 const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
 
 console.error(`Support this project: ${sk.checkoutUrl({ frequency: "monthly" })}`);
-// https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Aoctocat%2Copencollective%3Amy-collective&frequency=monthly
+// https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copencollective%3Amy-collective&frequency=monthly
 ```
 
 Contributions made through this link aren't detected by the app that printed it, but they show up in

@@ -11,7 +11,7 @@ Every SDK is one package with the same behaviour and the same result shape. Pick
 | JavaScript / TypeScript | `@sponsorkit/sdk` | Node 20+, Bun, Deno, evergreen browsers | None |
 | .NET | `Sponsorkit` | `netstandard2.0` and `net8.0` builds | `System.Text.Json` (netstandard2.0 only) |
 | Python | `sponsorkit` | Python 3.10+ | `httpx` |
-| Go | `github.com/sponsorkit/sponsorkit.io/sdks/go` | Go 1.23+ | Standard library only |
+| Go | `github.com/ffMathy/sponsorkit/sdks/go` | Go 1.23+ | Standard library only |
 | Rust | `sponsorkit` | Rust 1.85+ (MSRV), Tokio | `reqwest` (rustls), `serde`, `tokio` |
 
 Rust apps also need a Tokio runtime, for example `cargo add tokio --features macros,rt-multi-thread`.
@@ -20,7 +20,7 @@ Rust apps also need a Tokio runtime, for example `cargo add tokio --features mac
 No Sponsorkit SDK has been released yet. `@sponsorkit/sdk`, `Sponsorkit` and `sponsorkit` are **not** on npm,
 NuGet, PyPI or crates.io, and some of those names aren't reserved yet, so a package someone else publishes
 under that name would not be this project. Until the first release is announced in the
-[repository](https://github.com/sponsorkit/sponsorkit.io), install from Git or from a local build as shown below,
+[repository](https://github.com/ffMathy/sponsorkit), install from Git or from a local build as shown below,
 and don't install these names from a registry.
 :::
 
@@ -31,27 +31,27 @@ JavaScript and .NET need a local build first. [Build from source](from-source.md
 
 :::tabs
 ```bash tab="JavaScript" key="js"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-(cd sponsorkit.io && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
-npm install ./sponsorkit.io/sdks/js/sponsorkit-sdk-0.1.0.tgz
+git clone https://github.com/ffMathy/sponsorkit.git
+(cd sponsorkit && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
+npm install ./sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
 ```
 
 ```bash tab=".NET" key="dotnet"
-git clone https://github.com/sponsorkit/sponsorkit.io.git
-dotnet pack sponsorkit.io/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
+git clone https://github.com/ffMathy/sponsorkit.git
+dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
 dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
 ```
 
 ```bash tab="Python" key="python"
-python -m pip install "sponsorkit @ git+https://github.com/sponsorkit/sponsorkit.io@main#subdirectory=sdks/python"
+python -m pip install "sponsorkit @ git+https://github.com/ffMathy/sponsorkit@main#subdirectory=sdks/python"
 ```
 
 ```bash tab="Go" key="go"
-go get github.com/sponsorkit/sponsorkit.io/sdks/go@main
+go get github.com/ffMathy/sponsorkit/sdks/go@main
 ```
 
 ```bash tab="Rust" key="rust"
-cargo add sponsorkit --git https://github.com/sponsorkit/sponsorkit.io
+cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit
 ```
 :::
 
@@ -77,7 +77,7 @@ pip install sponsorkit
 ```
 
 ```bash tab="Go" key="go"
-go get github.com/sponsorkit/sponsorkit.io/sdks/go
+go get github.com/ffMathy/sponsorkit/sdks/go
 ```
 
 ```bash tab="Rust" key="rust"

@@ -203,7 +203,7 @@ fn checkout_url_uses_the_site_base_url() {
         .checkout_url(&CheckoutOptions::default())
         .unwrap()
     };
-    assert_eq!(url(None, None), "https://sponsorkit.github.io/sponsorkit.io/checkout/?targets=github%3Aoctocat");
+    assert_eq!(url(None, None), "https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat");
     assert_eq!(
         url(Some("https://api.example.test"), Some("https://site.example.test/base/")),
         "https://site.example.test/base/checkout/?targets=github%3Aoctocat"

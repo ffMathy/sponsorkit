@@ -13,7 +13,7 @@ is enough).
 and Poetry commands, and the registry commands to use after the first release:
 
 ```bash title="Terminal"
-python -m pip install "sponsorkit @ git+https://github.com/sponsorkit/sponsorkit.io@main#subdirectory=sdks/python"
+python -m pip install "sponsorkit @ git+https://github.com/ffMathy/sponsorkit@main#subdirectory=sdks/python"
 ```
 
 ## The program

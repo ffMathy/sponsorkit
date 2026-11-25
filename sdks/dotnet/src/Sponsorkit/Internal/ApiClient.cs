@@ -96,7 +96,7 @@ internal sealed class ApiClient
     public const string DefaultBaseUrl = "https://api.sponsorkit.io";
 
     /// <summary>The default site base URL: origin plus base path, no trailing slash (PROTOCOL §0, §7).</summary>
-    public const string DefaultSiteBaseUrl = "https://sponsorkit.github.io/sponsorkit.io";
+    public const string DefaultSiteBaseUrl = "https://ffmathy.github.io/sponsorkit";
 
     /// <summary>The default per-request timeout (PROTOCOL §7.0).</summary>
     public static readonly TimeSpan DefaultRequestTimeout = TimeSpan.FromSeconds(30);

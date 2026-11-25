@@ -10,7 +10,7 @@ const fc = await sk.getFinancialContribution();
 if (fc.signedIn && fc.active().length === 0) showAd();
 ```
 
-It works with GitHub Sponsors and Open Collective. SDKs: JS/TS (`npm i @sponsorkit/sdk`), .NET (`dotnet add package Sponsorkit`), Python (`pip install sponsorkit`), Go (`go get github.com/sponsorkit/sponsorkit.io/sdks/go`) and Rust (`cargo add sponsorkit`). With them you can:
+It works with GitHub Sponsors and Open Collective. SDKs: JS/TS (`npm i @sponsorkit/sdk`), .NET (`dotnet add package Sponsorkit`), Python (`pip install sponsorkit`), Go (`go get github.com/ffMathy/sponsorkit/sdks/go`) and Rust (`cargo add sponsorkit`). With them you can:
 
 - check what the current user has contributed (`getFinancialContribution()`),
 - send users to contribute (`openCheckout()`),
@@ -18,14 +18,14 @@ It works with GitHub Sponsors and Open Collective. SDKs: JS/TS (`npm i @sponsork
 
 ## Documentation
 
-The full documentation lives at **[sponsorkit.github.io/sponsorkit.io/docs](https://sponsorkit.github.io/sponsorkit.io/docs/)**. Good places to start:
+The full documentation lives at **[ffmathy.github.io/sponsorkit/docs](https://ffmathy.github.io/sponsorkit/docs/)**. Good places to start:
 
-- [Getting started](https://sponsorkit.github.io/sponsorkit.io/docs/getting-started/) and the five-language [quickstart](https://sponsorkit.github.io/sponsorkit.io/docs/getting-started/quickstart/)
-- [Install](https://sponsorkit.github.io/sponsorkit.io/docs/install/): how to fetch the SDK for each language, from a package registry or from source
-- [Concepts](https://sponsorkit.github.io/sponsorkit.io/docs/concepts/) and [guides](https://sponsorkit.github.io/sponsorkit.io/docs/guides/)
-- The [API reference](https://sponsorkit.github.io/sponsorkit.io/docs/reference/), generated from each SDK's source
+- [Getting started](https://ffmathy.github.io/sponsorkit/docs/getting-started/) and the five-language [quickstart](https://ffmathy.github.io/sponsorkit/docs/getting-started/quickstart/)
+- [Install](https://ffmathy.github.io/sponsorkit/docs/install/): how to fetch the SDK for each language, from a package registry or from source
+- [Concepts](https://ffmathy.github.io/sponsorkit/docs/concepts/) and [guides](https://ffmathy.github.io/sponsorkit/docs/guides/)
+- The [API reference](https://ffmathy.github.io/sponsorkit/docs/reference/), generated from each SDK's source
 
-Sponsorkit runs in two places: the **site** (`web/`: landing page, docs and the consent and checkout pages) is a static export on GitHub Pages at https://sponsorkit.github.io/sponsorkit.io, and the **API** (`app/`) is a Cloudflare Worker at https://api.sponsorkit.io (see `docs/PROTOCOL.md` §0). `.github/workflows/ci.yml` builds the site, with the API reference generated from each SDK, and on every push to `main` deploys it to GitHub Pages and the Worker to Cloudflare (once deploys are enabled; see `docs/SPEC.md` §13). To work on the docs, see `web/content/docs/CONTRIBUTING-DOCS.md`.
+Sponsorkit runs in two places: the **site** (`web/`: landing page, docs and the consent and checkout pages) is a static export on GitHub Pages at https://ffmathy.github.io/sponsorkit, and the **API** (`app/`) is a Cloudflare Worker at https://api.sponsorkit.io (see `docs/PROTOCOL.md` §0). `.github/workflows/ci.yml` builds the site, with the API reference generated from each SDK, and on every push to `main` deploys it to GitHub Pages and the Worker to Cloudflare (once deploys are enabled; see `docs/SPEC.md` §13). To work on the docs, see `web/content/docs/CONTRIBUTING-DOCS.md`.
 
 ## Repository
 

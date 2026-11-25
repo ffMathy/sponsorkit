@@ -99,12 +99,12 @@ elif not any(c.amount.currency == "USD" and c.amount.value >= 500 for c in fc.ac
   {
     id: "go",
     name: "Go",
-    install: "go get github.com/sponsorkit/sponsorkit.io/sdks/go",
+    install: "go get github.com/ffMathy/sponsorkit/sdks/go",
     installLang: "bash",
     lang: "go",
     file: "main.go",
     runtime: "Go 1.23+. Standard library only.",
-    code: `import sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+    code: `import sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 
 sk, err := sponsorkit.New(sponsorkit.Options{
 	GitHub:         "mathiaslorenzen",

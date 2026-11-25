@@ -91,8 +91,8 @@ describe("common behaviour", () => {
     const body = await expectProblem(await call("/api/v1/nope"), 404, "not_found");
     // Single origin (no site vars): the site is the API origin.
     expect(body.type).toBe("https://sponsorkit.test/docs/reference-http/http-api/#errors");
-    const split = await expectProblem(await call("/api/v1/nope", {}, makeEnv({ PUBLIC_ORIGIN: "https://api.sponsorkit.io", SITE_BASE_URL: "https://sponsorkit.github.io/sponsorkit.io/" })), 404, "not_found");
-    expect(split.type).toBe("https://sponsorkit.github.io/sponsorkit.io/docs/reference-http/http-api/#errors");
+    const split = await expectProblem(await call("/api/v1/nope", {}, makeEnv({ PUBLIC_ORIGIN: "https://api.sponsorkit.io", SITE_BASE_URL: "https://ffmathy.github.io/sponsorkit/" })), 404, "not_found");
+    expect(split.type).toBe("https://ffmathy.github.io/sponsorkit/docs/reference-http/http-api/#errors");
   });
 
   it("rate limits per IP with Retry-After", async () => {

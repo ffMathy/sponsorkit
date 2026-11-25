@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 type vectorsFile struct {
@@ -312,7 +312,7 @@ func TestBaseURLDefaults(t *testing.T) {
 			t.Errorf("api %q site %q: got %s, want %s", tc.api, tc.site, got, tc.want)
 		}
 	}
-	if sponsorkit.DefaultAPIBaseURL != "https://api.sponsorkit.io" || sponsorkit.DefaultSiteBaseURL != "https://sponsorkit.github.io/sponsorkit.io" {
+	if sponsorkit.DefaultAPIBaseURL != "https://api.sponsorkit.io" || sponsorkit.DefaultSiteBaseURL != "https://ffmathy.github.io/sponsorkit" {
 		t.Errorf("defaults: %s, %s", sponsorkit.DefaultAPIBaseURL, sponsorkit.DefaultSiteBaseURL)
 	}
 	if _, err := sponsorkit.New(sponsorkit.Options{GitHub: "octocat", SiteBaseURL: "ftp://x"}); err == nil {

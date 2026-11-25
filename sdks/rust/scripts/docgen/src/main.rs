@@ -1668,7 +1668,7 @@ fn index_page(krate: &Crate, res: &Resolver) -> String {
     writeln!(
         out,
         ":::note[Pre-release]\nThe crate hasn't been published to crates.io yet. Until it is, depend on the \
-         repository:\n\n```toml title=\"Cargo.toml\"\n[dependencies]\n{} = {{ git = \"https://github.com/sponsorkit/sponsorkit.io\", \
+         repository:\n\n```toml title=\"Cargo.toml\"\n[dependencies]\n{} = {{ git = \"https://github.com/ffMathy/sponsorkit\", \
          branch = \"main\" }}\n```\n\nSee [installing the Rust SDK](/docs/languages/rust#install) for a local path and the \
          `Cargo.toml` line to use once the crate is released.\n:::\n",
         krate.name

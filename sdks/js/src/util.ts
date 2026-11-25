@@ -4,7 +4,7 @@ import { SponsorkitError } from "./errors";
 /** The default API origin (PROTOCOL §0): where every `/api/v1/…` call goes. */
 export const DEFAULT_API_BASE_URL = "https://api.sponsorkit.io";
 /** The default site base URL (PROTOCOL §0): origin plus base path of the pages (`/connect/`, `/checkout/`). */
-export const DEFAULT_SITE_BASE_URL = "https://sponsorkit.github.io/sponsorkit.io";
+export const DEFAULT_SITE_BASE_URL = "https://ffmathy.github.io/sponsorkit";
 
 /** An environment map (`process.env`-shaped). */
 export type Env = Record<string, string | undefined>;
@@ -82,7 +82,7 @@ export function normalizeBaseUrl(url: string): string {
 
 /**
  * Validates and normalizes a site base URL: an origin plus an optional base path
- * (`https://sponsorkit.github.io/sponsorkit.io`), without trailing slashes, query or fragment.
+ * (`https://ffmathy.github.io/sponsorkit`), without trailing slashes, query or fragment.
  */
 export function normalizeSiteBaseUrl(url: string): string {
   const u = parseHttpUrl(url, "siteBaseUrl");

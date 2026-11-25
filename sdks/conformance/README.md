@@ -35,7 +35,7 @@ The server has **two listeners**, mirroring production (PROTOCOL §0): the API o
   - Either way, the site base URL is available from `GET /__control` → `siteBaseUrl`. A harness that reads only the API port can still run the two-origin scenarios. The reference runner does this.
 - It stops on SIGTERM or SIGINT. If `SPONSORKIT_CONFORMANCE_EXIT_ON_STDIN_EOF=1` is set, it also stops when its stdin closes. Use this so a crashed test runner never leaks the server.
 - **API base URL** (`$BASE_URL`): `http://127.0.0.1:<apiPort>`. Pass it to the SDK as `apiBaseUrl`. This origin also serves the site pages at the root, for single-origin setups (§2.2).
-- **Site base URL** (`$SITE_BASE_URL`): `http://127.0.0.1:<sitePort>/sponsorkit.io`. It has a base path, like the GitHub Pages project site. Only scenarios that require the `siteBaseUrl` hook pass it to the SDK, as `siteBaseUrl`.
+- **Site base URL** (`$SITE_BASE_URL`): `http://127.0.0.1:<sitePort>/sponsorkit`. It has a base path, like the GitHub Pages project site. Only scenarios that require the `siteBaseUrl` hook pass it to the SDK, as `siteBaseUrl`.
 
 Typical harness:
 
@@ -56,7 +56,7 @@ scenarios = json.load(open("sdks/conformance/scenarios.json"))["scenarios"]
 @pytest.mark.parametrize("scenario", scenarios, ids=lambda s: s["id"])
 def test_conformance(scenario):
     run_scenario(scenario, base_url=f"http://127.0.0.1:{port}",
-                 site_base_url=f"http://127.0.0.1:{site_port}/sponsorkit.io")
+                 site_base_url=f"http://127.0.0.1:{site_port}/sponsorkit")
 ```
 
 Scenarios share one server, so run them **sequentially**.
@@ -94,11 +94,11 @@ The same fake serves two listeners (PROTOCOL §0, §9):
 | Listener | Serves | Page paths |
 |---|---|---|
 | **API** (`$BASE_URL`) | `/api/v1/*`, the control API, and the site pages at the root (single-origin self-hosting: an SDK given only `apiBaseUrl` uses it as `siteBaseUrl`) | `/connect/`, `/checkout/`, `/connect/done/`, `/checkout/thanks/` |
-| **Site** (`$SITE_BASE_URL`) | Only the site pages under the base path `/sponsorkit.io`, plus `/__fake/provider/*` | `/sponsorkit.io/connect/`, `/sponsorkit.io/checkout/`, … |
+| **Site** (`$SITE_BASE_URL`) | Only the site pages under the base path `/sponsorkit`, plus `/__fake/provider/*` | `/sponsorkit/connect/`, `/sponsorkit/checkout/`, … |
 
-- On the site listener, everything else is a `404`: `/api/*`, `/__control*`, and pages outside `/sponsorkit.io/`. An SDK that sends API calls to the site, or drops the site's base path, fails visibly.
+- On the site listener, everything else is a `404`: `/api/*`, `/__control*`, and pages outside `/sponsorkit/`. An SDK that sends API calls to the site, or drops the site's base path, fails visibly.
 - The trailing-slash form (`/connect/`) is canonical. The form without a slash is also accepted, but the scenarios assert the slash form.
-- Redirects issued by a page stay on the listener and base path that served it (for example `/sponsorkit.io/connect/done/#…`). The fake provider page is always at the root, `/__fake/provider/<provider>`.
+- Redirects issued by a page stay on the listener and base path that served it (for example `/sponsorkit/connect/done/#…`). The fake provider page is always at the root, `/__fake/provider/<provider>`.
 - The Open Collective `redirect` in provider URLs is `<origin><base path>/checkout/thanks/` of the listener that served `/checkout/`.
 - problem+json `type` is `$SITE_BASE_URL/docs/reference-http/http-api/#errors`. Clients must not depend on it.
 
@@ -127,7 +127,7 @@ All control endpoints take and return JSON.
 | `PATCH /__control` `{ …options }` | **Merges** options into the current behaviour. A `null` value removes that option. The counters of the options given are reset. Scenario `control` steps use this. |
 | `GET /__control` | State: `scenario`, `behaviour`, `counters`, `lastSessionToken`, `issuedSessionTokens` (in issue order, since reset), `lastCode`, `checkoutVisits`, `contributionsCalls`, `lastRequestSeq`, `siteBaseUrl` (the site listener's base URL, `$SITE_BASE_URL`). |
 | `POST /__control/reset` | Back to a freshly started server: no behaviour, no sessions, no codes, empty log. |
-| `GET /__control/requests[?since=<seq>]` | `{ requests: [{ seq, time, requestId, server, method, path, query, headers, body?, status, responseHeaders }], lastSeq }`.<br>• `server` is `"api"` or `"site"`: the listener that received the request. `path` is the raw path, including the site's `/sponsorkit.io` base path.<br>• `headers` holds only `authorization`, `content-type`, `accept`, `user-agent`, `origin` and `sponsorkit-*`.<br>• `body` is parsed JSON when possible.<br>• `responseHeaders` holds `location`, `retry-after` and `sponsorkit-session`. |
+| `GET /__control/requests[?since=<seq>]` | `{ requests: [{ seq, time, requestId, server, method, path, query, headers, body?, status, responseHeaders }], lastSeq }`.<br>• `server` is `"api"` or `"site"`: the listener that received the request. `path` is the raw path, including the site's `/sponsorkit` base path.<br>• `headers` holds only `authorization`, `content-type`, `accept`, `user-agent`, `origin` and `sponsorkit-*`.<br>• `body` is parsed JSON when possible.<br>• `responseHeaders` holds `location`, `retry-after` and `sponsorkit-session`. |
 | `DELETE /__control/requests` | Clears the log. |
 | `GET /__control/codes/latest` | The last issued code record: `{ code, provider, targets, challenge, delivery, redirectUri, origin, issuedAt, expiresAt, via }`. Answers `404` if no code has been issued. `GET /__control/codes` lists all of them. |
 | `POST /__control/sessions` `{ targets, identities: ["github", …] }` | Mints a session without sign-in and returns `{ sessionToken, expiresAt }`. |
@@ -193,7 +193,7 @@ These are substituted inside every string. Substitute the longest names first, a
 | Variable | Value |
 |---|---|
 | `$BASE_URL` | The fake server's API base URL, `http://127.0.0.1:<apiPort>`. |
-| `$SITE_BASE_URL` | The fake server's separate site base URL, `http://127.0.0.1:<sitePort>/sponsorkit.io` (origin plus base path, no trailing slash). Read it from `GET /__control` → `siteBaseUrl`, or build it from the `SITE` port of the `--print-site-port` line. |
+| `$SITE_BASE_URL` | The fake server's separate site base URL, `http://127.0.0.1:<sitePort>/sponsorkit` (origin plus base path, no trailing slash). Read it from `GET /__control` → `siteBaseUrl`, or build it from the `SITE` port of the `--print-site-port` line. |
 | `$STORAGE_DIR` | The scenario's storage directory (see §3.1). |
 | `$STORAGE_FILE` | `$STORAGE_DIR/$TARGETS_HASH.json` |
 | `$TARGETS_PARAM`, `$TARGETS_HASH` | The default target set's param and `targets_hash`. Other sets appear as literals. All hashes are in `fixtures/vectors.json`. |

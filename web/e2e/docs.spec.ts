@@ -23,7 +23,7 @@ test.describe("docs navigation", () => {
 
     await expect(page.getByRole("link", { name: "Edit this page on GitHub" })).toHaveAttribute(
       "href",
-      "https://github.com/sponsorkit/sponsorkit.io/edit/main/web/content/docs/getting-started/quickstart.md",
+      "https://github.com/ffMathy/sponsorkit/edit/main/web/content/docs/getting-started/quickstart.md",
     );
     const pager = page.getByRole("navigation", { name: "Previous and next pages" });
     await expect(pager.getByRole("link", { name: /Previous/ })).toHaveAttribute("href", p("/docs/getting-started/"));

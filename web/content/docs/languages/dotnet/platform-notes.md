@@ -102,5 +102,5 @@ it would share one session among all of them. On a server, use
   longer `Timeout`.
 - Requests carry a `User-Agent` of `sponsorkit-dotnet/<version>`.
 - The only host the SDK sends requests to is `ApiBaseUrl` (`https://api.sponsorkit.io` by default). The browser
-  opens pages on `SiteBaseUrl` (`https://sponsorkit.github.io/sponsorkit.io` by default). See
+  opens pages on `SiteBaseUrl` (`https://ffmathy.github.io/sponsorkit` by default). See
   [self-hosting](../../reference-http/self-hosting.md) to run your own.

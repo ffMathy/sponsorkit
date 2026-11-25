@@ -7,7 +7,7 @@
  * | Part              | Default                                 | Production analogue                         |
  * |-------------------|-----------------------------------------|---------------------------------------------|
  * | API (wrangler)    | http://localhost:28787                  | https://api.sponsorkit.io                   |
- * | Site (static)     | http://127.0.0.2:28788/sponsorkit.io    | https://sponsorkit.github.io/sponsorkit.io  |
+ * | Site (static)     | http://127.0.0.2:28788/sponsorkit       | https://ffmathy.github.io/sponsorkit        |
  * | App (SDK user)    | http://127.0.0.1:28789                  | https://app.example.com                     |
  * | Fake providers    | http://127.0.0.3:28790                  | github.com, api.github.com, opencollective.com |
  *
@@ -33,7 +33,7 @@ export const APP = { host: env.E2E_APP_HOST ?? "127.0.0.1", port: num(env.E2E_AP
 export const FAKE = { host: env.E2E_FAKE_HOST ?? "127.0.0.3", port: num(env.E2E_FAKE_PORT, 28790) };
 export const INSPECTOR_PORT = num(env.E2E_INSPECTOR_PORT, 28791);
 
-export const BASE_PATH = env.E2E_BASE_PATH ?? "/sponsorkit.io";
+export const BASE_PATH = env.E2E_BASE_PATH ?? "/sponsorkit";
 
 export const API_ORIGIN = `http://${API.host}:${API.port}`;
 export const SITE_ORIGIN = `http://${SITE.host}:${SITE.port}`;

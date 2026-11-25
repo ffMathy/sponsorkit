@@ -1,6 +1,6 @@
 # @sponsorkit/web
 
-The static site, deployed to GitHub Pages as a project site at https://sponsorkit.github.io/sponsorkit.io:
+The static site, deployed to GitHub Pages as a project site at https://ffmathy.github.io/sponsorkit:
 landing page, docs, 404, and the supporter pages `/connect/`, `/connect/done/`, `/checkout/` and
 `/checkout/thanks/` (PROTOCOL §0, §4.2, §4.5, §4.6, §6). Next.js App Router with `output: "export"`;
 there is no server rendering at runtime. The pages call the API (the Worker in `app/`, default
@@ -14,9 +14,9 @@ production values (PROTOCOL §0.2):
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `BASE_PATH` | `/sponsorkit.io` | Next.js `basePath`. `BASE_PATH=` (empty) builds at the root. |
+| `BASE_PATH` | `/sponsorkit` | Next.js `basePath`. `BASE_PATH=` (empty) builds at the root. |
 | `TRAILING_SLASH` | `1` | Pages export as `x/index.html` and link as `x/`. `0` turns it off. |
-| `SITE_URL` | `https://sponsorkit.github.io<BASE_PATH>` | Absolute site base URL for canonical URLs, `og:url`, `sitemap.xml` and `robots.txt`. |
+| `SITE_URL` | `https://ffmathy.github.io<BASE_PATH>` | Absolute site base URL for canonical URLs, `og:url`, `sitemap.xml` and `robots.txt`. |
 | `NEXT_PUBLIC_SPONSORKIT_API_BASE` | `https://api.sponsorkit.io` | API origin. Empty = same origin (`/api/…`). |
 
 - **Single-origin self-hosting** (site and API behind one origin, at its root):
@@ -31,7 +31,7 @@ production values (PROTOCOL §0.2):
   - The API base must use the same host as `PUBLIC_ORIGIN` (`localhost`, not `127.0.0.1`): the `__Host-sk_nonce`
     cookie is set on the host the form POST goes to, and the provider callback lands on `PUBLIC_ORIGIN`.
   - `SITE_BASE_URL` must include the dev server's base path. To keep the default base path instead, drop
-    `BASE_PATH=`, set `SITE_BASE_URL=http://localhost:3000/sponsorkit.io` and open http://localhost:3000/sponsorkit.io/.
+    `BASE_PATH=`, set `SITE_BASE_URL=http://localhost:3000/sponsorkit` and open http://localhost:3000/sponsorkit/.
 - The export includes `.nojekyll` (GitHub Pages would otherwise drop `_next/`), `robots.txt`, `sitemap.xml`
   and `404.html`; `docs:check-links` fails if one is missing.
 
@@ -43,7 +43,7 @@ production values (PROTOCOL §0.2):
 | `bun run docs:generate [--strict] [--no-stubs] [--only <lang>[,…]]` | Runs `sdks/<lang>/scripts/gen-docs.sh` for each SDK, validates the output and moves it to `.generated/reference/<lang>`. |
 | `bun run docs:validate <lang> [--dir <folder>]` | Validates a generator's output against the reference contract (no `next build`). |
 | `bun run docs:check-links` | After a build: every internal link and `#anchor` in `web/out` (and `search-index.json`, `sitemap.xml`, canonical URLs) resolves under the base path. |
-| `bun run serve` | Serves `web/out` on `127.0.0.1:4173/sponsorkit.io/` like GitHub Pages (`--base ""` for a root build). |
+| `bun run serve` | Serves `web/out` on `127.0.0.1:4173/sponsorkit/` like GitHub Pages (`--base ""` for a root build). |
 | `bun run test` | Vitest unit tests (`src/lib`: query parsing, eligibility, URLs, fragment handling; `src/lib/docs`: Markdown pipeline, navigation, search, link checking, reference validation, the real content tree). |
 | `bun run test:e2e` | Builds, checks links, then runs Playwright against `web/out` served under the base path, with the API origin (`/api/v1/*`, `/api/oauth/*`) mocked. |
 | `bun run typecheck` | `next typegen` + `tsc`. |

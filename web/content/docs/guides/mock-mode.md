@@ -43,7 +43,7 @@ import (
 	"fmt"
 	"log"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -185,7 +185,7 @@ import (
 	"context"
 	"testing"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func showAd(fc *sponsorkit.Result) bool {
@@ -316,4 +316,4 @@ To test the real sign-in and checkout flows end to end, the SDKs accept hooks fo
 `apiBaseUrl` to point at a fake server, `openBrowser` to "visit" the consent page programmatically,
 `promptForCode` to answer the paste-back prompt, `storageDir` for a temporary directory and, in every SDK except
 Rust, `clock` to control time. The Sponsorkit repository uses exactly these hooks to run the same scenarios against every SDK, with a
-fake API in [`sdks/conformance`](https://github.com/sponsorkit/sponsorkit.io/tree/main/sdks/conformance).
+fake API in [`sdks/conformance`](https://github.com/ffMathy/sponsorkit/tree/main/sdks/conformance).

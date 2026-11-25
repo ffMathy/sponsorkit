@@ -9,7 +9,7 @@ contributions on, ask what the current user contributes, and send them to contri
 - Sign-in through the system browser (loopback) or a pasted code on headless machines.
 - Mock mode for tests, a polite nag helper, and backend verification of session tokens.
 
-Website: <https://sponsorkit.github.io/sponsorkit.io/> · Spec: `docs/SPEC.md` · Wire protocol: `docs/PROTOCOL.md`
+Website: <https://ffmathy.github.io/sponsorkit/> · Spec: `docs/SPEC.md` · Wire protocol: `docs/PROTOCOL.md`
 
 ## Install
 
@@ -75,7 +75,7 @@ malformed (even when disabled), or the mock preset is unknown.
 | `mock` | – | `Mock::Preset(MockPreset::…)` or `Mock::Contributions(vec![…])`. Beats `SPONSORKIT_MOCK`. |
 | `storage_dir` | per-user config dir | Linux `$XDG_CONFIG_HOME/sponsorkit` (else `~/.config/sponsorkit`), macOS `~/Library/Application Support/sponsorkit`, Windows `%APPDATA%\sponsorkit`. Relative values of these variables are ignored. When no directory can be determined (e.g. `HOME` unset), the session is kept in memory for the life of the client: construction never fails for this and nothing is written to the working directory. |
 | `api_base_url` | `https://api.sponsorkit.io` (`DEFAULT_API_BASE_URL`) | Origin of the API, used for every API call (`/api/v1/…`). Trailing slashes are trimmed; `""` counts as unset. |
-| `site_base_url` | `https://sponsorkit.github.io/sponsorkit.io` (`DEFAULT_SITE_BASE_URL`), **or `api_base_url` when that is set and this is not** | Site base URL (origin plus optional base path), used for every page URL: `<site_base_url>/connect/`, `<site_base_url>/checkout/`, `checkout_url` and the loopback redirect after a checkout sign-in. The fallback keeps single-origin self-hosting and tests working with `api_base_url` alone. Trailing slashes are trimmed; `""` counts as unset. |
+| `site_base_url` | `https://ffmathy.github.io/sponsorkit` (`DEFAULT_SITE_BASE_URL`), **or `api_base_url` when that is set and this is not** | Site base URL (origin plus optional base path), used for every page URL: `<site_base_url>/connect/`, `<site_base_url>/checkout/`, `checkout_url` and the loopback redirect after a checkout sign-in. The fallback keeps single-origin self-hosting and tests working with `api_base_url` alone. Trailing slashes are trimmed; `""` counts as unset. |
 | `request_timeout` | 30 s (`DEFAULT_REQUEST_TIMEOUT`) | Timeout for every HTTP request, body included; `Duration::ZERO` disables it. A timeout is a network failure: `get_financial_contribution` serves the stale cache, `sign_in` fails with `network_error`. |
 | `sign_in_method` | `Auto` | `Auto` (loopback, falls back to paste-back without a display, over SSH, or when the browser cannot open), `Loopback`, `Paste`. |
 | `sign_in_timeout` | 300 s | How long a loopback or paste-back sign-in may take (also the sign-in phase of `open_checkout`). Exceeding it fails with `timeout`. |

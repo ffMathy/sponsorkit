@@ -64,7 +64,7 @@ malformed targets and invalid options (even when Sponsorkit is disabled).
 | `storage_dir` | per-user config dir | Where state files live (see [Local storage](#local-storage)). |
 | `storage` | `FileStorage(storage_dir)` | Custom backend implementing the `Storage` protocol (`read`/`write`/`delete`). |
 | `api_base_url` | `https://api.sponsorkit.io` | The API origin, used for every API call (`/api/v1/…`). Self-hosting and tests. |
-| `site_base_url` | `api_base_url` if that is set, else `https://sponsorkit.github.io/sponsorkit.io` | The site base URL (origin plus optional path) for the sign-in page (`<site_base_url>/connect/`), the checkout page and `checkout_url()` (`<site_base_url>/checkout/`), and the redirect after a loopback checkout sign-in. `None` and `""` count as unset; trailing slashes are trimmed. |
+| `site_base_url` | `api_base_url` if that is set, else `https://ffmathy.github.io/sponsorkit` | The site base URL (origin plus optional path) for the sign-in page (`<site_base_url>/connect/`), the checkout page and `checkout_url()` (`<site_base_url>/checkout/`), and the redirect after a loopback checkout sign-in. `None` and `""` count as unset; trailing slashes are trimmed. |
 | `sign_in_method` | `"auto"` | `"auto"`, `"loopback"` or `"paste"`. |
 | `open_browser` | system launcher | `open_browser(url)`; return `False` or raise if it could not open. It runs in a helper thread: the loopback callback is accepted while it is still running. The default runs `xdg-open` / `open` / `rundll32` (or `webbrowser.open` when `$BROWSER` is set or no launcher exists): a non-zero exit counts as failed, still running after 1.5 s counts as opened. |
 | `prompt_for_code` | read a line from stdin | `prompt_for_code(url) -> str` for paste-back sign-in. See the [stdin limitation](#sign-in). |
@@ -147,7 +147,7 @@ the signed-out result. `SPONSORKIT_DISABLE=1` turns everything into a no-op (`di
 
 - **Loopback** (desktop): listens on `127.0.0.1:<random>/callback`, opens the browser, waits up to
   `sign_in_timeout` (5 minutes) for the code, exchanges it with its PKCE verifier.
-- **Paste-back** (SSH, containers): prints a `https://sponsorkit.github.io/sponsorkit.io/connect/?…&delivery=paste` URL to
+- **Paste-back** (SSH, containers): prints a `https://ffmathy.github.io/sponsorkit/connect/?…&delivery=paste` URL to
   stderr and asks for the code shown in the browser (valid for 10 minutes). `sign_in_timeout` and
   `cancel` apply to the prompt too (a blocked `prompt_for_code` is left running in a daemon thread).
 - **`auto`** (default) picks paste-back when `SSH_CONNECTION`/`SSH_TTY` is set or there is no

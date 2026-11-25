@@ -11,10 +11,10 @@ const TARGETS = "github:mathiaslorenzen,opencollective:sponsorkit";
 /** Two-origin deployment, as in production (PROTOCOL §0): site on Pages, API on its own host. */
 const SPLIT = {
   PUBLIC_ORIGIN: "https://api.sponsorkit.test",
-  SITE_BASE_URL: "https://pages.test/sponsorkit.io/",
+  SITE_BASE_URL: "https://pages.test/sponsorkit/",
   SITE_ORIGIN: "https://pages.test",
 } as const;
-const SPLIT_SITE = "https://pages.test/sponsorkit.io";
+const SPLIT_SITE = "https://pages.test/sponsorkit";
 
 function startForm(params: Record<string, string>): URLSearchParams {
   return new URLSearchParams({ targets: TARGETS, challenge: CHALLENGE, ...params });
@@ -211,8 +211,8 @@ describe("POST /api/oauth/:provider/start", () => {
   it("returns 500 HTML when misconfigured, without leaking the setting name", async () => {
     for (const over of [
       { ...SPLIT, SEALING_KEYS: undefined },
-      { SITE_BASE_URL: "https://pages.test/sponsorkit.io", SITE_ORIGIN: "https://other.test" },
-      { SITE_BASE_URL: "https://pages.test/sponsorkit.io", SITE_ORIGIN: "https://pages.test/sponsorkit.io" },
+      { SITE_BASE_URL: "https://pages.test/sponsorkit", SITE_ORIGIN: "https://other.test" },
+      { SITE_BASE_URL: "https://pages.test/sponsorkit", SITE_ORIGIN: "https://pages.test/sponsorkit" },
       { SITE_BASE_URL: "not a url" },
       { SITE_BASE_URL: "ftp://pages.test" },
     ] as Array<Partial<Env>>) {

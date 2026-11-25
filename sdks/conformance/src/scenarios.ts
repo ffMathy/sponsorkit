@@ -73,7 +73,7 @@ const OC_IDENTITY = { provider: "opencollective", id: "rvelxbzm-o9n8y05w-wq9op3d
 type Call = NonNullable<NonNullable<NonNullable<Step["expect"]>["requests"]>["calls"]>[number];
 
 /** Base path of the fake server's separate site origin (PROTOCOL §9; `$SITE_BASE_URL` ends with it). */
-export const SITE_BASE_PATH = "/sponsorkit.io";
+export const SITE_BASE_PATH = "/sponsorkit";
 
 const connectCall = (query: Record<string, unknown> = {}, count = 1, where: Pick<Call, "path" | "server"> = { path: "/connect/" }): Call => ({
   method: "GET",
@@ -1152,7 +1152,7 @@ const site: Scenario[] = [
     id: "site-base-url-sign-in-loopback",
     title: "Loopback sign-in opens the site origin and calls the API origin",
     description:
-      "With siteBaseUrl and apiBaseUrl on different origins, signIn() opens <siteBaseUrl>/connect/ (the site listener, under its base path /sponsorkit.io, trailing-slash form) and exchanges the code at <apiBaseUrl>/api/v1/auth/token. Contributions are fetched from the API origin. Nothing API-related goes to the site and no page goes to the API.",
+      "With siteBaseUrl and apiBaseUrl on different origins, signIn() opens <siteBaseUrl>/connect/ (the site listener, under its base path /sponsorkit, trailing-slash form) and exchanges the code at <apiBaseUrl>/api/v1/auth/token. Contributions are fetched from the API origin. Nothing API-related goes to the site and no page goes to the API.",
     category: "sign-in",
     specRefs: ["PROTOCOL §0", "PROTOCOL §7", "PROTOCOL §9"],
     requires: ["siteBaseUrl", "openBrowser", "signInMethod"],
@@ -1588,7 +1588,7 @@ const serverHelper: Scenario[] = [
 export const VARIABLES: Record<string, string> = {
   $BASE_URL: "runtime: http://127.0.0.1:<apiPort> of the fake server's API listener (the first number of the LISTENING line)",
   $SITE_BASE_URL:
-    "runtime: http://127.0.0.1:<sitePort>/sponsorkit.io, the fake server's separate site origin plus its base path (the SITE number of the LISTENING line, or GET /__control -> siteBaseUrl)",
+    "runtime: http://127.0.0.1:<sitePort>/sponsorkit, the fake server's separate site origin plus its base path (the SITE number of the LISTENING line, or GET /__control -> siteBaseUrl)",
   $STORAGE_DIR: "runtime: a fresh absolute path per scenario whose parent exists and which does not exist yet",
   $STORAGE_FILE: "$STORAGE_DIR/$TARGETS_HASH.json",
   $TARGETS_PARAM: DEFAULT_TARGETS_PARAM,

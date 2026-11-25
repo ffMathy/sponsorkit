@@ -29,7 +29,7 @@ import (
 	"os/signal"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -112,7 +112,7 @@ import (
 	"log"
 	"os"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -125,7 +125,7 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Fprintln(os.Stderr, "Support my-cli:", link)
-	// https://sponsorkit.github.io/sponsorkit.io/checkout/?amount=500&frequency=monthly&targets=github%3Aoctocat
+	// https://ffmathy.github.io/sponsorkit/checkout/?amount=500&frequency=monthly&targets=github%3Aoctocat
 }
 ```
 

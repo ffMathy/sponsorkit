@@ -1,5 +1,5 @@
 {
-  "type": "https://sponsorkit.github.io/sponsorkit.io/docs/reference-http/http-api/#errors",
+  "type": "https://ffmathy.github.io/sponsorkit/docs/reference-http/http-api/#errors",
   "title": "Rate limited",
   "status": 429,
   "code": "rate_limited",

@@ -28,7 +28,7 @@ to see what the new supporter contributes.
 2. The popup goes to Sponsorkit's `/connect/` page (on `siteBaseUrl`) with a PKCE challenge, the user picks a
    provider and approves.
 3. Sponsorkit's `/connect/done/` page posts a one-time code back to your page with `postMessage`. The SDK accepts
-   it only from the origin of `siteBaseUrl` (by default `https://sponsorkit.github.io`) and from that popup,
+   it only from the origin of `siteBaseUrl` (by default `https://ffmathy.github.io`) and from that popup,
    exchanges it for a session token and stores the token in `localStorage`.
 
 If the user closes the popup, `signIn()` rejects with `cancelled`.

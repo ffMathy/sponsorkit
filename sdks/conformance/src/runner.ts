@@ -60,7 +60,7 @@ export interface RunContext {
   /** The fake server's API base URL (`$BASE_URL`). */
   baseUrl: string;
   /**
-   * The fake server's site base URL (`$SITE_BASE_URL`): `http://127.0.0.1:<sitePort>/sponsorkit.io`.
+   * The fake server's site base URL (`$SITE_BASE_URL`): `http://127.0.0.1:<sitePort>/sponsorkit`.
    * When omitted, the runner reads it from `GET /__control` -> `siteBaseUrl`.
    */
   siteBaseUrl?: string;

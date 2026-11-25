@@ -10,7 +10,7 @@ shared, your app learns only what it needs, and Sponsorkit itself keeps nothing.
 ## What the supporter sees
 
 Before anything is shared, the supporter sees a consent screen on the Sponsorkit website
-(`sponsorkit.github.io/sponsorkit.io`, or your own site if you [self-host](../reference-http/self-hosting.md)) with:
+(`ffmathy.github.io/sponsorkit`, or your own site if you [self-host](../reference-http/self-hosting.md)) with:
 
 - **Your targets**, each with the avatar and name fetched from GitHub or Open Collective, so a lookalike account
   is easier to spot.

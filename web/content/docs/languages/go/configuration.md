@@ -16,7 +16,7 @@ import (
 	"log"
 	"time"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -57,7 +57,7 @@ changing it later signs users out of your app ([why](../../concepts/targets.md#t
 | `StorageDir` | `string` | `DefaultStorageDir()` | Directory of the state file. Ignored when `Storage` is set. If there is no per-user config directory (for example `HOME` and `XDG_CONFIG_HOME` are unset), state is kept in process memory only. |
 | `Storage` | `sponsorkit.Storage` | `&DirStorage{Dir: StorageDir}` | Replaces file storage entirely, for example with a keychain-backed implementation. |
 | `APIBaseURL` | `string` | `https://api.sponsorkit.io` | The API origin, used for every API call, for [self-hosting](../../reference-http/self-hosting.md) and tests. Must be an `http` or `https` URL. |
-| `SiteBaseURL` | `string` | `https://sponsorkit.github.io/sponsorkit.io`, or `APIBaseURL` when only that is set | The site base URL (origin plus optional path), used for the `/connect/` and `/checkout/` pages, `CheckoutURL` and the loopback checkout redirect. Must be an `http` or `https` URL; trailing slashes are trimmed. |
+| `SiteBaseURL` | `string` | `https://ffmathy.github.io/sponsorkit`, or `APIBaseURL` when only that is set | The site base URL (origin plus optional path), used for the `/connect/` and `/checkout/` pages, `CheckoutURL` and the loopback checkout redirect. Must be an `http` or `https` URL; trailing slashes are trimmed. |
 | `HTTPClient` | `*http.Client` | `&http.Client{}` | Used for every API call. Its transport, proxy settings and TLS configuration apply. |
 | `RequestTimeout` | `time.Duration` | 30 s | Bounds each HTTP request, including reading the response. `sponsorkit.NoRequestTimeout` (any negative value) disables it. Applies whichever `HTTPClient` you pass. |
 
@@ -128,7 +128,7 @@ package main
 import (
 	"log"
 
-	sponsorkit "github.com/sponsorkit/sponsorkit.io/sdks/go"
+	sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 )
 
 func main() {
@@ -147,7 +147,7 @@ func main() {
 |---|---|
 | `sponsorkit.Version` | The SDK version, `"0.1.0"`. Sent in the `User-Agent` header as `sponsorkit-go/0.1.0`. |
 | `sponsorkit.DefaultAPIBaseURL` | `"https://api.sponsorkit.io"`. |
-| `sponsorkit.DefaultSiteBaseURL` | `"https://sponsorkit.github.io/sponsorkit.io"`. |
+| `sponsorkit.DefaultSiteBaseURL` | `"https://ffmathy.github.io/sponsorkit"`. |
 | `sponsorkit.NoRequestTimeout` | `-1`: disables `RequestTimeout` and `WithRequestTimeout`. |
 | `sponsorkit.MockPresetNames` | The mock preset names. |
 | `sponsorkit.DefaultStorageDir()` | The default `StorageDir`; see [platform notes](platform-notes.md#where-state-is-stored). |
