@@ -11,10 +11,10 @@ is up to you: say thank you, show a gentle reminder every few runs, hide an ad, 
 There is no Sponsorkit account to create, no API key, no webhook and no dashboard. You name the accounts you
 receive money on, and the SDK does the rest.
 
-:::warning[Project status: pre-release]
+:::note[Project status]
 The hosted API at `api.sponsorkit.io` is live. Some provider behaviour (for example which GitHub sponsorship
 data the requested scopes return) has only been tested against stubbed provider responses, not live GitHub or
-Open Collective accounts. The JavaScript, .NET, Python and Go SDKs are published; the Rust crate isn't on crates.io yet. See
+Open Collective accounts. All five SDKs are published at 1.0.0. See
 [Install](../install/index.md).
 :::
 
@@ -72,7 +72,7 @@ of Sponsorkit: see the [error contract](../concepts/error-contract.md).
 
 ## The four steps
 
-1. **Install the SDK** for your language: from its package registry, or from the repository for Rust until its first release. See [Install](../install/index.md).
+1. **Install the SDK** for your language: from its package registry. See [Install](../install/index.md).
 2. **Name your targets:** the GitHub login and/or Open Collective slug you receive sponsorships on. See
    [Targets](../concepts/targets.md).
 3. **Check, and offer to sign in.** Call `getFinancialContribution()`. If the user isn't signed in, call

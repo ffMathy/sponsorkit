@@ -1,6 +1,6 @@
 {
   "name": "@sponsorkit/sdk",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Sponsorkit SDK: check GitHub Sponsors and Open Collective contributions and open checkout from your app. Zero dependencies; browsers, Node, Bun, Deno and Workers.",
   "license": "MIT",
   "homepage": "https://ffmathy.github.io/sponsorkit/",

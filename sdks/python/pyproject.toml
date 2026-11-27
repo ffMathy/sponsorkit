@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sponsorkit"
-version = "0.2.0"
+version = "1.0.0"
 description = "Build GitHub Sponsors and Open Collective contributions directly into your software: check who supports you, open a checkout, nag politely."
 readme = "README.md"
 license = "MIT"

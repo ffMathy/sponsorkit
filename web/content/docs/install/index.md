@@ -1,6 +1,6 @@
 ---
 title: Install
-description: Packages, supported runtimes and how to add Sponsorkit to your project, plus how to use the Rust crate before it is published.
+description: Packages, supported runtimes and how to add Sponsorkit to your project, and which versions to use.
 sidebar_label: Overview
 ---
 
@@ -16,11 +16,12 @@ Every SDK is one package with the same behaviour and the same result shape. Pick
 
 Rust apps also need a Tokio runtime, for example `cargo add tokio --features macros,rt-multi-thread`.
 
-:::danger[Rust isn't on crates.io yet]
-The JavaScript, .NET, Python and Go SDKs are published. The Rust crate `sponsorkit` is **not** on crates.io
-yet, and a crate someone else publishes under that name would not be this project. Until its first release is
-announced in the [repository](https://github.com/ffMathy/sponsorkit), depend on the Git repository as shown
-below.
+:::note[Use 1.0.0 or later]
+Every SDK is published at 1.0.0: [npm](https://www.npmjs.com/package/@sponsorkit/sdk),
+[NuGet](https://www.nuget.org/packages/Sponsorkit), [PyPI](https://pypi.org/project/sponsorkit/),
+[crates.io](https://crates.io/crates/sponsorkit) and the
+[Go module proxy](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go). Releases before 1.0.0 used an
+older spelling of Open Collective and don't work with the hosted API; see [versions](versions.md).
 :::
 
 ## Install
@@ -39,17 +40,16 @@ pip install sponsorkit
 ```
 
 ```bash tab="Go" key="go"
-go get github.com/ffMathy/sponsorkit/sdks/go@v0.2.0
+go get github.com/ffMathy/sponsorkit/sdks/go@v1.0.0
 ```
 
 ```bash tab="Rust" key="rust"
-cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit
+cargo add sponsorkit
 ```
 :::
 
 Run each command in your project's folder. [Package managers & CDNs](package-managers.md) has the commands for
-pnpm, Yarn, Bun, Deno, uv, Poetry, Paket and more. Once the crate is on crates.io, Rust becomes
-`cargo add sponsorkit`.
+pnpm, Yarn, Bun, Deno, uv, Poetry, Paket and more.
 
 ## In this section
 

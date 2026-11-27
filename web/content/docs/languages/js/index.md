@@ -64,7 +64,7 @@ For a page without a build step, load the ES module from an npm CDN such as esm.
 </script>
 ```
 
-Pin a version (`@sponsorkit/sdk@0.2.0`) in production.
+Pin a version (`@sponsorkit/sdk@1.0.0`) in production.
 :::
 ::::
 

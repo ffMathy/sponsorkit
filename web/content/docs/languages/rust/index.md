@@ -22,18 +22,30 @@ There's no Sponsorkit account or API key. You name the accounts you receive mone
 
 ## Install
 
-The crate will be published on crates.io as `sponsorkit`. You also need Tokio in your own app to run async
-code; `#[tokio::main]` needs the `macros` feature, plus `rt-multi-thread` for its default multi-thread flavour.
-
-:::note[Pre-release]
-`sponsorkit` hasn't been published to crates.io yet, so `cargo add sponsorkit` and `sponsorkit = "0.1"` fail
-with "could not be found in registry index" for now. Until the first release, depend on the repository with the
-**Git** or **Local path** tab below, or see [build from source](../../install/from-source.md#rust).
-:::
+The crate is [on crates.io](https://crates.io/crates/sponsorkit) as `sponsorkit`. You also need Tokio in your
+own app to run async code; `#[tokio::main]` needs the `macros` feature, plus `rt-multi-thread` for its default
+multi-thread flavour.
 
 ::::tabs{group="cargo"}
+:::tab[cargo add]{key="cargo-add"}
+```bash title="Terminal"
+cargo add sponsorkit
+cargo add tokio --features macros,rt-multi-thread
+```
+:::
+:::tab[Cargo.toml]{key="cargo-toml"}
+```toml title="Cargo.toml"
+[dependencies]
+sponsorkit = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+```
+
+`"1"` accepts any 1.x release. Pin an exact version with `"=1.0.0"`; see
+[versions & pinning](../../install/versions.md#rust).
+:::
 :::tab[Git]{key="git"}
-Cargo finds the crate inside the repository by its name, so you can depend on a branch, tag or commit:
+To try an unreleased change, depend on the repository. Cargo finds the crate inside it by its name, so you can
+depend on a branch, tag or commit:
 
 ```toml title="Cargo.toml"
 [dependencies]
@@ -41,8 +53,8 @@ sponsorkit = { git = "https://github.com/ffMathy/sponsorkit", branch = "main" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 
-`Cargo.lock` records the exact commit. Use `rev = "<commit>"` instead of `branch` for a fixed version, or,
-once releases are tagged, `tag = "sdks/rust/v0.1.0"`.
+`Cargo.lock` records the exact commit. Use `rev = "<commit>"` or `tag = "sdks/rust/v1.0.0"` instead of
+`branch` for a fixed version.
 :::
 :::tab[Local path]{key="path"}
 To work against a clone of the repository:
@@ -58,26 +70,6 @@ tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 
 See [build from source](../../install/from-source.md#rust) for running the SDK's own tests.
-:::
-:::tab[cargo add (after release)]{key="cargo-add"}
-Once the crate is on crates.io:
-
-```bash title="Terminal"
-cargo add sponsorkit
-cargo add tokio --features macros,rt-multi-thread
-```
-:::
-:::tab[Cargo.toml (after release)]{key="cargo-toml"}
-Once the crate is on crates.io:
-
-```toml title="Cargo.toml"
-[dependencies]
-sponsorkit = "0.1"
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-```
-
-`"0.1"` accepts any `0.1.x` release. Pin an exact version with `"=0.1.0"`; see
-[versions & pinning](../../install/versions.md#rust).
 :::
 ::::
 

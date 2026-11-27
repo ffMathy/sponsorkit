@@ -7,15 +7,16 @@ order: 40
 ## How versions work
 
 - **Each SDK has its own version**, released independently from this monorepo by pushing a tag named
-  `sdks/<sdk>/v<version>`: `sdks/js/v0.2.0`, `sdks/dotnet/v0.2.0`, `sdks/python/v0.2.0`, `sdks/go/v0.2.0`,
-  `sdks/rust/v0.1.0`. For the registry packages, the release workflow refuses a tag that doesn't match the
+  `sdks/<sdk>/v<version>`: `sdks/js/v1.0.0`, `sdks/dotnet/v1.0.0`, `sdks/python/v1.0.0`, `sdks/go/v1.0.0`,
+  `sdks/rust/v1.0.0`. For the registry packages, the release workflow refuses a tag that doesn't match the
   version in the package manifest.
-- **The SDKs started at 0.1.0.** They follow semantic versioning, so while the major version is 0, a minor
-  release (0.1 to 0.2) may contain breaking changes. Pin to a minor version, and check what changed before
-  moving to the next one. JavaScript, .NET, Python and Go are at 0.2.0, which spells Open Collective
-  `open-collective` on the wire and renamed the option to `openCollective` (JavaScript) and `open_collective`
-  (Python, Rust). The 0.1.0 releases use the old spelling and don't work with the hosted API: upgrade them.
-- **The HTTP API is versioned separately** under `/api/v1`. SDK versions from 0.2.0 on speak `v1`, and their
+- **Every SDK is at 1.0.0** and follows semantic versioning: minor and patch releases are backwards compatible,
+  and a breaking change bumps the major version. Pin to a major version ("1.x") and let minor and patch updates
+  in.
+- **Use 1.0.0 or later.** Releases before 1.0.0 (0.1.0, and anything 0.x) used an older spelling of Open
+  Collective on the wire (`opencollective` instead of `open-collective`) and don't work with the hosted API.
+  1.0.0 also names the option `openCollective` (JavaScript) and `open_collective` (Python, Rust).
+- **The HTTP API is versioned separately** under `/api/v1`. Every SDK from 1.0.0 on speaks `v1`, and their
   behaviour is pinned by the shared conformance suite, so different SDKs (or SDK versions) agree on the result shape and the
   [stored state](supported-platforms.md#where-state-is-stored).
 - **Registries publish through trusted publishing** (OIDC from GitHub Actions): npm, NuGet, PyPI and crates.io.
@@ -23,51 +24,51 @@ order: 40
 
 ## Pinning
 
-The quickest safe choice is "this minor version, any patch". Lock files (`package-lock.json`, `packages.lock.json`,
+The quickest safe choice is "this major version, any minor or patch". Lock files (`package-lock.json`, `packages.lock.json`,
 `uv.lock`, `poetry.lock`, `go.sum`, `Cargo.lock`) then make builds reproducible.
 
 ### JavaScript {#javascript}
 
 ```bash title="Terminal"
-npm install @sponsorkit/sdk@0.2.0 --save-exact   # exactly 0.2.0
+npm install @sponsorkit/sdk@1.0.0 --save-exact   # exactly 1.0.0
 ```
 
-In `package.json`, `"^0.2.0"` and `"~0.2.0"` both mean "0.2.x" for a 0.x version; `"0.2.0"` is exact. pnpm, Yarn
+In `package.json`, `"^1.0.0"` means "1.x", `"~1.0.0"` means "1.0.x", and `"1.0.0"` is exact. pnpm, Yarn
 and Bun read the same ranges.
 
 ### .NET {#dotnet}
 
 ```xml title="MyApp.csproj"
-<PackageReference Include="Sponsorkit" Version="[0.2.0]" />
+<PackageReference Include="Sponsorkit" Version="[1.0.0,2.0.0)" />
 ```
 
-A plain `Version="0.2.0"` is a minimum: NuGet resolves the lowest version that satisfies every constraint, so in
-practice you get exactly 0.2.0 until you change it. Brackets make it an exact pin. Paket uses
-`nuget Sponsorkit ~> 0.2.0` in `paket.dependencies` for "0.2.x".
+`[1.0.0,2.0.0)` accepts any 1.x release. A plain `Version="1.0.0"` is a minimum: NuGet resolves the lowest
+version that satisfies every constraint, so in practice you get exactly 1.0.0 until you change it, and
+`[1.0.0]` is an exact pin. Paket uses `nuget Sponsorkit ~> 1.0` in `paket.dependencies` for "1.x".
 
 ### Python {#python}
 
 ```toml title="pyproject.toml"
-dependencies = ["sponsorkit~=0.2.0"]   # >=0.2.0, <0.3
+dependencies = ["sponsorkit~=1.0"]   # >=1.0, <2
 ```
 
-`sponsorkit==0.2.0` pins exactly. `sponsorkit.__version__` reports what is installed.
+`sponsorkit==1.0.0` pins exactly. `sponsorkit.__version__` reports what is installed.
 
 ### Go {#go}
 
 ```bash title="Terminal"
-go get github.com/ffMathy/sponsorkit/sdks/go@v0.2.0
+go get github.com/ffMathy/sponsorkit/sdks/go@v1.0.0
 ```
 
 `go.mod` always records an exact version, and Go's minimal version selection never upgrades it on its own. The
-tag in the repository is `sdks/go/v0.2.0` (Go's convention for a module in a subdirectory), but you ask for
-`@v0.2.0`. For an unreleased change, ask for a branch or commit: `@main` resolves to a pseudo-version.
+tag in the repository is `sdks/go/v1.0.0` (Go's convention for a module in a subdirectory), but you ask for
+`@v1.0.0`. For an unreleased change, ask for a branch or commit: `@main` resolves to a pseudo-version.
 
 ### Rust {#rust}
 
 ```toml title="Cargo.toml"
 [dependencies]
-sponsorkit = "=0.1.0"   # exactly 0.1.0; "0.1" means >=0.1.0, <0.2.0
+sponsorkit = "1"   # >=1.0.0, <2.0.0; "=1.0.0" pins exactly
 ```
 
 ## Upgrading

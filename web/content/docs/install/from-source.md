@@ -5,8 +5,7 @@ order: 50
 ---
 
 All five SDKs live in one repository, [ffMathy/sponsorkit](https://github.com/ffMathy/sponsorkit),
-under `sdks/<language>/`. Use this page for the Rust crate until its first release reaches crates.io, or to try a change that isn't
-released yet.
+under `sdks/<language>/`. Every SDK is published to its registry; use this page to try a change that isn't released yet.
 
 How easy that is depends on the package manager:
 
@@ -31,13 +30,13 @@ git clone https://github.com/ffMathy/sponsorkit.git
 cd sponsorkit
 bun install
 bun run --cwd sdks/js build
-cd sdks/js && npm pack          # writes sponsorkit-sdk-0.2.0.tgz
+cd sdks/js && npm pack          # writes sponsorkit-sdk-1.0.0.tgz
 ```
 
 Then, in your project:
 
 ```bash title="Terminal"
-npm install /path/to/sponsorkit/sdks/js/sponsorkit-sdk-0.2.0.tgz
+npm install /path/to/sponsorkit/sdks/js/sponsorkit-sdk-1.0.0.tgz
 ```
 
 The tarball is exactly what `npm publish` would upload, so imports, types and entry points behave like the
@@ -50,10 +49,10 @@ Pack the library into a folder and use that folder as a package source:
 
 ```bash title="Terminal"
 git clone https://github.com/ffMathy/sponsorkit.git
-dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.2.0-local.1
+dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=1.0.0-local.1
 
 cd my-app
-dotnet add package Sponsorkit --version 0.2.0-local.1 --source ~/local-nuget
+dotnet add package Sponsorkit --version 1.0.0-local.1 --source ~/local-nuget
 ```
 
 Give each local build its own version, as with `-p:Version` above. NuGet caches packages by id and version
@@ -122,7 +121,7 @@ sponsorkit = { git = "https://github.com/ffMathy/sponsorkit", branch = "main" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 
-`Cargo.lock` pins the exact commit. Use `rev = "<commit>"` or `tag = "sdks/rust/v0.1.0"` instead of `branch`
+`Cargo.lock` pins the exact commit. Use `rev = "<commit>"` or `tag = "sdks/rust/v1.0.0"` instead of `branch`
 to pin it in `Cargo.toml`. Crates.io doesn't accept Git dependencies, so switch to a version requirement before
 you publish a crate that depends on Sponsorkit.
 

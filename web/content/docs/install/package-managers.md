@@ -7,13 +7,6 @@ order: 10
 
 Each section below covers one language. The commands assume a published release.
 
-:::danger[Rust isn't released yet]
-The JavaScript, .NET, Python and Go SDKs are published, and every command for them on this page works. The
-Rust crate isn't on crates.io yet, and a crate someone else publishes under that name would not be this
-project. Until its first release is announced in the [repository](https://github.com/ffMathy/sponsorkit),
-[depend on the Git repository](from-source.md#rust) instead of the crates.io commands below.
-:::
-
 ## JavaScript / TypeScript {#javascript}
 
 One package, `@sponsorkit/sdk`, with no runtime dependencies. It ships ESM and CommonJS builds and its own
@@ -52,7 +45,7 @@ Import from the entry point that matches where your code runs:
 
 The `node` entry uses Node built-ins (`node:http`, `node:fs`, `node:child_process`), so under Deno it asks for
 network, environment, file and subprocess permissions. Deno can also import it without `deno add`:
-`import { Sponsorkit } from "npm:@sponsorkit/sdk@0.2.0/node";`.
+`import { Sponsorkit } from "npm:@sponsorkit/sdk@1.0.0/node";`.
 
 ### Browsers without a bundler {#cdn}
 
@@ -62,7 +55,7 @@ modules. Pin an exact version in the URL:
 :::tabs{group="cdn"}
 ```html tab="esm.sh" key="esm-sh"
 <script type="module">
-  import { Sponsorkit } from "https://esm.sh/@sponsorkit/sdk@0.2.0";
+  import { Sponsorkit } from "https://esm.sh/@sponsorkit/sdk@1.0.0";
 
   const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
   const fc = await sk.getFinancialContribution();
@@ -73,7 +66,7 @@ modules. Pin an exact version in the URL:
 
 ```html tab="jsDelivr" key="jsdelivr"
 <script type="module">
-  import { Sponsorkit } from "https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@0.2.0/dist/index.js";
+  import { Sponsorkit } from "https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@1.0.0/dist/index.js";
 
   const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
   const fc = await sk.getFinancialContribution();
@@ -86,13 +79,13 @@ modules. Pin an exact version in the URL:
 The web components register themselves when their module loads:
 
 ```html title="index.html"
-<script type="module" src="https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@0.2.0/dist/elements.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@1.0.0/dist/elements.js"></script>
 
 <sponsorkit-button github="octocat" amount="500" frequency="monthly">Sponsor</sponsorkit-button>
 <sponsorkit-badge github="octocat"></sponsorkit-badge>
 ```
 
-With esm.sh, the same module is `https://esm.sh/@sponsorkit/sdk@0.2.0/elements`. CDNs only serve published
+With esm.sh, the same module is `https://esm.sh/@sponsorkit/sdk@1.0.0/elements`. CDNs only serve published
 versions.
 
 ## .NET {#dotnet}
@@ -107,14 +100,14 @@ dotnet add package Sponsorkit
 
 ```xml tab="PackageReference" key="packagereference"
 <ItemGroup>
-  <PackageReference Include="Sponsorkit" Version="0.2.0" />
+  <PackageReference Include="Sponsorkit" Version="1.0.0" />
 </ItemGroup>
 ```
 
 ```xml tab="Central Package Management" key="cpm"
 <!-- Directory.Packages.props -->
 <ItemGroup>
-  <PackageVersion Include="Sponsorkit" Version="0.2.0" />
+  <PackageVersion Include="Sponsorkit" Version="1.0.0" />
 </ItemGroup>
 
 <!-- your .csproj -->
@@ -179,9 +172,8 @@ named `sdks/go/vX.Y.Z`; see [versions & pinning](versions.md#go).
 
 ## Rust {#rust}
 
-The `sponsorkit` crate needs Rust 1.85 or later (it uses the 2024 edition) and a Tokio runtime.
-
-**After the first release.** Until then, [depend on the Git repository](from-source.md#rust).
+The `sponsorkit` crate needs Rust 1.85 or later (it uses the 2024 edition) and a Tokio runtime. It is
+[on crates.io](https://crates.io/crates/sponsorkit).
 
 :::tabs{group="cargo"}
 ```bash tab="cargo add" key="cargo-add"
@@ -191,7 +183,7 @@ cargo add tokio --features macros,rt-multi-thread
 
 ```toml tab="Cargo.toml" key="cargo-toml"
 [dependencies]
-sponsorkit = "0.1"
+sponsorkit = "1"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 :::
