@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/assets/cover.png" alt="Sponsorkit: build financial contributions straight into your open source software. Works with GitHub Sponsors and Open Collective, with SDKs for JS/TS, .NET, Python, Go and Rust." width="100%"></p>
+
 # Sponsorkit
 
 Sponsorkit lets open source maintainers build financial contributions straight into their software. There's no account, no API key, no webhooks, and no stored user data.
