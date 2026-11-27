@@ -23,26 +23,7 @@ listed in [platform notes](platform-notes.md).
 
 ## Install
 
-:::warning[Not on NuGet yet]
-`Sponsorkit` hasn't been published to NuGet yet, and the package id may not be reserved, so a package someone
-else publishes under it would not be this project. Until the first release is announced, pack the SDK from the
-repository into a local folder and use that folder as a package source.
-:::
-
-```bash title="Terminal"
-git clone https://github.com/ffMathy/sponsorkit.git
-dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
-
-cd my-app
-dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
-```
-
-[Build from source](../../install/from-source.md#dotnet) explains why each local build needs its own version and
-how to share the folder through `nuget.config`.
-
-### After the first release {#after-the-first-release}
-
-Once `Sponsorkit` is on NuGet, add it the usual way instead. These commands fail today.
+`Sponsorkit` is [on NuGet](https://www.nuget.org/packages/Sponsorkit). Add it the usual way:
 
 :::tabs{group="nuget"}
 ```bash tab=".NET CLI" key="dotnet-cli"

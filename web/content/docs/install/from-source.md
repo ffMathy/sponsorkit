@@ -5,8 +5,8 @@ order: 50
 ---
 
 All five SDKs live in one repository, [ffMathy/sponsorkit](https://github.com/ffMathy/sponsorkit),
-under `sdks/<language>/`. Use this page before the first release reaches a registry, or to try a change that
-isn't released yet.
+under `sdks/<language>/`. Use this page for an SDK whose first release hasn't reached its registry yet (every SDK but .NET), or to try a
+change that isn't released yet.
 
 How easy that is depends on the package manager:
 

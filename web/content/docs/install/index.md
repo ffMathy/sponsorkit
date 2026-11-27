@@ -1,6 +1,6 @@
 ---
 title: Install
-description: Packages, supported runtimes and how to add Sponsorkit to your project, plus what to do before the packages are published.
+description: Packages, supported runtimes and how to add Sponsorkit to your project, plus what to do for the SDKs that aren't published yet.
 sidebar_label: Overview
 ---
 
@@ -16,18 +16,19 @@ Every SDK is one package with the same behaviour and the same result shape. Pick
 
 Rust apps also need a Tokio runtime, for example `cargo add tokio --features macros,rt-multi-thread`.
 
-:::danger[Not on npm, NuGet, PyPI or crates.io yet]
-No Sponsorkit SDK has been released yet. `@sponsorkit/sdk`, `Sponsorkit` and `sponsorkit` are **not** on npm,
-NuGet, PyPI or crates.io, and some of those names aren't reserved yet, so a package someone else publishes
-under that name would not be this project. Until the first release is announced in the
-[repository](https://github.com/ffMathy/sponsorkit), install from Git or from a local build as shown below,
-and don't install these names from a registry.
+:::danger[Only .NET is on a registry so far]
+`Sponsorkit` 0.1.0 is [on NuGet](https://www.nuget.org/packages/Sponsorkit). The other SDKs haven't been
+released yet: `@sponsorkit/sdk` and `sponsorkit` are **not** on npm, PyPI or crates.io, and some of those names
+aren't reserved yet, so a package someone else publishes under that name would not be this project. Until their
+first release is announced in the [repository](https://github.com/ffMathy/sponsorkit), install them from Git
+or from a local build as shown below, and don't install these names from a registry.
 :::
 
-## Install from the repository
+## Install
 
-Go fetches the module straight from GitHub. Python and Rust can depend on the Git repository directly.
-JavaScript and .NET need a local build first. [Build from source](from-source.md) explains each recipe.
+.NET installs from NuGet. Go fetches the module straight from GitHub. Python and Rust can depend on the Git
+repository directly. JavaScript needs a local build first. [Build from source](from-source.md) explains each
+recipe, including a local .NET build for unreleased changes.
 
 :::tabs
 ```bash tab="JavaScript" key="js"
@@ -37,9 +38,7 @@ npm install ./sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
 ```
 
 ```bash tab=".NET" key="dotnet"
-git clone https://github.com/ffMathy/sponsorkit.git
-dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
-dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
+dotnet add package Sponsorkit
 ```
 
 ```bash tab="Python" key="python"
@@ -60,8 +59,8 @@ project's folder.
 
 ## After the first release
 
-Once a release is published to the registries, these are the commands to use instead. They fail with "not
-found" today; see the warning above.
+Once each SDK is published to its registry, these are the commands to use. The .NET one works today; the npm,
+PyPI and crates.io ones fail with "not found" until those releases; see the warning above.
 
 :::tabs
 ```bash tab="JavaScript" key="js"
@@ -93,6 +92,6 @@ cargo add sponsorkit
   each operating system.
 - [Verify the install](verify.md): print the installed version and run a smoke test without signing in.
 - [Versions & pinning](versions.md): how SDK versions and release tags work, and how to pin one.
-- [Build from source](from-source.md): use an unreleased version from this monorepo.
+- [Build from source](from-source.md): use an unreleased SDK or change from this monorepo.
 
 Once installed, continue with the [quickstart](../getting-started/quickstart.md).

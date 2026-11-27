@@ -400,7 +400,9 @@ describe("checkout", () => {
       output: { write() {} },
       promptForCode: () => new Promise((r) => setTimeout(() => r("skc_1"), 150)),
     });
-    expect(await sk.openCheckout({ timeout: 0.1, pollInterval: 0.02 })).toEqual({ status: "unknown" });
+    // A 0.5 s polling window with 20 ms polls leaves room for several polls even on a slow CI runner
+    // (with 0.1 s, a busy runner sometimes managed only one).
+    expect(await sk.openCheckout({ timeout: 0.5, pollInterval: 0.02 })).toEqual({ status: "unknown" });
     expect(calls.filter((c) => c.path === "/api/v1/contributions").length).toBeGreaterThan(1);
   });
 

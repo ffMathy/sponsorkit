@@ -11,13 +11,11 @@ is up to you: say thank you, show a gentle reminder every few runs, hide an ad, 
 There is no Sponsorkit account to create, no API key, no webhook and no dashboard. You name the accounts you
 receive money on, and the SDK does the rest.
 
-:::warning[Project status: not live yet]
-The hosted API at `api.sponsorkit.io` isn't deployed yet, so real sign-ins, checks and `checkoutUrl()` links
-that point at it don't work today. Some provider behaviour (for example which GitHub sponsorship data the
-requested scopes return) has only been tested against stubbed provider responses, not live GitHub or Open
-Collective accounts. What works now: [mock mode](../guides/mock-mode.md), which needs no network, and
-[self-hosting](../reference-http/self-hosting.md) the service with your own OAuth apps. The SDKs aren't on the
-package registries yet either; see [Install](../install/index.md).
+:::warning[Project status: pre-release]
+The hosted API at `api.sponsorkit.io` is live. Some provider behaviour (for example which GitHub sponsorship
+data the requested scopes return) has only been tested against stubbed provider responses, not live GitHub or
+Open Collective accounts. The .NET SDK is on NuGet; the other SDKs aren't on their package registries yet. See
+[Install](../install/index.md).
 :::
 
 ## Who it's for
@@ -74,7 +72,7 @@ of Sponsorkit: see the [error contract](../concepts/error-contract.md).
 
 ## The four steps
 
-1. **Install the SDK** for your language, from the repository until the first release. See [Install](../install/index.md).
+1. **Install the SDK** for your language: from NuGet for .NET, from the repository for the others until their first release. See [Install](../install/index.md).
 2. **Name your targets:** the GitHub login and/or Open Collective slug you receive sponsorships on. See
    [Targets](../concepts/targets.md).
 3. **Check, and offer to sign in.** Call `getFinancialContribution()`. If the user isn't signed in, call
