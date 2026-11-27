@@ -12,7 +12,7 @@ namespace Sponsorkit.Tests;
 internal static class StorageFileValidator
 {
     private static readonly Regex DateTime = new(@"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$");
-    private static readonly string[] ProvidersEnum = ["github", "opencollective"];
+    private static readonly string[] ProvidersEnum = ["github", "open-collective"];
 
     public static List<string> Validate(JsonNode? file)
     {

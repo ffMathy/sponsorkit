@@ -22,7 +22,7 @@ export const nodeAdapter: SdkAdapter = {
   create(config, hooks): SdkInstance {
     const sk = new Sponsorkit({
       github: config.github,
-      opencollective: config.opencollective,
+      openCollective: config.openCollective,
       appName: config.appName,
       cacheTtl: config.cacheTtl,
       mock: config.mock as MockOption | undefined,

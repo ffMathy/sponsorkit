@@ -17,7 +17,7 @@ import (
 
 // SignInOptions customizes SignIn.
 type SignInOptions struct {
-	// Provider skips the provider picker ("github" or "opencollective"). Use it
+	// Provider skips the provider picker ("github" or "open-collective"). Use it
 	// to add a second identity, or to reconnect one flagged NeedsReconnect.
 	Provider Provider
 	// Method overrides Options.SignInMethod for this call.

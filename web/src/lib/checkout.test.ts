@@ -43,8 +43,8 @@ function gh(over: Partial<TargetInfo> = {}): TargetInfo {
 
 function oc(over: Partial<TargetInfo> = {}): TargetInfo {
   return {
-    target: "opencollective:sponsorkit",
-    provider: "opencollective",
+    target: "open-collective:sponsorkit",
+    provider: "open-collective",
     account: "sponsorkit",
     exists: true,
     displayName: "Sponsorkit",
@@ -58,7 +58,7 @@ function oc(over: Partial<TargetInfo> = {}): TargetInfo {
   };
 }
 
-const both = targetsFromParam("github:octocat,opencollective:sponsorkit");
+const both = targetsFromParam("github:octocat,open-collective:sponsorkit");
 
 describe("evaluateTarget (PROTOCOL §6)", () => {
   it("rejects targets that don't exist", () => {
@@ -205,7 +205,7 @@ describe("planCheckout (PROTOCOL §4.6 step 2)", () => {
     const plan = planCheckout(both, [gh(), oc()], { frequency: "yearly" }, ORIGIN);
     expect(plan.action).toBe("redirect");
     if (plan.action === "redirect") {
-      expect(plan.provider).toBe("opencollective");
+      expect(plan.provider).toBe("open-collective");
       expect(plan.url).toContain("interval=year");
     }
   });
@@ -230,7 +230,7 @@ describe("planCheckout (PROTOCOL §4.6 step 2)", () => {
     if (plan.action === "choose") {
       expect(plan.preferredUnavailable).toBe("github");
       expect(plan.options.find((o) => o.provider === "github")?.reasons[0]?.code).toBe("frequency");
-      expect(plan.options.find((o) => o.provider === "opencollective")?.eligible).toBe(true);
+      expect(plan.options.find((o) => o.provider === "open-collective")?.eligible).toBe(true);
     }
   });
 

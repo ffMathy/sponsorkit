@@ -51,7 +51,7 @@ func TestTargetsHashVectors(t *testing.T) {
 		t.Fatal("no target set vectors")
 	}
 	for _, ts := range v.TargetSets {
-		targets := sponsorkit.Targets{GitHub: ts.Input["github"], OpenCollective: ts.Input["opencollective"]}
+		targets := sponsorkit.Targets{GitHub: ts.Input["github"], OpenCollective: ts.Input["openCollective"]}
 		param, err := sponsorkit.TargetsParam(targets)
 		if err != nil || param != ts.Param {
 			t.Errorf("TargetsParam(%v) = %q, %v; want %q", ts.Input, param, err, ts.Param)
@@ -70,7 +70,7 @@ func TestInvalidTargetVectors(t *testing.T) {
 		case "github":
 			// An empty login means "no target", which is invalid as well.
 			_, err = sponsorkit.New(sponsorkit.Options{GitHub: it.Account})
-		case "opencollective":
+		case "open-collective":
 			_, err = sponsorkit.New(sponsorkit.Options{OpenCollective: it.Account})
 		default:
 			// Unknown providers cannot be expressed through Targets; nothing to check.
@@ -128,8 +128,8 @@ func TestMockPresetsMatchFixture(t *testing.T) {
 		provider, target string
 		targets          []any
 	}{
-		{sponsorkit.Options{GitHub: "octocat", OpenCollective: "webpack"}, "github", "github:octocat", []any{"github:octocat", "opencollective:webpack"}},
-		{sponsorkit.Options{OpenCollective: "Webpack"}, "opencollective", "opencollective:webpack", []any{"opencollective:webpack"}},
+		{sponsorkit.Options{GitHub: "octocat", OpenCollective: "webpack"}, "github", "github:octocat", []any{"github:octocat", "open-collective:webpack"}},
+		{sponsorkit.Options{OpenCollective: "Webpack"}, "open-collective", "open-collective:webpack", []any{"open-collective:webpack"}},
 	} {
 		for _, name := range sponsorkit.MockPresetNames {
 			preset := presets[name].(map[string]any)
@@ -389,7 +389,7 @@ func TestCheckoutURL(t *testing.T) {
 	if u.Scheme+"://"+u.Host+u.Path != "http://127.0.0.1:9/checkout/" {
 		t.Errorf("base: %s", u)
 	}
-	want := url.Values{"targets": {"github:octocat,opencollective:webpack"}, "provider": {"opencollective"}, "amount": {"1500"}, "currency": {"EUR"}, "frequency": {"yearly"}}
+	want := url.Values{"targets": {"github:octocat,open-collective:webpack"}, "provider": {"open-collective"}, "amount": {"1500"}, "currency": {"EUR"}, "frequency": {"yearly"}}
 	if u.Query().Encode() != want.Encode() {
 		t.Errorf("query %s, want %s", u.Query().Encode(), want.Encode())
 	}

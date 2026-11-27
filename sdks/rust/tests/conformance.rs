@@ -33,7 +33,7 @@ scenarios! {
     mock_preset_one_time => "mock-preset-one-time",
     mock_preset_cancelled => "mock-preset-cancelled",
     mock_preset_org => "mock-preset-org",
-    mock_preset_active_monthly_opencollective => "mock-preset-active-monthly-opencollective",
+    mock_preset_active_monthly_open_collective => "mock-preset-active-monthly-open-collective",
     mock_env_var => "mock-env-var",
     mock_option_beats_env => "mock-option-beats-env",
     mock_custom_contributions => "mock-custom-contributions",

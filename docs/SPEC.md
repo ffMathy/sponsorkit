@@ -19,7 +19,7 @@ Sponsorkit lets an open source maintainer build financial contributions directly
 ```ts
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "mathiaslorenzen", opencollective: "sponsorkit" });
+const sk = new Sponsorkit({ github: "mathiaslorenzen", openCollective: "sponsorkit" });
 
 const fc = await sk.getFinancialContribution();
 if (fc.signedIn && !fc.active().some(c => c.amount.currency === "USD" && c.amount.value >= 500)) showAd();
@@ -39,7 +39,7 @@ The maintainer decides what to do with that: show an ad below $5/month, nag ever
 | Provider | Maintainer passes | Recurring | One-time | Custom amount | Currency |
 |---|---|---|---|---|---|
 | GitHub Sponsors | `github: "<user or org login>"` | monthly | ✅ | Tier-based (custom-amount tiers if enabled on the listing) | USD |
-| Open Collective | `opencollective: "<collective slug>"` | monthly, yearly | ✅ | ✅ | The collective's currency |
+| Open Collective | `openCollective: "<collective slug>"` | monthly, yearly | ✅ | ✅ | The collective's currency |
 
 Patreon and other providers are deferred (D3). They will be added later through the same adapter interface.
 
@@ -65,7 +65,7 @@ Patreon and other providers are deferred (D3). They will be added later through 
 
 | Term | Meaning |
 |---|---|
-| **Target** | An account the maintainer receives sponsorships on: `github:<login>` or `opencollective:<slug>`. An SDK instance has one or more targets, called its **target set**. |
+| **Target** | An account the maintainer receives sponsorships on: `github:<login>` or `open-collective:<slug>`. An SDK instance has one or more targets, called its **target set**. |
 | **Supporter** | The end-user who signs in. |
 | **Identity** | The supporter's GitHub or Open Collective account and its provider token. Identities exist only inside a sealed session token. |
 | **Session token** | An opaque, encrypted blob (`sks_…`) held by the SDK. It contains the identities, the target set and the expiry (§4). Only the Sponsorkit Worker can read it. |
@@ -139,7 +139,7 @@ If Sponsorkit outgrows the free plan, Workers Paid costs $5/mo. Switching is a p
 
 ```
 app/                     Cloudflare Worker (API only): Hono API, OAuth, sealing
-  src/{api,oauth,seal,providers/{github,opencollective}}
+  src/{api,oauth,seal,providers/{github,open-collective}}
   test/                  Vitest (Node); provider fetch stubbed with fixtures built from the documented schemas
 web/                     Next.js static export for GitHub Pages (landing, docs, /connect/, /checkout/) + Playwright e2e
 packages/shared/         Zod schemas, types & URL constants (app, web, JS SDK)
@@ -177,7 +177,7 @@ How sessions behave without a database:
   "signedIn": true,
   "disabled": false,
   "mock": false,
-  "targets": ["github:mathiaslorenzen", "opencollective:sponsorkit"],
+  "targets": ["github:mathiaslorenzen", "open-collective:sponsorkit"],
   "supporter": {
     "id": "sup_…",                          // pairwise: stable per (target set, identity) (§5.4)
     "identities": [ { "provider": "github", "id": "583231", "handle": "alice", "needsReconnect": false } ]
@@ -185,7 +185,7 @@ How sessions behave without a database:
   "contributions": [
     {
       "id": "con_github_…",                 // stable, derived from provider + external id
-      "provider": "github",                 // github | opencollective
+      "provider": "github",                 // github | open-collective
       "target": "github:mathiaslorenzen",
       "sponsor": { "type": "user", "provider": "github", "id": "583231", "handle": "alice" },
       "via": "direct",                      // direct | organization
@@ -260,7 +260,7 @@ Status always comes from the order, never from membership.
      This covers the user's own sponsorships and their orgs' sponsorships in a single call.
    - **Open Collective:** `me { orders(filter:OUTGOING, oppositeAccount:{slug}, includeIncognito:true) }`, plus `memberOf(role:ADMIN)` for collectives the user administers, and their orders to the target.
 2. **Normalize and filter.** Results are normalized (§5.1) and filtered to the session's targets. Nothing is stored.
-3. **Partial failure.** If one provider fails, the response still returns the others. It sets `stale: true` and lists `unavailable: ["opencollective"]`. The SDK then fills in that provider's contributions from its local cache.
+3. **Partial failure.** If one provider fails, the response still returns the others. It sets `stale: true` and lists `unavailable: ["open-collective"]`. The SDK then fills in that provider's contributions from its local cache.
    - An Open Collective target that doesn't exist yields no contributions and is **not** unavailable.
    - A target that exists but whose query fails, for example because it's private, is unavailable.
    - An expired or revoked provider token marks that identity `needsReconnect: true`.
@@ -288,7 +288,7 @@ If an organization the user belongs to sponsors a target, the contribution is **
 
 The developer decides whether it counts; `fc.direct()` filters these out. Private org sponsorships may only be visible to org admins.
 
-### 5.6 Targets metadata (`GET /api/v1/targets?github=…&opencollective=…`)
+### 5.6 Targets metadata (`GET /api/v1/targets?github=…&open-collective=…`)
 
 - **Access.** Public, cached for 1 h in the Workers Cache API.
 - **Contents.** For each target: `exists`, display name, avatar, currency, and tiers (id, name, amount, frequency, URL).
@@ -326,14 +326,14 @@ Sponsorkit acts as an OAuth-style authorization server for the SDKs. Provider OA
 | Headless / SSH / container | **Paste-back.** The SDK prints a `ffmathy.github.io/sponsorkit/connect/?…&delivery=paste` URL, which the user opens on any device. After consent, the page shows the sign-in code with a copy button, and the user pastes it into the terminal. The page names the targets and the `appName`. The code is valid for 10 minutes and useless without the SDK's verifier. |
 | Auto-pick | Native SDKs try loopback first. They fall back to paste-back when there is no display, when `SSH_CONNECTION` is set, or when opening the browser fails. |
 
-**Adding a second identity.** `signIn({ provider: "opencollective" })` while already signed in runs the same flow. The SDK then sends `{ code, codeVerifier, sessionToken }` to `/auth/token`. The Worker unseals both and returns a new session token containing both identities, after checking that both are bound to the same target set.
+**Adding a second identity.** `signIn({ provider: "open-collective" })` while already signed in runs the same flow. The SDK then sends `{ code, codeVerifier, sessionToken }` to `/auth/token`. The Worker unseals both and returns a new session token containing both identities, after checking that both are bound to the same target set.
 
 ### 6.3 Provider OAuth
 
 | Provider | Scopes | Token |
 |---|---|---|
 | GitHub (one OAuth App) | `read:user read:org` | Doesn't expire. Identity key is `databaseId`. *To verify:* whether these scopes return tier amounts. If not, request `user` and disclose that on the consent screen (D6). GitHub keeps at most 10 tokens per user/app/scope, so a user signed in to more than 10 Sponsorkit apps loses the oldest one and is asked to sign in again there. |
-| Open Collective (OAuth2 app) | `orders incognito` | Expires after 90 days, with no refresh. The identity is then flagged `needsReconnect`, and `signIn({ provider: "opencollective" })` re-seals the session with a fresh token. |
+| Open Collective (OAuth2 app) | `orders incognito` | Expires after 90 days, with no refresh. The identity is then flagged `needsReconnect`, and `signIn({ provider: "open-collective" })` re-seals the session with a fresh token. |
 
 ### 6.4 Backend verification
 
@@ -357,7 +357,7 @@ const fc = await verifySession(token, { github: "mathiaslorenzen" }); // throws 
 ```ts
 const sk = new Sponsorkit({
   github: "mathiaslorenzen",          // at least one target
-  opencollective: "sponsorkit",
+  openCollective: "sponsorkit",
   appName: "my-cli",                  // shown on the consent page for native apps
   cacheTtl: 3600,                     // seconds served from local cache without calling the API (min 60)
   mock: undefined,                    // §7.4
@@ -460,7 +460,7 @@ if (await nag.due(fc => fc.active().length === 0)) {
 ### 7.7 Web components & server helper
 
 - **`@sponsorkit/sdk/elements`:**
-  - `<sponsorkit-button github="…" opencollective="…" amount frequency>` opens the checkout synchronously.
+  - `<sponsorkit-button github="…" open-collective="…" amount frequency>` opens the checkout synchronously.
   - `<sponsorkit-badge>` shows "Supporter ♥" when `active()` is non-empty.
 - **`@sponsorkit/sdk/server`:** `verifySession(token, targets)` (§6.4), with an equivalent in every SDK.
 
@@ -505,7 +505,7 @@ CORS allows any origin, without credentials; the site's own pages use it too. Ev
 
 | Method & path | Auth | Purpose |
 |---|---|---|
-| `GET /targets?github=&opencollective=` | none | Target metadata (§5.6) |
+| `GET /targets?github=&open-collective=` | none | Target metadata (§5.6) |
 | `POST /auth/token` | none | `{code, codeVerifier, sessionToken?}` → `{sessionToken, expiresAt, result}` |
 | `GET /contributions` | session | The §5.1 result. May return a renewed token in `Sponsorkit-Session`. |
 | `GET /health` | none | Reachability of each provider |
@@ -601,7 +601,7 @@ All of this lands in this PR as reviewable commits:
 ## 13. What you need to provide to go live
 
 1. A **GitHub OAuth App** with its callback URL set to `https://api.sponsorkit.io/api/oauth/github/callback` (on the API domain): client ID and secret.
-2. An **Open Collective OAuth app** with its callback URL set to `https://api.sponsorkit.io/api/oauth/opencollective/callback` (on the API domain): client ID and secret.
+2. An **Open Collective OAuth app** with its callback URL set to `https://api.sponsorkit.io/api/oauth/open-collective/callback` (on the API domain): client ID and secret.
 3. A free **Cloudflare account** with:
    - `sponsorkit.io` as a zone, so the Worker can use the **API custom domain** `api.sponsorkit.io` (the `custom_domain` route in `app/wrangler.jsonc`). For a different API hostname, change the route, `PUBLIC_ORIGIN` and both OAuth callback URLs together;
    - an API token that can edit Workers, plus your account ID.

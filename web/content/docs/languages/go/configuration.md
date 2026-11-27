@@ -29,7 +29,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err) // e.g. sponsorkit: invalid_config: invalid github account "-bad-"
 	}
-	log.Println(sk.Targets()) // [github:octocat opencollective:my-collective]
+	log.Println(sk.Targets()) // [github:octocat open-collective:my-collective]
 }
 ```
 
@@ -151,7 +151,7 @@ func main() {
 | `sponsorkit.NoRequestTimeout` | `-1`: disables `RequestTimeout` and `WithRequestTimeout`. |
 | `sponsorkit.MockPresetNames` | The mock preset names. |
 | `sponsorkit.DefaultStorageDir()` | The default `StorageDir`; see [platform notes](platform-notes.md#where-state-is-stored). |
-| `sponsorkit.TargetsParam(t)`, `sponsorkit.TargetsHash(t)` | The canonical target string (`github:octocat,opencollective:webpack`) and its SHA-256, which names the state file. |
+| `sponsorkit.TargetsParam(t)`, `sponsorkit.TargetsHash(t)` | The canonical target string (`github:octocat,open-collective:webpack`) and its SHA-256, which names the state file. |
 | `sponsorkit.ParseISODuration(s)` | Parses `"P7D"`-style durations, for configuring nags from a file. |
 
 The client also reports its configuration: `Targets()`, `TargetsParam()`, `Disabled()` and `IsMock()`.

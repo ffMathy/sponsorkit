@@ -11,7 +11,7 @@
 //! # async fn run() -> Result<(), sponsorkit::Error> {
 //! let sk = Sponsorkit::new(Options {
 //!     github: Some("octocat".into()),
-//!     opencollective: Some("sponsorkit".into()),
+//!     open_collective: Some("sponsorkit".into()),
 //!     app_name: Some("my-cli".into()),
 //!     ..Default::default()
 //! })?;

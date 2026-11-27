@@ -13,7 +13,7 @@ import (
 
 // CheckoutOptions describes the contribution to suggest. All fields are optional.
 type CheckoutOptions struct {
-	// Provider preselects "github" or "opencollective"; the page never
+	// Provider preselects "github" or "open-collective"; the page never
 	// silently switches to another provider.
 	Provider Provider
 	// Amount in minor units (cents). Zero means unset; a negative amount is

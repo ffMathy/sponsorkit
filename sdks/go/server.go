@@ -110,7 +110,7 @@ func canonicalParamFromStrings(ss []string) (string, error) {
 			t.GitHub = a
 		case OpenCollective:
 			if t.OpenCollective != "" {
-				return "", fmt.Errorf("duplicate opencollective target")
+				return "", fmt.Errorf("duplicate open-collective target")
 			}
 			t.OpenCollective = a
 		default:

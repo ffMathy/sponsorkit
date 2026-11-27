@@ -16,7 +16,7 @@ const HTMLElementBase: typeof HTMLElement = typeof HTMLElement === "undefined" ?
 /** Options applied to every element-created client (e.g. `apiBaseUrl`, `siteBaseUrl`, `returnTo`). */
 export const elementDefaults: Partial<SponsorkitOptions> = {};
 
-const TARGET_ATTRS = ["github", "opencollective", "api-base-url", "site-base-url"] as const;
+const TARGET_ATTRS = ["github", "open-collective", "api-base-url", "site-base-url"] as const;
 
 abstract class SponsorkitElementBase extends HTMLElementBase {
   private clientInstance: Sponsorkit | null = null;
@@ -28,7 +28,7 @@ abstract class SponsorkitElementBase extends HTMLElementBase {
     this.clientKey = client ? "custom" : "";
   }
 
-  /** The client for this element (built from the `github`, `opencollective`, `api-base-url` and `site-base-url` attributes). */
+  /** The client for this element (built from the `github`, `open-collective`, `api-base-url` and `site-base-url` attributes). */
   get client(): Sponsorkit | null {
     if (this.clientKey === "custom") return this.clientInstance;
     const key = TARGET_ATTRS.map((a) => this.getAttribute(a) ?? "").join("|");
@@ -38,7 +38,7 @@ abstract class SponsorkitElementBase extends HTMLElementBase {
         this.clientInstance = new Sponsorkit({
           ...elementDefaults,
           github: this.getAttribute("github") ?? undefined,
-          opencollective: this.getAttribute("opencollective") ?? undefined,
+          openCollective: this.getAttribute("open-collective") ?? undefined,
           ...(this.getAttribute("api-base-url") ? { apiBaseUrl: this.getAttribute("api-base-url") as string } : {}),
           ...(this.getAttribute("site-base-url") ? { siteBaseUrl: this.getAttribute("site-base-url") as string } : {}),
         });
@@ -52,7 +52,7 @@ abstract class SponsorkitElementBase extends HTMLElementBase {
 }
 
 /**
- * `<sponsorkit-button github opencollective amount currency frequency provider>`:
+ * `<sponsorkit-button github open-collective amount currency frequency provider>`:
  * opens checkout (synchronously, in a popup) when clicked.
  *
  * Events: `sponsorkit:checkout` (`detail` = `CheckoutResult`), `sponsorkit:error` (`detail.error`).
@@ -100,12 +100,12 @@ export class SponsorkitButtonElement extends SponsorkitElementBase {
 }
 
 /**
- * `<sponsorkit-badge github opencollective>`: shows "Supporter ♥" when the
+ * `<sponsorkit-badge github open-collective>`: shows "Supporter ♥" when the
  * signed-in user has an active contribution, and nothing otherwise.
  * Call `refresh()` after signing in or checking out.
  */
 export class SponsorkitBadgeElement extends SponsorkitElementBase {
-  static readonly observedAttributes = ["github", "opencollective", "api-base-url", "site-base-url"];
+  static readonly observedAttributes = ["github", "open-collective", "api-base-url", "site-base-url"];
   private seq = 0;
 
   connectedCallback(): void {

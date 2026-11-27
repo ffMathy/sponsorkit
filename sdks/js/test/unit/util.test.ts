@@ -110,7 +110,7 @@ test("FinancialContribution serializes to the protocol shape", () => {
   const fc = new FinancialContribution(fullResult as ContributionResult);
   expect(JSON.parse(JSON.stringify(fc))).toEqual(fullResult);
   expect(fc.active().every((c) => c.status === "active")).toBe(true);
-  expect(fc.byProvider("opencollective").every((c) => c.provider === "opencollective")).toBe(true);
+  expect(fc.byProvider("open-collective").every((c) => c.provider === "open-collective")).toBe(true);
   expect(fc.direct().every((c) => c.via === "direct")).toBe(true);
   expect(fc.recurring().length + fc.oneTime().length).toBe(fc.contributions.length);
 });

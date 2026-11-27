@@ -760,7 +760,7 @@ func (h *harness) newClient(args map[string]any) (*sponsorkit.Client, error) {
 	}
 	opts := sponsorkit.Options{
 		GitHub:         str(args, "github"),
-		OpenCollective: str(args, "opencollective"),
+		OpenCollective: str(args, "openCollective"),
 		AppName:        str(args, "appName"),
 		APIBaseURL:     str(args, "apiBaseUrl"),
 		// siteBaseUrl has no default: absent and "" both leave it unset, so the
@@ -983,7 +983,7 @@ func (r *scenarioRun) exec(step map[string]any, on *sponsorkit.Client) (any, err
 	case "verifySession":
 		t := asMap(args["targets"])
 		return sponsorkit.VerifySession(ctx, str(args, "token"),
-			sponsorkit.Targets{GitHub: str(t, "github"), OpenCollective: str(t, "opencollective")},
+			sponsorkit.Targets{GitHub: str(t, "github"), OpenCollective: str(t, "openCollective")},
 			sponsorkit.WithAPIBaseURL(str(args, "apiBaseUrl")))
 	case "control":
 		_, err := h.ctl.call("PATCH", "/__control", args)

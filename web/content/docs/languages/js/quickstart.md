@@ -24,7 +24,7 @@ popup before doing anything asynchronous: call them directly from the click hand
 ```ts title="main.ts"
 import { isSponsorkitError, Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 const status = document.querySelector<HTMLElement>("#status");
 const signInButton = document.querySelector<HTMLButtonElement>("#sign-in");
@@ -77,7 +77,7 @@ import { Sponsorkit } from "@sponsorkit/sdk/node";
 
 const sk = new Sponsorkit({
   github: "octocat",
-  opencollective: "my-collective",
+  openCollective: "my-collective",
   appName: "my-cli", // shown on the consent page
 });
 

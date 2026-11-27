@@ -23,7 +23,7 @@ Payment always happens on the provider's own site; Sponsorkit never handles mone
 
 | Property | Type | Default | Meaning |
 |---|---|---|---|
-| `Provider` | `string?` | the page asks | `github` or `opencollective`. Must be one of your targets. |
+| `Provider` | `string?` | the page asks | `github` or `open-collective`. Must be one of your targets. |
 | `Amount` | `long?` | none | Suggested amount in minor units (500 is $5.00). Must be positive. |
 | `Currency` | `string?` | none | Three-letter ISO 4217 code such as `USD`. The checkout URL uppercases it; in mock mode the simulated contribution keeps it as you passed it. |
 | `Frequency` | `string?` | none | `one_time`, `monthly` or `yearly`, from `Frequencies`. |
@@ -44,7 +44,7 @@ using Sponsorkit;
 var sk = new SponsorkitClient(new SponsorkitOptions { GitHub = "octocat", OpenCollective = "my-collective" });
 
 Console.WriteLine(sk.CheckoutUrl());
-// https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copencollective%3Amy-collective
+// https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copen-collective%3Amy-collective
 
 Console.WriteLine(sk.CheckoutUrl(new CheckoutUrlOptions
 {

@@ -9,7 +9,7 @@ repository = "https://github.com/ffMathy/sponsorkit"
 homepage = "https://ffmathy.github.io/sponsorkit"
 documentation = "https://docs.rs/sponsorkit"
 readme = "README.md"
-keywords = ["sponsors", "github-sponsors", "opencollective", "donations", "funding"]
+keywords = ["sponsors", "github-sponsors", "open-collective", "donations", "funding"]
 categories = ["api-bindings", "command-line-interface"]
 include = ["src/**/*", "README.md", "LICENSE", "Cargo.toml"]
 

@@ -22,7 +22,7 @@ The provider-neutral view of checkout is in the [checkout guide](/docs/guides/ch
 ```ts
 import { isSponsorkitError, Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 document.querySelector("#sponsor")?.addEventListener("click", async () => {
   try {
@@ -58,7 +58,7 @@ take a while to confirm. Call `getFinancialContribution()` later to check again.
 
 | Option | Type | Default | |
 |---|---|---|---|
-| `provider` | `"github" \| "opencollective"` | user picks | Preferred provider. The checkout page never switches provider silently. |
+| `provider` | `"github" \| "open-collective"` | user picks | Preferred provider. The checkout page never switches provider silently. |
 | `amount` | `number` | user picks | Suggested amount in minor units (cents); a positive integer. |
 | `currency` | `string` | provider default | ISO 4217 code, e.g. `"USD"`. |
 | `frequency` | `"one_time" \| "monthly" \| "yearly"` | user picks | Suggested frequency. |
@@ -103,10 +103,10 @@ run, offline, or in generated documentation.
 ```ts
 import { Sponsorkit } from "@sponsorkit/sdk/node";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 console.error(`Support this project: ${sk.checkoutUrl({ frequency: "monthly" })}`);
-// https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copencollective%3Amy-collective&frequency=monthly
+// https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copen-collective%3Amy-collective&frequency=monthly
 ```
 
 Contributions made through this link aren't detected by the app that printed it, but they show up in
@@ -123,14 +123,14 @@ Contributions made through this link aren't detected by the app that printed it,
   elementDefaults.returnTo = location.href;
 </script>
 
-<sponsorkit-button github="octocat" opencollective="my-collective" amount="500" frequency="monthly">
+<sponsorkit-button github="octocat" open-collective="my-collective" amount="500" frequency="monthly">
   Sponsor ♥
 </sponsorkit-button>
 
-<sponsorkit-badge github="octocat" opencollective="my-collective"></sponsorkit-badge>
+<sponsorkit-badge github="octocat" open-collective="my-collective"></sponsorkit-badge>
 ```
 
-- `<sponsorkit-button>` calls `openCheckout()` on click. Attributes: `github`, `opencollective`, `api-base-url`,
+- `<sponsorkit-button>` calls `openCheckout()` on click. Attributes: `github`, `open-collective`, `api-base-url`,
   `site-base-url`, `amount`, `currency`, `frequency`, `provider`, and `label` (sets `aria-label`). The slot is the button text
   (default "Sponsor ♥"); style it with `::part(button)`. It fires `sponsorkit:checkout` with the
   `CheckoutResult` as `detail`, and `sponsorkit:error` with `detail.error`.

@@ -7,7 +7,7 @@ what the current user has contributed, and write your own rule.
 ```python
 from sponsorkit import Sponsorkit
 
-sk = Sponsorkit(github="octocat", opencollective="my-project", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-project", app_name="my-cli")
 
 fc = sk.get_financial_contribution()
 if fc.signed_in and not any(c.amount.currency == "USD" and c.amount.value >= 500 for c in fc.active()):
@@ -50,14 +50,14 @@ if "--sponsor" in sys.argv:
 
 ## API reference
 
-### `Sponsorkit(github=None, opencollective=None, *, ...)`
+### `Sponsorkit(github=None, open_collective=None, *, ...)`
 
 Constructing never performs I/O. It raises `SponsorkitError("invalid_config")` for missing or
 malformed targets and invalid options (even when Sponsorkit is disabled).
 
 | Option | Default | Meaning |
 |---|---|---|
-| `github` / `opencollective` | – | The account(s) you receive sponsorships on. At least one; case and whitespace are normalized. |
+| `github` / `open_collective` | – | The account(s) you receive sponsorships on. At least one; case and whitespace are normalized. |
 | `app_name` | `None` | Shown on the consent page as "says it is" (≤ 64 chars). |
 | `cache_ttl` | `3600` | Seconds a result is served from the local cache. Values below 60 are raised to 60 (a per-call `cache_ttl` may be any value ≥ 0). |
 | `mock` | `None` | Preset name or `{"contributions": [...]}` (see [Mock mode](#mock-mode-and-testing)). |
@@ -162,7 +162,7 @@ can't be cancelled. After a cancelled or timed-out paste-back, that read is stil
 next line the user types may go to it instead of your app. Apps that read stdin themselves should
 pass their own `prompt_for_code`.
 
-`sk.sign_in("opencollective")` while signed in with GitHub adds the second identity to the same
+`sk.sign_in("open-collective")` while signed in with GitHub adds the second identity to the same
 session.
 
 ## Nag helper

@@ -37,17 +37,17 @@ api.use("*", async (c, next) => {
 
 const TargetsQuery = z.object({
   github: z.string().max(100).optional(),
-  opencollective: z.string().max(300).optional(),
+  "open-collective": z.string().max(300).optional(),
 });
 
 const TARGETS_MAX_AGE = 3600;
 
 api.get("/targets", async (c) => {
-  const q = TargetsQuery.safeParse({ github: c.req.query("github"), opencollective: c.req.query("opencollective") });
+  const q = TargetsQuery.safeParse({ github: c.req.query("github"), "open-collective": c.req.query("open-collective") });
   if (!q.success) throw new ApiError(400, "invalid_target", "Malformed target parameter");
   let targets;
   try {
-    targets = targetsFromOptions({ github: q.data.github ?? null, opencollective: q.data.opencollective ?? null });
+    targets = targetsFromOptions({ github: q.data.github ?? null, openCollective: q.data["open-collective"] ?? null });
   } catch (e) {
     if (e instanceof InvalidTargetError) throw new ApiError(400, "invalid_target", e.message);
     throw e;
@@ -159,7 +159,7 @@ api.get("/contributions", async (c) => {
 
 // ---------- GET /health ----------
 
-let healthCache: { at: number; value: { github: "ok" | "degraded"; opencollective: "ok" | "degraded" } } | null = null;
+let healthCache: { at: number; value: { github: "ok" | "degraded"; "open-collective": "ok" | "degraded" } } | null = null;
 const HEALTH_TTL_MS = 30_000;
 
 /** Test hook. */
@@ -169,8 +169,8 @@ export function resetHealthCache(): void {
 
 api.get("/health", async (c) => {
   if (!healthCache || Date.now() - healthCache.at > HEALTH_TTL_MS) {
-    const [gh, oc] = await Promise.all([getAdapter(c.env, "github").ping(), getAdapter(c.env, "opencollective").ping()]);
-    healthCache = { at: Date.now(), value: { github: gh ? "ok" : "degraded", opencollective: oc ? "ok" : "degraded" } };
+    const [gh, oc] = await Promise.all([getAdapter(c.env, "github").ping(), getAdapter(c.env, "open-collective").ping()]);
+    healthCache = { at: Date.now(), value: { github: gh ? "ok" : "degraded", "open-collective": oc ? "ok" : "degraded" } };
   }
   return c.json({ ok: true, providers: healthCache.value }, 200, { "Cache-Control": "no-store" });
 });

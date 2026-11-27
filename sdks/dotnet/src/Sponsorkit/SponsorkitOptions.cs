@@ -167,7 +167,7 @@ public sealed class SponsorkitMock
 /// <summary>Options for <see cref="SponsorkitClient.SignInAsync(SignInOptions?, CancellationToken)"/>.</summary>
 public sealed class SignInOptions
 {
-    /// <summary>Skip the provider picker: <c>github</c> or <c>opencollective</c>. Also used to add a second identity.</summary>
+    /// <summary>Skip the provider picker: <c>github</c> or <c>open-collective</c>. Also used to add a second identity.</summary>
     public string? Provider { get; set; }
 
     /// <summary>Overrides <see cref="SponsorkitOptions.SignInMethod"/> for this call.</summary>
@@ -177,7 +177,7 @@ public sealed class SignInOptions
 /// <summary>Options for <see cref="SponsorkitClient.CheckoutUrl"/>.</summary>
 public class CheckoutUrlOptions
 {
-    /// <summary>Preferred provider (<c>github</c> or <c>opencollective</c>); it must be one of the configured targets.</summary>
+    /// <summary>Preferred provider (<c>github</c> or <c>open-collective</c>); it must be one of the configured targets.</summary>
     public string? Provider { get; set; }
 
     /// <summary>Amount in minor units (for example 500 = $5.00). Must be positive.</summary>

@@ -35,7 +35,7 @@ python -m pip install sponsorkit
 
 ```bash tab="Go" key="go"
 go mod init example.com/my-cli
-go get github.com/ffMathy/sponsorkit/sdks/go@v0.1.0
+go get github.com/ffMathy/sponsorkit/sdks/go@v0.2.0
 ```
 
 ```bash tab="Rust" key="rust"
@@ -62,7 +62,7 @@ import { Sponsorkit, SponsorkitError } from "@sponsorkit/sdk/node";
 
 const sk = new Sponsorkit({
   github: "octocat",               // your GitHub Sponsors login
-  opencollective: "my-collective", // and/or your Open Collective slug
+  openCollective: "my-collective", // and/or your Open Collective slug
   appName: "my-cli",               // shown on the consent screen
 });
 
@@ -186,7 +186,7 @@ from sponsorkit import Sponsorkit, SponsorkitError
 
 sk = Sponsorkit(
     github="octocat",  # your GitHub Sponsors login
-    opencollective="my-collective",  # and/or your Open Collective slug
+    open_collective="my-collective",  # and/or your Open Collective slug
     app_name="my-cli",  # shown on the consent screen
 )
 
@@ -335,7 +335,7 @@ use sponsorkit::{CheckoutOptions, CheckoutOutcome, ErrorCode, Frequency, GetOpti
 async fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),               // your GitHub Sponsors login
-        opencollective: Some("my-collective".into()), // and/or your Open Collective slug
+        open_collective: Some("my-collective".into()), // and/or your Open Collective slug
         app_name: Some("my-cli".into()),              // shown on the consent screen
         ..Default::default()
     })?; // errors only on invalid configuration

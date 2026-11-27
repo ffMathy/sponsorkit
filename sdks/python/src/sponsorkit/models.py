@@ -41,7 +41,7 @@ STATUSES: tuple[str, ...] = (
     "pending",
 )
 FREQUENCIES: tuple[str, ...] = ("one_time", "monthly", "yearly")
-_PROVIDERS = ("github", "opencollective")
+_PROVIDERS = ("github", "open-collective")
 
 
 def _obj(d: object, what: str) -> Mapping[str, Any]:

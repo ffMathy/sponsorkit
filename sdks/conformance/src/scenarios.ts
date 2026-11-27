@@ -3,15 +3,15 @@
  * fails when the committed scenarios.json is out of date.
  */
 import type { ContributionResult } from "@sponsorkit/shared";
-import { parseTargetString } from "@sponsorkit/shared";
+import { parseTargetString, targetsFromOptions } from "@sponsorkit/shared";
 import { DEFAULT_TARGETS, DEFAULT_TARGETS_PARAM, MISSING_GITHUB_ACCOUNT, NAMED_CONTRIBUTIONS } from "./fixtures";
 import { mockCheckoutContribution, mockResult, type MockPresetName, MOCK_PRESET_NAMES } from "./mock-presets";
 import type { Scenario, ScenariosFile, Step } from "./scenario-schema";
 
-export const DEFAULT_TARGETS_HASH = "3363d36356e472dab64ce744efd4e8bad412dd7f152bfd357ba96aa97180ac0e";
+export const DEFAULT_TARGETS_HASH = "d41971f853895a51b5595de369c3e4bef09f41c92851eb9eb38032c2954cf981";
 export const GITHUB_ONLY_PARAM = "github:sponsorkit-conformance";
 export const GITHUB_ONLY_HASH = "d3831f8e6aefc8e048f18374a230b28dd9e05310c396cdab5b75b6dcce9228f9";
-export const OC_ONLY_PARAM = "opencollective:sponsorkit-conformance";
+export const OC_ONLY_PARAM = "open-collective:sponsorkit-conformance";
 export const APP_NAME = "conformance-app";
 
 const contribution = (name: string) => {
@@ -22,7 +22,7 @@ const contribution = (name: string) => {
 const id = (name: string) => contribution(name).id;
 const GH_DIRECT = id("github-direct-monthly");
 const GH_ORG = id("github-org-one-time");
-const OC_MONTHLY = id("opencollective-monthly");
+const OC_MONTHLY = id("open-collective-monthly");
 const GH_NEW = id("github-checkout-new");
 const DEFAULT_TARGET_STRINGS = DEFAULT_TARGETS_PARAM.split(",");
 const DEFAULT_TARGET_LIST = DEFAULT_TARGET_STRINGS.map(parseTargetString);
@@ -66,7 +66,7 @@ const signedInEmptyStale = {
 };
 
 const GH_IDENTITY = { provider: "github", id: "583231", handle: "conformance-user", needsReconnect: false };
-const OC_IDENTITY = { provider: "opencollective", id: "rvelxbzm-o9n8y05w-wq9op3dg", handle: "conformance-user", needsReconnect: false };
+const OC_IDENTITY = { provider: "open-collective", id: "rvelxbzm-o9n8y05w-wq9op3dg", handle: "conformance-user", needsReconnect: false };
 
 // ------------------------------------------------------------------ requests
 
@@ -112,7 +112,7 @@ const noneAtAll = { exact: true, includeTargetsLookups: true, calls: [] };
 
 const configure = (args: Record<string, unknown> = {}): Step => ({
   action: "configure",
-  args: { github: DEFAULT_TARGETS.github, opencollective: DEFAULT_TARGETS.opencollective, appName: APP_NAME, ...args },
+  args: { github: DEFAULT_TARGETS.github, openCollective: DEFAULT_TARGETS.openCollective, appName: APP_NAME, ...args },
 });
 const restart: Step = { action: "restart", note: "Simulates a new process: drop the SDK instance and create a new one from the last configure args." };
 const signInLoopback = (expect?: Step["expect"]): Step => ({ action: "signIn", args: { method: "loopback" }, ...(expect ? { expect } : {}) });
@@ -159,7 +159,7 @@ const config: Scenario[] = [
     steps: [
       { action: "configure", args: { github: "-bad-" }, expect: { throws: "invalid_config", requests: noneAtAll } },
       { action: "configure", args: { github: "a".repeat(40) }, expect: { throws: "invalid_config", requests: noneAtAll } },
-      { action: "configure", args: { opencollective: "bad slug!" }, expect: { throws: "invalid_config", requests: noneAtAll } },
+      { action: "configure", args: { openCollective: "bad slug!" }, expect: { throws: "invalid_config", requests: noneAtAll } },
       { action: "configure", args: { github: "has--double" }, expect: { throws: "invalid_config", requests: noneAtAll } },
     ],
     expect: { files: [noStorageDir] },
@@ -172,7 +172,7 @@ const config: Scenario[] = [
     category: "config",
     specRefs: ["PROTOCOL §1", "SPEC §7.3"],
     steps: [
-      configure({ github: "  SponsorKit-Conformance ", opencollective: "SPONSORKIT-CONFORMANCE" }),
+      configure({ github: "  SponsorKit-Conformance ", openCollective: "SPONSORKIT-CONFORMANCE" }),
       {
         action: "checkoutUrl",
         args: {},
@@ -228,7 +228,7 @@ const config: Scenario[] = [
             method: "GET",
             path: "/api/v1/targets",
             max: 1,
-            query: { $exact: { github: DEFAULT_TARGETS.github, opencollective: DEFAULT_TARGETS.opencollective } },
+            query: { $exact: { github: DEFAULT_TARGETS.github, "open-collective": DEFAULT_TARGETS.openCollective } },
           },
         ],
       },
@@ -347,8 +347,8 @@ const config: Scenario[] = [
   },
 ];
 
-const mockScenario = (preset: MockPresetName, targets: Record<string, string>, suffix = ""): Scenario => {
-  const list = Object.entries(targets).map(([p, a]) => parseTargetString(`${p}:${a}`)).sort((a, b) => (`${a.provider}:${a.account}` < `${b.provider}:${b.account}` ? -1 : 1));
+const mockScenario = (preset: MockPresetName, targets: { github?: string; openCollective?: string }, suffix = ""): Scenario => {
+  const list = targetsFromOptions(targets);
   return {
     id: `mock-preset-${preset}${suffix}`,
     title: `Mock preset "${preset}"${suffix ? ` (${suffix.slice(1)} target)` : ""}`,
@@ -366,7 +366,7 @@ const mockScenario = (preset: MockPresetName, targets: Record<string, string>, s
 
 const mock: Scenario[] = [
   ...MOCK_PRESET_NAMES.map((p) => mockScenario(p, { ...DEFAULT_TARGETS })),
-  mockScenario("active-monthly", { opencollective: DEFAULT_TARGETS.opencollective }, "-opencollective"),
+  mockScenario("active-monthly", { openCollective: DEFAULT_TARGETS.openCollective }, "-open-collective"),
   {
     id: "mock-env-var",
     title: "SPONSORKIT_MOCK selects a preset",
@@ -423,12 +423,12 @@ const mock: Scenario[] = [
       get({ returns: { $exact: mockResult(DEFAULT_TARGET_LIST, "none") } }),
       {
         action: "openCheckout",
-        args: { provider: "opencollective", amount: 1000, currency: "EUR", frequency: "one_time", timeout: 30, pollInterval: 1 },
+        args: { provider: "open-collective", amount: 1000, currency: "EUR", frequency: "one_time", timeout: 30, pollInterval: 1 },
         expect: {
           returns: {
             $exact: {
               status: "contributed",
-              contribution: mockCheckoutContribution(DEFAULT_TARGET_LIST, { provider: "opencollective", amount: 1000, currency: "EUR", frequency: "one_time" }),
+              contribution: mockCheckoutContribution(DEFAULT_TARGET_LIST, { provider: "open-collective", amount: 1000, currency: "EUR", frequency: "one_time" }),
             },
           },
           maxSeconds: 1,
@@ -437,7 +437,7 @@ const mock: Scenario[] = [
       get({
         returns: {
           $exact: mockResult(DEFAULT_TARGET_LIST, {
-            contributions: [mockCheckoutContribution(DEFAULT_TARGET_LIST, { provider: "opencollective", amount: 1000, currency: "EUR", frequency: "one_time" })],
+            contributions: [mockCheckoutContribution(DEFAULT_TARGET_LIST, { provider: "open-collective", amount: 1000, currency: "EUR", frequency: "one_time" })],
           }),
         },
       }),
@@ -601,7 +601,7 @@ const signIn: Scenario[] = [
     id: "sign-in-add-identity",
     title: "Adding a second identity",
     description:
-      "While signed in with GitHub, signIn({ provider: \"opencollective\" }) opens /connect/ with provider=opencollective&add=1 and sends the existing sessionToken to /auth/token. The new token holds both identities, and results include both providers' contributions.",
+      "While signed in with GitHub, signIn({ provider: \"open-collective\" }) opens /connect/ with provider=open-collective&add=1 and sends the existing sessionToken to /auth/token. The new token holds both identities, and results include both providers' contributions.",
     category: "sign-in",
     specRefs: ["SPEC §6.2", "PROTOCOL §3.2", "PROTOCOL §4.1"],
     requires: ["openBrowser", "signInMethod"],
@@ -610,9 +610,9 @@ const signIn: Scenario[] = [
       signInLoopback(),
       {
         action: "signIn",
-        args: { method: "loopback", provider: "opencollective" },
+        args: { method: "loopback", provider: "open-collective" },
         expect: {
-          requests: { exact: true, calls: [connectCall({ provider: "opencollective", add: "1" }), tokenCall({ sessionToken: "$SESSION_TOKEN_1" })] },
+          requests: { exact: true, calls: [connectCall({ provider: "open-collective", add: "1" }), tokenCall({ sessionToken: "$SESSION_TOKEN_1" })] },
         },
       },
       get({
@@ -628,7 +628,7 @@ const signIn: Scenario[] = [
     id: "sign-in-add-identity-dead-session",
     title: "Adding an identity to a dead session starts a new session",
     description:
-      "The stored session token is no longer valid. signIn({ provider: \"opencollective\" }) opens /connect/ with add=1 and sends the stored sessionToken; /auth/token answers 401 session_invalid. The SDK clears the stored session and retries the same code once without sessionToken, which succeeds with only the new identity.",
+      "The stored session token is no longer valid. signIn({ provider: \"open-collective\" }) opens /connect/ with add=1 and sends the stored sessionToken; /auth/token answers 401 session_invalid. The SDK clears the stored session and retries the same code once without sessionToken, which succeeds with only the new identity.",
     category: "sign-in",
     specRefs: ["PROTOCOL §7", "PROTOCOL §3.2"],
     requires: ["openBrowser", "signInMethod"],
@@ -638,11 +638,11 @@ const signIn: Scenario[] = [
       isSignedIn(true),
       {
         action: "signIn",
-        args: { method: "loopback", provider: "opencollective" },
+        args: { method: "loopback", provider: "open-collective" },
         expect: {
           requests: {
             exact: true,
-            calls: [connectCall({ provider: "opencollective", add: "1" }), tokenCall({ sessionToken: DEAD_SESSION_TOKEN }), tokenCall({ sessionToken: ABSENT })],
+            calls: [connectCall({ provider: "open-collective", add: "1" }), tokenCall({ sessionToken: DEAD_SESSION_TOKEN }), tokenCall({ sessionToken: ABSENT })],
           },
         },
       },
@@ -871,16 +871,16 @@ const cache: Scenario[] = [
     id: "partial-outage",
     title: "Partial provider outage merges cached contributions",
     description:
-      "/contributions reports unavailable: [\"opencollective\"] with stale: true and omits its contributions. The SDK fills in that provider's contributions from its cache and returns stale: true, fromCache: false.",
+      "/contributions reports unavailable: [\"open-collective\"] with stale: true and omits its contributions. The SDK fills in that provider's contributions from its cache and returns stale: true, fromCache: false.",
     category: "cache",
     specRefs: ["SPEC §5.3", "SPEC §7.2", "PROTOCOL §3.3"],
     requires: ["openBrowser", "signInMethod"],
     steps: [
       configure(),
       signInLoopback(),
-      { action: "signIn", args: { method: "loopback", provider: "opencollective" } },
+      { action: "signIn", args: { method: "loopback", provider: "open-collective" } },
       refresh({ contributionIds: [GH_DIRECT, GH_ORG, OC_MONTHLY] }),
-      { action: "control", args: { outage: ["opencollective"] } },
+      { action: "control", args: { outage: ["open-collective"] } },
       refresh({ returns: { signedIn: true, stale: true, fromCache: false }, contributionIds: [GH_DIRECT, GH_ORG, OC_MONTHLY], requests: { calls: [contributionsCall(1)] } }),
     ],
   },
@@ -893,9 +893,9 @@ const cache: Scenario[] = [
     requires: ["openBrowser", "signInMethod"],
     steps: [
       configure(),
-      { action: "control", args: { outage: ["opencollective"] } },
+      { action: "control", args: { outage: ["open-collective"] } },
       signInLoopback(),
-      { action: "signIn", args: { method: "loopback", provider: "opencollective" } },
+      { action: "signIn", args: { method: "loopback", provider: "open-collective" } },
       refresh({ returns: { signedIn: true, stale: true, fromCache: false }, contributionIds: [GH_DIRECT, GH_ORG], requests: { calls: [contributionsCall(1)] } }),
     ],
   },
@@ -1105,12 +1105,12 @@ const checkout: Scenario[] = [
       },
       {
         action: "checkoutUrl",
-        args: { provider: "opencollective", amount: 1500, currency: "EUR", frequency: "yearly" },
+        args: { provider: "open-collective", amount: 1500, currency: "EUR", frequency: "yearly" },
         expect: {
           returns: {
             $url: {
               base: "$BASE_URL/checkout/",
-              query: { $exact: { targets: DEFAULT_TARGETS_PARAM, provider: "opencollective", amount: "1500", currency: "EUR", frequency: "yearly" } },
+              query: { $exact: { targets: DEFAULT_TARGETS_PARAM, provider: "open-collective", amount: "1500", currency: "EUR", frequency: "yearly" } },
             },
           },
         },
@@ -1127,7 +1127,7 @@ const checkout: Scenario[] = [
     specRefs: ["PROTOCOL §7.1", "SPEC §7.3"],
     steps: [
       { action: "configure", args: { github: DEFAULT_TARGETS.github, appName: APP_NAME } },
-      { action: "checkoutUrl", args: { provider: "opencollective" }, expect: { throws: "invalid_config" }, note: "opencollective is not configured." },
+      { action: "checkoutUrl", args: { provider: "open-collective" }, expect: { throws: "invalid_config" }, note: "open-collective is not configured." },
       configure(),
       { action: "checkoutUrl", args: { frequency: "weekly" }, expect: { throws: "invalid_config" } },
       { action: "checkoutUrl", args: { amount: 0 }, expect: { throws: "invalid_config" } },
@@ -1489,7 +1489,7 @@ const serverHelper: Scenario[] = [
       mintGithubSession(),
       {
         action: "verifySession",
-        args: { token: "$MINTED_SESSION_TOKEN", targets: { opencollective: "sponsorkit-conformance", github: "SponsorKit-Conformance" } },
+        args: { token: "$MINTED_SESSION_TOKEN", targets: { openCollective: "sponsorkit-conformance", github: "SponsorKit-Conformance" } },
         expect: {
           returns: { signedIn: true, targets: DEFAULT_TARGET_STRINGS, supporter: { identities: [GH_IDENTITY] } },
           contributionIds: [GH_DIRECT, GH_ORG],

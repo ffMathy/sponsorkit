@@ -198,7 +198,7 @@ mod tests {
 
     #[test]
     fn all_presets_expand() {
-        let t = TargetSet::parse("github:octocat,opencollective:x").unwrap();
+        let t = TargetSet::parse("github:octocat,open-collective:x").unwrap();
         for p in MockPreset::ALL {
             let r = mock_result(&t, &Mock::Preset(p));
             assert!(r.mock);

@@ -45,13 +45,13 @@ use sponsorkit::{CheckoutOptions, Frequency, Options, Provider, Sponsorkit};
 fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),
-        opencollective: Some("my-collective".into()),
+        open_collective: Some("my-collective".into()),
         ..Default::default()
     })?;
 
     // Let the page offer every provider:
     println!("{}", sk.checkout_url(&CheckoutOptions::default())?);
-    // https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copencollective%3Amy-collective
+    // https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copen-collective%3Amy-collective
 
     // Suggest $10 a year through Open Collective:
     let url = sk.checkout_url(&CheckoutOptions {

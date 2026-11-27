@@ -4,8 +4,8 @@ import contributionsJson from "../fixtures/contributions.json";
 import targetsJson from "../fixtures/targets-response.json";
 
 /** The target set every scenario uses unless it says otherwise. */
-export const DEFAULT_TARGETS = { github: "sponsorkit-conformance", opencollective: "sponsorkit-conformance" } as const;
-export const DEFAULT_TARGETS_PARAM = "github:sponsorkit-conformance,opencollective:sponsorkit-conformance";
+export const DEFAULT_TARGETS = { github: "sponsorkit-conformance", openCollective: "sponsorkit-conformance" } as const;
+export const DEFAULT_TARGETS_PARAM = "github:sponsorkit-conformance,open-collective:sponsorkit-conformance";
 /** An account that is well-formed but does not exist (TargetInfo.exists === false). */
 export const MISSING_GITHUB_ACCOUNT = "sponsorkit-conformance-missing";
 
@@ -59,5 +59,5 @@ export function targetInfo(provider: Provider, account: string): TargetInfo {
 /** The identities the fake provider OAuth "signs in" as. Deterministic so scenarios can assert on them. */
 export const FAKE_IDENTITIES: Readonly<Record<Provider, { provider: Provider; id: string; handle: string }>> = {
   github: { provider: "github", id: "583231", handle: "conformance-user" },
-  opencollective: { provider: "opencollective", id: "rvelxbzm-o9n8y05w-wq9op3dg", handle: "conformance-user" },
+  "open-collective": { provider: "open-collective", id: "rvelxbzm-o9n8y05w-wq9op3dg", handle: "conformance-user" },
 };

@@ -79,7 +79,7 @@ function stdinPrompt(output: { write(text: string): unknown }, signal: AbortSign
  *
  * @example
  * ```ts
- * const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective", appName: "my-cli" });
+ * const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective", appName: "my-cli" });
  * if (!(await sk.isSignedIn())) await sk.signIn();
  * const fc = await sk.getFinancialContribution();
  * if (fc.active().length === 0) console.error(`Support my-cli: ${sk.checkoutUrl({ frequency: "monthly" })}`);

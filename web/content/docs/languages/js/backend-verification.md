@@ -18,7 +18,7 @@ Send it with your own API calls, for example in a header:
 ```ts title="frontend.ts"
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 export async function downloadReport(): Promise<Response> {
   const token = await sk.getSessionToken();
@@ -36,7 +36,7 @@ Node 20+, Bun, Deno, Cloudflare Workers and other edge runtimes.
 ```ts title="handler.ts"
 import { isSponsorkitError, verifySession } from "@sponsorkit/sdk/server";
 
-const TARGETS = { github: "octocat", opencollective: "my-collective" };
+const TARGETS = { github: "octocat", openCollective: "my-collective" };
 
 // A fetch-style handler (Workers, Deno, Bun, Hono, Next.js route handlers, …).
 export async function handleReport(request: Request): Promise<Response> {
@@ -90,8 +90,8 @@ function verifySession(
 
 - `token`: the `sks_…` session token. Surrounding whitespace is ignored; an empty token throws `session_invalid`
   without a request.
-- `targets`: your targets, as `{ github, opencollective }`, a target string such as
-  `"github:octocat,opencollective:my-collective"`, or a list such as `["github:octocat"]`. They must be the
+- `targets`: your targets, as `{ github, openCollective }`, a target string such as
+  `"github:octocat,open-collective:my-collective"`, or a list such as `["github:octocat"]`. They must be the
   same targets your frontend uses: a session is sealed to its target set.
 - `options`:
 

@@ -64,7 +64,7 @@ For a page without a build step, load the ES module from an npm CDN such as esm.
 </script>
 ```
 
-Pin a version (`@sponsorkit/sdk@0.1.0`) in production.
+Pin a version (`@sponsorkit/sdk@0.2.0`) in production.
 :::
 ::::
 
@@ -87,7 +87,7 @@ Each entry point also re-exports the shared types and helpers, so you import eve
 ```ts title="app.ts"
 import { isSponsorkitError, Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 // Never throws because of the network: falls back to the cached result.
 const fc = await sk.getFinancialContribution();

@@ -6,7 +6,7 @@ import { loadSealingKeys, seal, unseal } from "../src/seal";
 import type { Env } from "../src/env";
 import { CHALLENGE, KEYS_V1, ORIGIN, call, fakeLimiter, getCookie, installFakeProviders, makeEnv, type FakeProviders } from "./helpers";
 
-const TARGETS = "github:mathiaslorenzen,opencollective:sponsorkit";
+const TARGETS = "github:mathiaslorenzen,open-collective:sponsorkit";
 
 /** Two-origin deployment, as in production (PROTOCOL §0): site on Pages, API on its own host. */
 const SPLIT = {
@@ -88,21 +88,21 @@ describe("POST /api/oauth/:provider/start", () => {
 
   it("parses the form body (charset parameter, add field, continue) and ignores the query string", async () => {
     const res = await postStart(
-      "opencollective",
-      { delivery: "paste", add: "1", continue: "targets=opencollective%3Asponsorkit&amount=500" },
+      "open-collective",
+      { delivery: "paste", add: "1", continue: "targets=open-collective%3Asponsorkit&amount=500" },
       { contentType: "application/x-www-form-urlencoded; charset=UTF-8", query: `?targets=github:other&challenge=${"A".repeat(43)}&delivery=loopback` },
     );
     expect(res.status).toBe(302);
     const state = new URL(res.headers.get("Location")!).searchParams.get("state")!;
     const payload = await unseal("state", state, await loadSealingKeys(KEYS_V1), StatePayload);
-    expect(payload).toMatchObject({ p: "opencollective", t: TARGETS, d: "paste", c: CHALLENGE, k: "targets=opencollective%3Asponsorkit&amount=500" });
+    expect(payload).toMatchObject({ p: "open-collective", t: TARGETS, d: "paste", c: CHALLENGE, k: "targets=open-collective%3Asponsorkit&amount=500" });
   });
 
   it("accepts the site origin of a two-origin deployment and uses PUBLIC_ORIGIN for the callback URL", async () => {
     const env = makeEnv(SPLIT);
-    const { location, res } = await start("opencollective", { delivery: "paste" }, env, "https://pages.test");
+    const { location, res } = await start("open-collective", { delivery: "paste" }, env, "https://pages.test");
     expect(location.origin).toBe("https://oc.test");
-    expect(location.searchParams.get("redirect_uri")).toBe("https://api.sponsorkit.test/api/oauth/opencollective/callback");
+    expect(location.searchParams.get("redirect_uri")).toBe("https://api.sponsorkit.test/api/oauth/open-collective/callback");
     // The nonce cookie is host-only (__Host-), so it lives on the API origin that set it.
     expect(res.headers.getSetCookie().find((c) => c.startsWith(NONCE_COOKIE))).not.toMatch(/Domain=/i);
   });
@@ -154,15 +154,15 @@ describe("POST /api/oauth/:provider/start", () => {
 
   it("links a refused /checkout start back to /checkout with its continue value plus the sign-in params", async () => {
     const res = await postStart(
-      "opencollective",
-      { delivery: "web_message", origin: "https://app.example.com", continue: "targets=opencollective%3Asponsorkit&amount=500" },
+      "open-collective",
+      { delivery: "web_message", origin: "https://app.example.com", continue: "targets=open-collective%3Asponsorkit&amount=500" },
       { env: makeEnv(SPLIT), origin: "https://evil.example" },
     );
     expect(res.status).toBe(403);
     const u = linkIn(await res.text());
     expect(u.origin + u.pathname).toBe(`${SPLIT_SITE}/checkout/`);
     expect(u.searchParams.get("amount")).toBe("500");
-    expect(u.searchParams.getAll("targets")).toEqual(["opencollective:sponsorkit"]);
+    expect(u.searchParams.getAll("targets")).toEqual(["open-collective:sponsorkit"]);
     expect(u.searchParams.get("challenge")).toBe(CHALLENGE);
     expect(u.searchParams.get("origin")).toBe("https://app.example.com");
     expect(u.searchParams.has("continue")).toBe(false);
@@ -189,7 +189,7 @@ describe("POST /api/oauth/:provider/start", () => {
       [startForm({ delivery: "redirect", redirect_uri: "http://evil.example.com/" })],
       [startForm({ delivery: "loopback", redirect_uri: "http://localhost:1234/callback" })],
       [startForm({ delivery: "web_message" })],
-      [`targets=opencollective:x&challenge=${CHALLENGE}&delivery=paste`],
+      [`targets=open-collective:x&challenge=${CHALLENGE}&delivery=paste`],
       [`targets=github:x&delivery=paste`],
       [""],
       [startForm({ delivery: "paste" }), "application/json"],
@@ -260,10 +260,10 @@ describe("deliveries in a two-origin deployment", () => {
 
   it("uses the API origin for the provider callback URL in the code exchange", async () => {
     const fake = installFakeProviders();
-    const { state, nonce } = await start("opencollective", { delivery: "paste" }, env, "https://pages.test");
-    await callback("opencollective", { code: "good", state }, nonce, env);
+    const { state, nonce } = await start("open-collective", { delivery: "paste" }, env, "https://pages.test");
+    await callback("open-collective", { code: "good", state }, nonce, env);
     const exchange = fake.requests.find((r) => r.url.includes("token"))!;
-    expect(new URLSearchParams(exchange.body).get("redirect_uri")).toBe("https://api.sponsorkit.test/api/oauth/opencollective/callback");
+    expect(new URLSearchParams(exchange.body).get("redirect_uri")).toBe("https://api.sponsorkit.test/api/oauth/open-collective/callback");
   });
 
   it("fails closed on the callback when the site config is invalid", async () => {
@@ -321,7 +321,7 @@ describe("GET /api/oauth/:provider/callback", () => {
   ];
 
   for (const tc of cases) {
-    for (const provider of ["github", "opencollective"] as const) {
+    for (const provider of ["github", "open-collective"] as const) {
       it(`delivers a code via ${tc.delivery} (${provider})`, async () => {
         const { state, nonce } = await start(provider, { delivery: tc.delivery, ...tc.extra });
         const res = await callback(provider, { code: "good", state }, nonce);
@@ -338,7 +338,7 @@ describe("GET /api/oauth/:provider/callback", () => {
         if (provider === "github") {
           expect(code.i).toEqual({ p: "github", id: "583231", h: "alice", tok: "gho_good" });
         } else {
-          expect(code.i).toMatchObject({ p: "opencollective", h: "bob", tok: "oc_good" });
+          expect(code.i).toMatchObject({ p: "open-collective", h: "bob", tok: "oc_good" });
           expect(code.i.tx).toBeGreaterThan(Date.now() / 1000 + 89 * 86400);
         }
         // The provider code exchange used the Worker's PKCE verifier and callback URL.
@@ -423,6 +423,6 @@ describe("GET /api/oauth/:provider/callback", () => {
     const { state, nonce } = await start("github", { delivery: "paste" });
     expect((await callback("github", { code: "good", state: state.slice(0, -3) + "AAA" }, nonce)).status).toBe(400);
     expect((await callback("github", { code: "good" }, nonce)).status).toBe(400);
-    expect((await callback("opencollective", { code: "good", state }, nonce)).status).toBe(400);
+    expect((await callback("open-collective", { code: "good", state }, nonce)).status).toBe(400);
   });
 });

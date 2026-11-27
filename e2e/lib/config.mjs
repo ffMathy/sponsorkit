@@ -52,14 +52,14 @@ export const PROVIDER_BASES = {
 /** Fake OAuth app credentials (the Worker's secrets; the fake server checks them). */
 export const CLIENTS = {
   github: { id: "e2e-gh-client", secret: "e2e-gh-secret" },
-  opencollective: { id: "e2e-oc-client", secret: "e2e-oc-secret" },
+  "open-collective": { id: "e2e-oc-client", secret: "e2e-oc-secret" },
 };
 export const GITHUB_METADATA_TOKEN = "ghp_e2e_metadata";
 
 /** The sponsored accounts (the app's targets) and the supporter who signs in. */
-export const MAINTAINER = { github: "octo-maint", opencollective: "octo-collective" };
-export const TARGETS_PARAM = `github:${MAINTAINER.github},opencollective:${MAINTAINER.opencollective}`;
-export const SUPPORTER = { github: { login: "kind-supporter", databaseId: 4242 }, opencollective: { id: "oc-acct-77", slug: "kind-supporter" } };
+export const MAINTAINER = { github: "octo-maint", "open-collective": "octo-collective" };
+export const TARGETS_PARAM = `github:${MAINTAINER.github},open-collective:${MAINTAINER["open-collective"]}`;
+export const SUPPORTER = { github: { login: "kind-supporter", databaseId: 4242 }, "open-collective": { id: "oc-acct-77", slug: "kind-supporter" } };
 
 /** Chromium binary: the preinstalled one when present, else Playwright's own. */
 export const CHROMIUM = env.PLAYWRIGHT_CHROMIUM_PATH ?? "/opt/pw-browsers/chromium";

@@ -58,7 +58,7 @@ import { useEffect, useState } from "react";
 import { Sponsorkit } from "@sponsorkit/sdk";
 
 let client: Sponsorkit | undefined;
-const getClient = () => (client ??= new Sponsorkit({ github: "octocat", opencollective: "my-collective" }));
+const getClient = () => (client ??= new Sponsorkit({ github: "octocat", openCollective: "my-collective" }));
 
 export function useIsSupporter(): boolean | undefined {
   const [isSupporter, setIsSupporter] = useState<boolean>();

@@ -52,21 +52,21 @@ describe("redirect/origin rules (PROTOCOL §4.1)", () => {
 });
 
 describe("parseStartParams", () => {
-  const base = { targets: "opencollective:Sponsorkit,github:MathiasLorenzen", challenge: CHALLENGE };
+  const base = { targets: "open-collective:Sponsorkit,github:MathiasLorenzen", challenge: CHALLENGE };
 
   it("canonicalizes targets and keeps only delivery-relevant params", () => {
     const p = parseStartParams(
       q({ ...base, delivery: "web_message", origin: "https://app.example.com", redirect_uri: "https://ignored.example.com", app_name: "my-cli" }),
       "github",
     );
-    expect(p.targetParam).toBe("github:mathiaslorenzen,opencollective:sponsorkit");
+    expect(p.targetParam).toBe("github:mathiaslorenzen,open-collective:sponsorkit");
     expect(p.origin).toBe("https://app.example.com");
     expect(p.redirectUri).toBeUndefined();
     expect(p.appName).toBe("my-cli");
   });
 
   it("validates each delivery", () => {
-    expect(parseStartParams(q({ ...base, delivery: "paste" }), "opencollective").delivery).toBe("paste");
+    expect(parseStartParams(q({ ...base, delivery: "paste" }), "open-collective").delivery).toBe("paste");
     expect(parseStartParams(q({ ...base, delivery: "loopback", redirect_uri: "http://127.0.0.1:4000/callback" }), "github").redirectUri).toBe(
       "http://127.0.0.1:4000/callback",
     );
@@ -82,8 +82,8 @@ describe("parseStartParams", () => {
     expect(() => parseStartParams(q({ targets: "patreon:x", challenge: CHALLENGE, delivery: "paste" }), "github")).toThrow(ParamError);
     expect(() => parseStartParams(q({ targets: "github:a", delivery: "paste" }), "github")).toThrow(/challenge/);
     expect(() => parseStartParams(q({ targets: "github:a", challenge: "short", delivery: "paste" }), "github")).toThrow(ParamError);
-    expect(() => parseStartParams(q({ targets: "github:a", challenge: CHALLENGE, delivery: "paste" }), "opencollective")).toThrow(/not in the target set/);
-    expect(() => parseStartParams(q({ targets: "github:a", challenge: CHALLENGE, delivery: "paste", provider: "opencollective" }), "github")).toThrow(ParamError);
+    expect(() => parseStartParams(q({ targets: "github:a", challenge: CHALLENGE, delivery: "paste" }), "open-collective")).toThrow(/not in the target set/);
+    expect(() => parseStartParams(q({ targets: "github:a", challenge: CHALLENGE, delivery: "paste", provider: "open-collective" }), "github")).toThrow(ParamError);
   });
 
   it("validates app_name and continue", () => {

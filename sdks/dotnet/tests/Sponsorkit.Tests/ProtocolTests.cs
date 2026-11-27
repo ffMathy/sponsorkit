@@ -25,14 +25,14 @@ public sealed class ProtocolTests
     {
         var v = JsonNode.Parse(vector)!;
         var input = v["input"]!;
-        var set = TargetSet.FromOptions(input["github"]?.GetValue<string>(), input["opencollective"]?.GetValue<string>());
+        var set = TargetSet.FromOptions(input["github"]?.GetValue<string>(), input["openCollective"]?.GetValue<string>());
         Assert.Equal(v["param"]!.GetValue<string>(), set.Param);
         Assert.Equal(v["targetsHash"]!.GetValue<string>(), set.Hash);
 
         var client = new SponsorkitClient(new SponsorkitOptions
         {
             GitHub = input["github"]?.GetValue<string>(),
-            OpenCollective = input["opencollective"]?.GetValue<string>(),
+            OpenCollective = input["openCollective"]?.GetValue<string>(),
             Environment = new System.Collections.Generic.Dictionary<string, string> { ["SPONSORKIT_DISABLE"] = "1" },
         });
         Assert.Equal(v["targetsHash"]!.GetValue<string>(), client.TargetsHash);

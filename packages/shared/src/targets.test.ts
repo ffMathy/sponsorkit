@@ -2,8 +2,8 @@ import { expect, test } from "bun:test";
 import { targetsFromOptions, targetsToParam, targetsHash, parseTargetString } from "./targets";
 
 test("canonical target param", () => {
-  const t = targetsFromOptions({ opencollective: "Sponsorkit", github: "MathiasLorenzen" });
-  expect(targetsToParam(t)).toBe("github:mathiaslorenzen,opencollective:sponsorkit");
+  const t = targetsFromOptions({ openCollective: "Sponsorkit", github: "MathiasLorenzen" });
+  expect(targetsToParam(t)).toBe("github:mathiaslorenzen,open-collective:sponsorkit");
 });
 test("targets hash is stable", async () => {
   const h = await targetsHash(targetsFromOptions({ github: "octocat" }));

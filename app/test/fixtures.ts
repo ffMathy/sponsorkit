@@ -4,7 +4,7 @@
  * - Open Collective GraphQL v2: Order, Amount, Tier, Account.orders/memberOf, Query.account
  */
 import type { GhContributionsData, GhTargetData } from "../src/providers/github";
-import type { OcContributionsData, OcOrder, OcTargetData } from "../src/providers/opencollective";
+import type { OcContributionsData, OcOrder, OcTargetData } from "../src/providers/open-collective";
 
 export const GH_VIEWER = { databaseId: 583231, login: "alice" };
 

@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { API, CHALLENGE, github, mockApi, opencollective, p, q } from "./fixtures";
+import { API, CHALLENGE, github, mockApi, openCollective, p, q } from "./fixtures";
 
-const BOTH = "github:octocat,opencollective:sponsorkit";
+const BOTH = "github:octocat,open-collective:sponsorkit";
 
 test.describe("/checkout/ (PROTOCOL §4.6, §6)", () => {
   test("auto-redirects when exactly one provider is eligible", async ({ page, context, baseURL }) => {
@@ -25,7 +25,7 @@ test.describe("/checkout/ (PROTOCOL §4.6, §6)", () => {
 
   test("redirects to the preferred provider when it is eligible", async ({ page, context }) => {
     await mockApi(context);
-    await page.goto(p(`/checkout/?${q({ targets: BOTH, frequency: "monthly", provider: "opencollective" })}`));
+    await page.goto(p(`/checkout/?${q({ targets: BOTH, frequency: "monthly", provider: "open-collective" })}`));
     await page.waitForURL(/^https:\/\/opencollective\.com\/sponsorkit\/donate\?interval=month&redirect=/);
   });
 
@@ -34,20 +34,20 @@ test.describe("/checkout/ (PROTOCOL §4.6, §6)", () => {
     await page.goto(p(`/checkout/?${q({ targets: BOTH, frequency: "monthly", amount: "500" })}`));
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Choose how to contribute");
     await expect(page.getByTestId("choice-github")).toContainText("$5 a month · Coffee");
-    await expect(page.getByTestId("choice-opencollective")).toContainText("€5 a month");
+    await expect(page.getByTestId("choice-open-collective")).toContainText("€5 a month");
     await expect(page.getByTestId("go-github")).toHaveAttribute("href", "https://github.com/sponsors/octocat/sponsorships?tier_id=101");
 
-    await page.getByTestId("go-opencollective").click();
+    await page.getByTestId("go-open-collective").click();
     await page.waitForURL(/^https:\/\/opencollective\.com\/sponsorkit\/donate\?amount=5&interval=month/);
   });
 
   test("shows the chooser with reasons when nothing is eligible", async ({ page, context }) => {
-    await mockApi(context, [github, { ...opencollective, exists: false }]);
+    await mockApi(context, [github, { ...openCollective, exists: false }]);
     await page.goto(p(`/checkout/?${q({ targets: BOTH, currency: "GBP", frequency: "yearly" })}`));
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("No way to contribute with these options");
     await expect(page.getByTestId("reasons-github")).toContainText("doesn't support yearly contributions");
     await expect(page.getByTestId("reasons-github")).toContainText("Only accepts USD, not GBP.");
-    await expect(page.getByTestId("reasons-opencollective")).toContainText("wasn't found on Open Collective");
+    await expect(page.getByTestId("reasons-open-collective")).toContainText("wasn't found on Open Collective");
     await expect(page.locator("[data-testid^='go-']")).toHaveCount(0);
   });
 
@@ -55,7 +55,7 @@ test.describe("/checkout/ (PROTOCOL §4.6, §6)", () => {
     await mockApi(context);
     await page.goto(p(`/checkout/?${q({ targets: BOTH, frequency: "yearly", provider: "github" })}`));
     await expect(page.getByRole("status")).toContainText("GitHub Sponsors isn’t available");
-    await expect(page.getByTestId("go-opencollective")).toBeVisible();
+    await expect(page.getByTestId("go-open-collective")).toBeVisible();
     await expect(page.getByTestId("reasons-github")).toBeVisible();
   });
 

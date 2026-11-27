@@ -12,15 +12,15 @@ import {
   mapOrderStatus,
   normalizeContributions as normalizeOc,
   normalizeTargetInfo as normalizeOcTarget,
-  opencollectiveAdapter,
+  openCollectiveAdapter,
   toMoney as ocToMoney,
-} from "../src/providers/opencollective";
+} from "../src/providers/open-collective";
 import { OAuthExchangeError, ProviderAuthError, ProviderError, providerFetch, readJson } from "../src/providers/types";
 import { OC_ME, ghContributions, ghTarget, ocContributions, ocTarget } from "./fixtures";
 import { installFakeProviders, makeEnv, type FakeProviders } from "./helpers";
 
 const GH_TARGET = { provider: "github" as const, account: "mathiaslorenzen" };
-const OC_TARGET = { provider: "opencollective" as const, account: "sponsorkit" };
+const OC_TARGET = { provider: "open-collective" as const, account: "sponsorkit" };
 
 describe("GitHub normalization", () => {
   it("maps sponsorships per SPEC §5.2, incl. org sponsorships", async () => {
@@ -123,9 +123,9 @@ describe("Open Collective normalization", () => {
       ["monthly", "failed"],
     ]);
     expect(out[0]).toMatchObject({
-      provider: "opencollective",
-      target: "opencollective:sponsorkit",
-      sponsor: { type: "user", provider: "opencollective", id: OC_ME.id, handle: "bob" },
+      provider: "open-collective",
+      target: "open-collective:sponsorkit",
+      sponsor: { type: "user", provider: "open-collective", id: OC_ME.id, handle: "bob" },
       via: "direct",
       kind: "recurring",
       amount: { value: 1000, currency: "EUR" },
@@ -256,9 +256,9 @@ describe("adapters over HTTP", () => {
     await expect(gh.fetchTargetInfo(GH_TARGET)).rejects.toBeInstanceOf(ProviderError);
   });
 
-  it("opencollective: authorize URL, exchange with expiry, identity, contributions", async () => {
-    const oc = opencollectiveAdapter(makeEnv());
-    const url = new URL(oc.authorizeUrl({ redirectUri: "https://sponsorkit.test/api/oauth/opencollective/callback", state: "S", codeChallenge: "C" }));
+  it("open-collective: authorize URL, exchange with expiry, identity, contributions", async () => {
+    const oc = openCollectiveAdapter(makeEnv());
+    const url = new URL(oc.authorizeUrl({ redirectUri: "https://sponsorkit.test/api/oauth/open-collective/callback", state: "S", codeChallenge: "C" }));
     expect(url.origin + url.pathname).toBe("https://oc.test/oauth/authorize");
     expect(url.searchParams.get("response_type")).toBe("code");
     expect(url.searchParams.get("scope")).toBe("orders incognito");
@@ -273,20 +273,20 @@ describe("adapters over HTTP", () => {
     await expect(oc.fetchContributions("oc_revoked", { id: OC_ME.id, handle: "bob" }, OC_TARGET)).rejects.toBeInstanceOf(ProviderAuthError);
   });
 
-  it("opencollective: target info is anonymous", async () => {
-    const oc = opencollectiveAdapter(makeEnv());
+  it("open-collective: target info is anonymous", async () => {
+    const oc = openCollectiveAdapter(makeEnv());
     expect((await oc.fetchTargetInfo(OC_TARGET)).exists).toBe(true);
     expect(fake.requests.at(-1)!.headers.get("Authorization")).toBeNull();
-    expect((await oc.fetchTargetInfo({ provider: "opencollective", account: "missing-collective" })).exists).toBe(false);
+    expect((await oc.fetchTargetInfo({ provider: "open-collective", account: "missing-collective" })).exists).toBe(false);
   });
 
-  it("opencollective: a target that doesn't exist yields no contributions, not an outage", async () => {
+  it("open-collective: a target that doesn't exist yields no contributions, not an outage", async () => {
     // OC resolves `oppositeAccount` with throwIfMissing, so the NotFound error nulls `me`.
     fake.override.set("api.oc.test", () =>
       Response.json({ data: { target: null, me: null }, errors: [{ message: "Account Not Found", path: ["me", "orders"], extensions: { code: "NotFound" } }] }),
     );
-    const oc = opencollectiveAdapter(makeEnv());
-    expect(await oc.fetchContributions("oc_good", { id: OC_ME.id, handle: "bob" }, { provider: "opencollective", account: "typo-collective" })).toEqual([]);
+    const oc = openCollectiveAdapter(makeEnv());
+    expect(await oc.fetchContributions("oc_good", { id: OC_ME.id, handle: "bob" }, { provider: "open-collective", account: "typo-collective" })).toEqual([]);
     expect(OC_CONTRIBUTIONS_QUERY).toContain("target: account(slug: $slug, throwIfMissing: false)");
     // Without the target lookup coming back null, a null `me` is still a provider failure.
     fake.override.set("api.oc.test", () => Response.json({ data: { target: { id: "x" }, me: null }, errors: [{ message: "boom" }] }));
@@ -303,7 +303,7 @@ describe("adapters over HTTP", () => {
       return new Response(stalled, { status: 200, headers: { "Content-Type": "application/json" } });
     });
     const started = Date.now();
-    const p = providerFetch("opencollective", "https://api.oc.test/graphql/v2", { method: "POST", body: "{}" }, 100).then((res) => readJson("opencollective", res));
+    const p = providerFetch("open-collective", "https://api.oc.test/graphql/v2", { method: "POST", body: "{}" }, 100).then((res) => readJson("open-collective", res));
     await expect(p).rejects.toMatchObject({ name: "ProviderError", message: "timeout" });
     expect(Date.now() - started).toBeLessThan(2000);
   });
@@ -312,7 +312,7 @@ describe("adapters over HTTP", () => {
     fake.override.set("api.oc.test", () => {
       throw new TypeError("fetch failed");
     });
-    const oc = opencollectiveAdapter(makeEnv());
+    const oc = openCollectiveAdapter(makeEnv());
     await expect(oc.fetchContributions("oc_good", { id: "x", handle: null }, OC_TARGET)).rejects.toBeInstanceOf(ProviderError);
     expect(await oc.ping()).toBe(false);
   });

@@ -55,7 +55,7 @@ export interface SponsorkitCoreOptions {
   /** GitHub user or organization login that receives sponsorships. */
   github?: string;
   /** Open Collective collective slug that receives contributions. */
-  opencollective?: string;
+  openCollective?: string;
   /** Seconds a cached result is served without calling the API. Default 3600, minimum 60. */
   cacheTtl?: number;
   /** Mock mode (SPEC §7.4): a preset name or `{ contributions }`. Overrides `SPONSORKIT_MOCK`. */
@@ -233,7 +233,7 @@ export abstract class SponsorkitCore<I = unknown> {
 
   /** Canonical target strings, e.g. `["github:octocat"]`. */
   readonly targets: readonly string[];
-  /** Canonical target param (`github:x,opencollective:y`). */
+  /** Canonical target param (`github:x,open-collective:y`). */
   readonly targetsParam: string;
   /** API origin in use (no trailing slash). */
   readonly apiBaseUrl: string;
@@ -262,7 +262,7 @@ export abstract class SponsorkitCore<I = unknown> {
 
   constructor(options: SponsorkitCoreOptions) {
     if (!options || typeof options !== "object") throw new SponsorkitError("invalid_config", "Options are required");
-    this.targetList = targetsFrom({ github: options.github, opencollective: options.opencollective });
+    this.targetList = targetsFrom({ github: options.github, openCollective: options.openCollective });
     this.targets = this.targetList.map(targetToString);
     this.targetsParam = targetsParam(this.targetList);
     const urls = resolveBaseUrls(options);

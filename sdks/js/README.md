@@ -26,7 +26,7 @@ npm install @sponsorkit/sdk     # or: bun add / pnpm add / yarn add
 ```ts
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 const fc = await sk.getFinancialContribution();
 if (fc.signedIn && !fc.active().some((c) => c.amount.currency === "USD" && c.amount.value >= 500)) showAd();
@@ -92,7 +92,7 @@ Throws `SponsorkitError{code: "invalid_config"}` when no target is given or a ta
 | Option | Default | |
 |---|---|---|
 | `github` | – | GitHub user/org login that receives sponsorships. |
-| `opencollective` | – | Open Collective collective slug. At least one target is required. |
+| `openCollective` | – | Open Collective collective slug. At least one target is required. |
 | `appName` (node) | – | Shown on the consent page as "says it is". Max 64 characters. |
 | `cacheTtl` | `3600` | Seconds a cached result is served without calling the API (minimum 60). |
 | `mock` | – | Mock mode: a preset name or `{ contributions }` (see below). |
@@ -231,16 +231,16 @@ For integration tests, point `apiBaseUrl` at the conformance fake server
   // Optional: options for every element-created client, e.g. elementDefaults.returnTo = location.href;
 </script>
 
-<sponsorkit-button github="octocat" opencollective="my-collective" amount="500" frequency="monthly">
+<sponsorkit-button github="octocat" open-collective="my-collective" amount="500" frequency="monthly">
   Sponsor ♥
 </sponsorkit-button>
-<sponsorkit-badge github="octocat" opencollective="my-collective"></sponsorkit-badge>
+<sponsorkit-badge github="octocat" open-collective="my-collective"></sponsorkit-badge>
 ```
 
 - `<sponsorkit-button>` opens checkout (popup, synchronously on click). Attributes: `github`,
-  `opencollective`, `amount`, `currency`, `frequency`, `provider`, `api-base-url`, `site-base-url`, `label`.
+  `open-collective`, `amount`, `currency`, `frequency`, `provider`, `api-base-url`, `site-base-url`, `label`.
   Fires `sponsorkit:checkout` (`detail` = checkout result) and `sponsorkit:error`.
-- `<sponsorkit-badge>` (attributes `github`, `opencollective`, `api-base-url`, `site-base-url`) shows "Supporter ♥" when `active()` is non-empty and is hidden otherwise. Call
+- `<sponsorkit-badge>` (attributes `github`, `open-collective`, `api-base-url`, `site-base-url`) shows "Supporter ♥" when `active()` is non-empty and is hidden otherwise. Call
   `badge.refresh()` after signing in.
 - Assign `element.client = sk` to share an existing `Sponsorkit` instance.
 

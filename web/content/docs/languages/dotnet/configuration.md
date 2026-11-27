@@ -23,7 +23,7 @@ var sk = new SponsorkitClient(new SponsorkitOptions
     RequestTimeout = TimeSpan.FromSeconds(10),
 });
 
-Console.WriteLine(string.Join(", ", sk.Targets)); // github:octocat, opencollective:my-collective
+Console.WriteLine(string.Join(", ", sk.Targets)); // github:octocat, open-collective:my-collective
 ```
 
 ## Options

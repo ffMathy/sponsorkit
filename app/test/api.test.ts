@@ -6,11 +6,11 @@ import { loadSealingKeys, seal, unseal } from "../src/seal";
 import { OC_ME } from "./fixtures";
 import { CHALLENGE, KEYS_V1, KEYS_V2, VERIFIER, call, fakeLimiter, installFakeProviders, makeEnv, newPkce, type FakeProviders } from "./helpers";
 
-const TARGETS = "github:mathiaslorenzen,opencollective:sponsorkit";
+const TARGETS = "github:mathiaslorenzen,open-collective:sponsorkit";
 const now = () => Math.floor(Date.now() / 1000);
 
 const GH_ID: SealedIdentity = { p: "github", id: "583231", h: "alice", tok: "gho_good" };
-const OC_ID: SealedIdentity = { p: "opencollective", id: OC_ME.id, h: "bob", tok: "oc_good", tx: now() + 86400 };
+const OC_ID: SealedIdentity = { p: "open-collective", id: OC_ME.id, h: "bob", tok: "oc_good", tx: now() + 86400 };
 
 async function makeCode(over: Partial<CodePayload> = {}, keysJson = KEYS_V1): Promise<string> {
   const payload: CodePayload = { i: GH_ID, t: TARGETS, c: CHALLENGE, d: "paste", x: now() + 60, ...over };
@@ -106,23 +106,23 @@ describe("common behaviour", () => {
 
 describe("GET /api/v1/targets", () => {
   it("returns canonical TargetInfo for both providers, cacheable", async () => {
-    const res = await call("/api/v1/targets?opencollective=Sponsorkit&github=MathiasLorenzen");
+    const res = await call("/api/v1/targets?open-collective=Sponsorkit&github=MathiasLorenzen");
     expect(res.status).toBe(200);
     expect(res.headers.get("Cache-Control")).toBe("public, max-age=3600");
     const body = TargetsResponse.parse(await res.json());
-    expect(body.targets.map((t) => t.target)).toEqual(["github:mathiaslorenzen", "opencollective:sponsorkit"]);
+    expect(body.targets.map((t) => t.target)).toEqual(["github:mathiaslorenzen", "open-collective:sponsorkit"]);
     expect(body.targets.every((t) => t.exists)).toBe(true);
   });
 
   it("returns exists:false for unknown targets", async () => {
-    const body = TargetsResponse.parse(await (await call("/api/v1/targets?github=ghost-user&opencollective=missing-collective")).json());
+    const body = TargetsResponse.parse(await (await call("/api/v1/targets?github=ghost-user&open-collective=missing-collective")).json());
     expect(body.targets.map((t) => t.exists)).toEqual([false, false]);
   });
 
   it("rejects malformed or missing targets", async () => {
     await expectProblem(await call("/api/v1/targets"), 400, "invalid_target");
     await expectProblem(await call("/api/v1/targets?github=-bad-"), 400, "invalid_target");
-    await expectProblem(await call("/api/v1/targets?opencollective=" + "a".repeat(400)), 400, "invalid_target");
+    await expectProblem(await call("/api/v1/targets?open-collective=" + "a".repeat(400)), 400, "invalid_target");
   });
 
   it("returns 502 internal when a provider is down", async () => {
@@ -203,9 +203,9 @@ describe("POST /api/v1/auth/token", () => {
     expect(res.status).toBe(200);
     const body = TokenResponse.parse(await res.json());
     const session = await openSession(body.sessionToken);
-    expect(session.ids.map((i) => i.p)).toEqual(["github", "opencollective"]);
-    expect(body.result.supporter!.identities.map((i) => i.provider)).toEqual(["github", "opencollective"]);
-    expect(body.result.contributions.filter((c) => c.provider === "opencollective")).toHaveLength(5);
+    expect(session.ids.map((i) => i.p)).toEqual(["github", "open-collective"]);
+    expect(body.result.supporter!.identities.map((i) => i.provider)).toEqual(["github", "open-collective"]);
+    expect(body.result.contributions.filter((c) => c.provider === "open-collective")).toHaveLength(5);
     expect(body.result.contributions.filter((c) => c.provider === "github")).toHaveLength(4);
     // The pairwise id stays that of the original (first) identity.
     const before = TokenResponse.parse(await (await postToken({ code: await makeCode(), codeVerifier: VERIFIER })).json());
@@ -257,7 +257,7 @@ describe("GET /api/v1/contributions", () => {
     fake.override.set("api.oc.test", () => new Response("bad gateway", { status: 502 }));
     const body = ContributionResult.parse(await (await getContributions(await makeSession({ ids: [GH_ID, OC_ID] }))).json());
     expect(body.stale).toBe(true);
-    expect(body.unavailable).toEqual(["opencollective"]);
+    expect(body.unavailable).toEqual(["open-collective"]);
     expect(body.contributions.every((c) => c.provider === "github")).toBe(true);
     expect(body.supporter!.identities.every((i) => !i.needsReconnect)).toBe(true);
   });
@@ -267,7 +267,7 @@ describe("GET /api/v1/contributions", () => {
     const expiredOc: SealedIdentity = { ...OC_ID, tx: now() - 10 };
     const body = ContributionResult.parse(await (await getContributions(await makeSession({ ids: [revoked, expiredOc] }))).json());
     expect(body.stale).toBe(true);
-    expect(body.unavailable).toEqual(["github", "opencollective"]);
+    expect(body.unavailable).toEqual(["github", "open-collective"]);
     expect(body.supporter!.identities.map((i) => i.needsReconnect)).toEqual([true, true]);
     // The expired OC token is never sent to Open Collective.
     expect(fake.requests.some((r) => r.url.includes("oc.test"))).toBe(false);
@@ -341,12 +341,12 @@ describe("GET /api/v1/contributions", () => {
 describe("GET /api/v1/health", () => {
   it("reports provider reachability", async () => {
     const body = await (await call("/api/v1/health")).json();
-    expect(body).toEqual({ ok: true, providers: { github: "ok", opencollective: "ok" } });
+    expect(body).toEqual({ ok: true, providers: { github: "ok", "open-collective": "ok" } });
   });
 
   it("reports degraded providers", async () => {
     fake.override.set("api.github.test", () => new Response("down", { status: 503 }));
     const body = await (await call("/api/v1/health")).json();
-    expect(body).toEqual({ ok: true, providers: { github: "degraded", opencollective: "ok" } });
+    expect(body).toEqual({ ok: true, providers: { github: "degraded", "open-collective": "ok" } });
   });
 });

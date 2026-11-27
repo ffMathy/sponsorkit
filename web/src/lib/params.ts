@@ -368,7 +368,7 @@ export function buildStartForm(apiBase: string, provider: Provider, p: SignInPar
   return { action: `${trimTrailingSlashes(apiBase)}${API_PATHS.oauthStart(provider)}`, fields };
 }
 
-/** `/api/v1/targets?github=…&opencollective=…` query for a target set (PROTOCOL §3.1). */
+/** `/api/v1/targets?github=…&open-collective=…` query for a target set (PROTOCOL §3.1). */
 export function targetsQuery(targets: Target[]): string {
   const q = new URLSearchParams();
   for (const t of targets) q.set(t.provider, t.account);

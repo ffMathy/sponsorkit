@@ -33,7 +33,7 @@ describe("invalid targets", () => {
     expect(() => targetsFrom({})).toThrow(SponsorkitError);
     expect(() => targetsFrom(["github:a", "github:b"])).toThrow(/one target per provider/);
     expect(() => parseTarget("nocolon")).toThrow(SponsorkitError);
-    expect(targetsParam(targetsFrom("opencollective:B,github:A,github:a"))).toBe("github:a,opencollective:b");
+    expect(targetsParam(targetsFrom("open-collective:B,github:A,github:a"))).toBe("github:a,open-collective:b");
   });
 });
 

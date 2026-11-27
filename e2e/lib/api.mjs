@@ -64,8 +64,8 @@ export function writeWorkerConfig() {
   const vars = {
     GITHUB_CLIENT_ID: CLIENTS.github.id,
     GITHUB_CLIENT_SECRET: CLIENTS.github.secret,
-    OPENCOLLECTIVE_CLIENT_ID: CLIENTS.opencollective.id,
-    OPENCOLLECTIVE_CLIENT_SECRET: CLIENTS.opencollective.secret,
+    OPENCOLLECTIVE_CLIENT_ID: CLIENTS["open-collective"].id,
+    OPENCOLLECTIVE_CLIENT_SECRET: CLIENTS["open-collective"].secret,
     SEALING_KEYS: JSON.stringify([{ id: 7, key }]),
     PAIRWISE_KEY: randomBytes(24).toString("base64url"),
     GITHUB_METADATA_TOKEN,

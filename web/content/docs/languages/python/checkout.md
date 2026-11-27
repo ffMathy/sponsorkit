@@ -19,7 +19,7 @@ Both take the same keyword-only options, all optional:
 
 | Option | Meaning |
 |---|---|
-| `provider` | `"github"` or `"opencollective"`; must be one of your targets. Without it, the checkout page lets the person choose. |
+| `provider` | `"github"` or `"open-collective"`; must be one of your targets. Without it, the checkout page lets the person choose. |
 | `amount` | Suggested amount as a positive `int` in minor units: `500` is 5.00. |
 | `currency` | Three uppercase letters (ISO 4217), e.g. `"USD"` or `"EUR"`. |
 | `frequency` | `"one_time"`, `"monthly"` or `"yearly"`. |
@@ -34,7 +34,7 @@ import threading
 
 from sponsorkit import Sponsorkit, SponsorkitError
 
-sk = Sponsorkit(github="octocat", opencollective="my-collective", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-collective", app_name="my-cli")
 
 # A plain link: offline, no sign-in. Good for --help output and READMEs.
 print(sk.checkout_url())
@@ -43,7 +43,7 @@ print(sk.checkout_url(provider="github", frequency="monthly", amount=1000, curre
 cancel = threading.Event()
 try:
     result = sk.open_checkout(
-        provider="opencollective",
+        provider="open-collective",
         frequency="one_time",
         amount=2500,  # minor units: 25.00
         currency="EUR",

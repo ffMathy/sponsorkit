@@ -9,7 +9,9 @@ import {
   Problem,
   TokenResponse,
   problemTypeUrl,
+  targetsFromOptions,
   targetsFromParam,
+  targetsToParam,
   targetsHash,
   type ErrorCode,
 } from "@sponsorkit/shared";
@@ -33,16 +35,16 @@ async function exampleResults() {
   const hash = await targetsHash(targetsFromParam(DEFAULT_TARGETS_PARAM));
   const supporterId = await pairwiseSupporterId(hash, "github", FAKE_IDENTITIES.github.id);
   const gh = { ...FAKE_IDENTITIES.github, needsReconnect: false };
-  const oc = { ...FAKE_IDENTITIES.opencollective, needsReconnect: false };
+  const oc = { ...FAKE_IDENTITIES["open-collective"], needsReconnect: false };
   const pool = defaultPool();
   const base = { signedIn: true, disabled: false, mock: false, targets, fetchedAt: FETCHED_AT, stale: false, fromCache: false };
   const full = ContributionResult.parse({ ...base, supporter: { id: supporterId, identities: [gh, oc] }, contributions: pool });
   const partial = ContributionResult.parse({
     ...base,
     supporter: { id: supporterId, identities: [gh, oc] },
-    contributions: pool.filter((c) => c.provider !== "opencollective"),
+    contributions: pool.filter((c) => c.provider !== "open-collective"),
     stale: true,
-    unavailable: ["opencollective"],
+    unavailable: ["open-collective"],
   });
   const githubOnly = ContributionResult.parse({
     ...base,
@@ -66,16 +68,16 @@ function problemExample(status: number, code: ErrorCode, title: string, detail: 
 
 async function vectors() {
   const sets = [
-    { input: { github: "sponsorkit-conformance", opencollective: "sponsorkit-conformance" } },
+    { input: { github: "sponsorkit-conformance", openCollective: "sponsorkit-conformance" } },
     { input: { github: "sponsorkit-conformance" } },
-    { input: { opencollective: "sponsorkit-conformance" } },
-    { input: { github: "  MathiasLorenzen ", opencollective: "Sponsorkit" } },
+    { input: { openCollective: "sponsorkit-conformance" } },
+    { input: { github: "  MathiasLorenzen ", openCollective: "Sponsorkit" } },
     { input: { github: "octocat" } },
   ];
   const targetSets = [];
   for (const s of sets) {
-    const t = Object.entries(s.input).map(([p, a]) => `${p}:${a.trim().toLowerCase()}`).sort();
-    const param = t.join(",");
+    // `input` holds SDK-style options ({ github?, openCollective? }).
+    const param = targetsToParam(targetsFromOptions(s.input));
     targetSets.push({ input: s.input, param, targetsHash: await targetsHash(targetsFromParam(param)) });
   }
   const verifiers = [
@@ -89,7 +91,7 @@ async function vectors() {
   for (const [provider, externalId] of [
     ["github", "gh-sponsorship-1001"],
     ["github", "gh-sponsorship-1002"],
-    ["opencollective", "oc-order-2001"],
+    ["open-collective", "oc-order-2001"],
     ["github", "gh-sponsorship-1003"],
     ["github", "gh-sponsorship-1004"],
   ] as const) {
@@ -104,8 +106,8 @@ async function vectors() {
       { provider: "github", account: "has--double" },
       { provider: "github", account: "a".repeat(40) },
       { provider: "github", account: "" },
-      { provider: "opencollective", account: "bad slug!" },
-      { provider: "opencollective", account: "-leading-hyphen" },
+      { provider: "open-collective", account: "bad slug!" },
+      { provider: "open-collective", account: "-leading-hyphen" },
       { provider: "patreon", account: "someone" },
     ],
     pkce,

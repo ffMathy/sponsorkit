@@ -22,7 +22,7 @@ The details are in [Caching](/docs/concepts/caching) and the [error contract](/d
 ```ts
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 const fc = await sk.getFinancialContribution();
 if (fc.active().length > 0) console.log("Thanks for your support!");
@@ -80,7 +80,7 @@ decide whether organization sponsorships count:
 import type { Contribution } from "@sponsorkit/sdk";
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
 
 function qualifies(c: Contribution): boolean {
   const monthly = c.frequency === "monthly" ? c.amount.value : c.frequency === "yearly" ? c.amount.value / 12 : 0;

@@ -22,13 +22,13 @@ was issued for **exactly** your `targets`, and returns the same [`ContributionRe
 client gets. `supporter.id` is stable for a person and your target set, so you can key your own user records on
 it.
 
-`Targets` names the accounts, like the `github` and `opencollective` fields of `Options`:
+`Targets` names the accounts, like the `github` and `open_collective` fields of `Options`:
 
 ```rust
 use sponsorkit::Targets;
 
 fn my_targets() -> Targets {
-    Targets::github("octocat").with_opencollective("my-collective")
+    Targets::github("octocat").with_open_collective("my-collective")
 }
 ```
 
@@ -41,7 +41,7 @@ use sponsorkit::{ErrorCode, Targets};
 
 /// Returns an HTTP status and body for a download request carrying a session token.
 async fn handle_download(token: &str) -> (u16, String) {
-    let targets = Targets::github("octocat").with_opencollective("my-collective");
+    let targets = Targets::github("octocat").with_open_collective("my-collective");
     match verify_session(token, &targets).await {
         Ok(fc) if fc.active().iter().any(|c| c.amount.currency == "USD" && c.amount.value >= 500) => {
             let id = fc.supporter.map(|s| s.id).unwrap_or_default();

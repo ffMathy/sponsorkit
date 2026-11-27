@@ -5,10 +5,10 @@
  */
 
 /** A contribution platform supported by Sponsorkit. */
-export type Provider = "github" | "opencollective";
+export type Provider = "github" | "open-collective";
 
 /** All providers, in canonical order. */
-export const PROVIDERS: readonly Provider[] = ["github", "opencollective"];
+export const PROVIDERS: readonly Provider[] = ["github", "open-collective"];
 
 /** An amount of money in minor units (cents) with its ISO 4217 currency. */
 export interface Money {
@@ -128,7 +128,7 @@ export interface TargetOptions {
   /** GitHub user or organization login. */
   github?: string | null;
   /** Open Collective collective slug. */
-  opencollective?: string | null;
+  openCollective?: string | null;
 }
 
 /** Options for `openCheckout()` and `checkoutUrl()`. */

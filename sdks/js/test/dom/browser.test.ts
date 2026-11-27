@@ -13,7 +13,7 @@ const sdk = () => import("../../src/index");
 const SITE = "https://ffmathy.github.io/sponsorkit";
 const SITE_ORIGIN = "https://ffmathy.github.io";
 const API = "https://api.sponsorkit.io";
-const HASH = "3363d36356e472dab64ce744efd4e8bad412dd7f152bfd357ba96aa97180ac0e";
+const HASH = "d41971f853895a51b5595de369c3e4bef09f41c92851eb9eb38032c2954cf981";
 
 class FakePopup {
   closed = false;
@@ -44,7 +44,7 @@ function setup(over: Record<string, unknown> = {}) {
     },
     options: {
       github: "sponsorkit-conformance",
-      opencollective: "sponsorkit-conformance",
+      openCollective: "sponsorkit-conformance",
       env: {},
       fetch,
       openWindow: () => {
@@ -82,7 +82,7 @@ describe("popup sign-in (delivery=web_message)", () => {
     expect(url.origin + url.pathname).toBe(`${SITE}/connect/`);
     expect(url.searchParams.get("delivery")).toBe("web_message");
     expect(url.searchParams.get("origin")).toBe("https://app.example");
-    expect(url.searchParams.get("targets")).toBe("github:sponsorkit-conformance,opencollective:sponsorkit-conformance");
+    expect(url.searchParams.get("targets")).toBe("github:sponsorkit-conformance,open-collective:sponsorkit-conformance");
     expect(url.searchParams.get("provider")).toBe("github");
     expect(url.searchParams.get("challenge")).toMatch(/^[A-Za-z0-9_-]{43}$/);
     expect(url.searchParams.has("app_name")).toBe(false);

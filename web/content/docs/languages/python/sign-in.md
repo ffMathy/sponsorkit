@@ -73,10 +73,10 @@ whose provider sign-in expired:
 ```python title="identities.py"
 from sponsorkit import Sponsorkit
 
-sk = Sponsorkit(github="octocat", opencollective="my-collective", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-collective", app_name="my-cli")
 
 fc = sk.sign_in("github")  # skip the provider picker
-fc = sk.sign_in("opencollective")  # adds a second identity to the same session
+fc = sk.sign_in("open-collective")  # adds a second identity to the same session
 
 if fc.supporter is not None:
     for identity in fc.supporter.identities:

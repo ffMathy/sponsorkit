@@ -43,8 +43,8 @@
       ]
     },
     {
-      "target": "opencollective:sponsorkit-conformance",
-      "provider": "opencollective",
+      "target": "open-collective:sponsorkit-conformance",
+      "provider": "open-collective",
       "account": "sponsorkit-conformance",
       "exists": true,
       "displayName": "Sponsorkit Conformance Collective",

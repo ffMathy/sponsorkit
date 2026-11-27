@@ -4,10 +4,10 @@
     {
       "input": {
         "github": "sponsorkit-conformance",
-        "opencollective": "sponsorkit-conformance"
+        "openCollective": "sponsorkit-conformance"
       },
-      "param": "github:sponsorkit-conformance,opencollective:sponsorkit-conformance",
-      "targetsHash": "3363d36356e472dab64ce744efd4e8bad412dd7f152bfd357ba96aa97180ac0e"
+      "param": "github:sponsorkit-conformance,open-collective:sponsorkit-conformance",
+      "targetsHash": "d41971f853895a51b5595de369c3e4bef09f41c92851eb9eb38032c2954cf981"
     },
     {
       "input": {
@@ -18,18 +18,18 @@
     },
     {
       "input": {
-        "opencollective": "sponsorkit-conformance"
+        "openCollective": "sponsorkit-conformance"
       },
-      "param": "opencollective:sponsorkit-conformance",
-      "targetsHash": "b3a1f2a710d246c99ad49a46b99ea0f07c74af96d13bd1713e673d130514c737"
+      "param": "open-collective:sponsorkit-conformance",
+      "targetsHash": "9f6aab272940680edc474fe1130aa2f4025d16cdf4ede07138aeeda54cf2b4e3"
     },
     {
       "input": {
         "github": "  MathiasLorenzen ",
-        "opencollective": "Sponsorkit"
+        "openCollective": "Sponsorkit"
       },
-      "param": "github:mathiaslorenzen,opencollective:sponsorkit",
-      "targetsHash": "5f3b6380b3ff1b60d6228b454f7d16ece349009780b0ede3c0e8db8fc3ea95f0"
+      "param": "github:mathiaslorenzen,open-collective:sponsorkit",
+      "targetsHash": "b7aea25e051013beae73950422485032b2fac0aa0ea55dd71ad1677674fe9132"
     },
     {
       "input": {
@@ -61,11 +61,11 @@
       "account": ""
     },
     {
-      "provider": "opencollective",
+      "provider": "open-collective",
       "account": "bad slug!"
     },
     {
-      "provider": "opencollective",
+      "provider": "open-collective",
       "account": "-leading-hyphen"
     },
     {
@@ -99,9 +99,9 @@
       "id": "con_github_HTRhsr74qaWXC6EPhLcswE"
     },
     {
-      "provider": "opencollective",
+      "provider": "open-collective",
       "externalId": "oc-order-2001",
-      "id": "con_opencollective_KQkcFH0OgBfztO7uSkkmUz"
+      "id": "con_open-collective_Y4Q0o5-vmVA9UaTmqne9Ps"
     },
     {
       "provider": "github",

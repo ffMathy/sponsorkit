@@ -18,7 +18,7 @@ You need Go 1.23 or later. There is no Sponsorkit account or API key to set up.
 ```bash title="Terminal"
 mkdir my-cli && cd my-cli
 go mod init example.com/my-cli
-go get github.com/ffMathy/sponsorkit/sdks/go@v0.1.0
+go get github.com/ffMathy/sponsorkit/sdks/go@v0.2.0
 ```
 
 ## 2. Write the program

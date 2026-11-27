@@ -25,7 +25,7 @@ import sys
 
 from sponsorkit import Sponsorkit, SponsorkitError
 
-sk = Sponsorkit(github="octocat", opencollective="my-collective", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-collective", app_name="my-cli")
 
 
 def status() -> None:

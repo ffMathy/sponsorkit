@@ -132,7 +132,7 @@ internal sealed class ScenarioRunner
         var options = new SponsorkitOptions
         {
             GitHub = Str(args, "github"),
-            OpenCollective = Str(args, "opencollective"),
+            OpenCollective = Str(args, "openCollective"),
             AppName = Str(args, "appName"),
             Mock = mock,
             ApiBaseUrl = Str(args, "apiBaseUrl"),
@@ -284,7 +284,7 @@ internal sealed class ScenarioRunner
                     return await SponsorkitServer.VerifySessionAsync(OptString(a, "token")!, new VerifySessionOptions
                     {
                         GitHub = OptString(targets, "github"),
-                        OpenCollective = OptString(targets, "opencollective"),
+                        OpenCollective = OptString(targets, "openCollective"),
                         ApiBaseUrl = OptString(a, "apiBaseUrl"),
                     });
                 }

@@ -53,6 +53,13 @@ def load_scenarios() -> dict[str, Any]:
     return data
 
 
+def _python_targets(targets: Any) -> Any:
+    """The kit's target options ({github, openCollective}) as verify_session's mapping keys."""
+    if isinstance(targets, dict):
+        return {("open_collective" if k == "openCollective" else k): v for k, v in targets.items()}
+    return targets
+
+
 def storage_file_schema() -> dict[str, Any]:
     with (KIT / "schemas" / "storage-file.schema.json").open(encoding="utf-8") as f:
         data: dict[str, Any] = json.load(f)
@@ -151,7 +158,7 @@ def _construct(config: dict[str, Any], hooks: Hooks) -> Sponsorkit:
         optional["site_base_url"] = config["siteBaseUrl"]
     return Sponsorkit(
         github=config.get("github"),
-        opencollective=config.get("opencollective"),
+        open_collective=config.get("openCollective"),
         app_name=config.get("appName"),
         cache_ttl=config.get("cacheTtl", 3600),
         mock=config.get("mock"),
@@ -368,7 +375,8 @@ def run_scenario(
             instance = adapter.create(config, hooks)
             return None
         if action == "verifySession":
-            return adapter.verify_session(args["token"], args["targets"], args.get("apiBaseUrl") or base_url)
+            targets = _python_targets(args["targets"])
+            return adapter.verify_session(args["token"], targets, args.get("apiBaseUrl") or base_url)
         if action == "control":
             return control.call("PATCH", "/__control", args)
         if action == "mintSession":

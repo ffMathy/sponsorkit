@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const PROVIDERS = ["github", "opencollective"] as const;
+export const PROVIDERS = ["github", "open-collective"] as const;
 export const Provider = z.enum(PROVIDERS);
 export type Provider = z.infer<typeof Provider>;
 
@@ -15,7 +15,7 @@ export interface Target {
   account: string;
 }
 
-/** Canonical string form: `github:<login>` / `opencollective:<slug>`. */
+/** Canonical string form: `github:<login>` / `open-collective:<slug>`. */
 export type TargetString = `${Provider}:${string}`;
 
 export class InvalidTargetError extends Error {
@@ -59,7 +59,7 @@ export function canonicalTargets(targets: Target[]): Target[] {
   return sorted;
 }
 
-/** Comma-separated canonical form used in URLs: `github:x,opencollective:y`. */
+/** Comma-separated canonical form used in URLs: `github:x,open-collective:y`. */
 export function targetsToParam(targets: Target[]): string {
   return canonicalTargets(targets).map(targetToString).join(",");
 }
@@ -68,11 +68,11 @@ export function targetsFromParam(param: string): Target[] {
   return canonicalTargets(param.split(",").filter(Boolean).map(parseTargetString));
 }
 
-/** Build a target set from SDK-style options `{ github?, opencollective? }`. */
-export function targetsFromOptions(opts: { github?: string | null; opencollective?: string | null }): Target[] {
+/** Build a target set from SDK-style options `{ github?, openCollective? }`. */
+export function targetsFromOptions(opts: { github?: string | null; openCollective?: string | null }): Target[] {
   const out: Target[] = [];
   if (opts.github) out.push(normalizeTarget("github", opts.github));
-  if (opts.opencollective) out.push(normalizeTarget("opencollective", opts.opencollective));
+  if (opts.openCollective) out.push(normalizeTarget("open-collective", opts.openCollective));
   return canonicalTargets(out);
 }
 

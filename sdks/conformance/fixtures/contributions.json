@@ -1,6 +1,6 @@
 {
   "$comment": "Named Contribution fixtures used by the fake server and scenarios.json. The default pool served by the fake server is defaultPool. Ids follow the Contribution.id rule (see vectors.json).",
-  "defaultPool": ["github-direct-monthly", "github-org-one-time", "opencollective-monthly"],
+  "defaultPool": ["github-direct-monthly", "github-org-one-time", "open-collective-monthly"],
   "contributions": {
     "github-direct-monthly": {
       "id": "con_github_md3xP94JRrHj9QVsU16tuK",
@@ -40,11 +40,11 @@
       "nextChargeAt": null,
       "totalContributed": null
     },
-    "opencollective-monthly": {
-      "id": "con_opencollective_KQkcFH0OgBfztO7uSkkmUz",
-      "provider": "opencollective",
-      "target": "opencollective:sponsorkit-conformance",
-      "sponsor": { "type": "user", "provider": "opencollective", "id": "rvelxbzm-o9n8y05w-wq9op3dg", "handle": "conformance-user" },
+    "open-collective-monthly": {
+      "id": "con_open-collective_Y4Q0o5-vmVA9UaTmqne9Ps",
+      "provider": "open-collective",
+      "target": "open-collective:sponsorkit-conformance",
+      "sponsor": { "type": "user", "provider": "open-collective", "id": "rvelxbzm-o9n8y05w-wq9op3dg", "handle": "conformance-user" },
       "via": "direct",
       "kind": "recurring",
       "frequency": "monthly",

@@ -166,7 +166,7 @@ const STATUS_MAP: Record<string, Status> = {
 export function mapOrderStatus(status: string | null): Status {
   const mapped = status ? STATUS_MAP[status] : undefined;
   if (mapped) return mapped;
-  logEvent("warn", { msg: "unknown_provider_status", provider: "opencollective", status: status ?? null });
+  logEvent("warn", { msg: "unknown_provider_status", provider: "open-collective", status: status ?? null });
   return "pending";
 }
 
@@ -210,13 +210,13 @@ export async function normalizeOrder(
 ): Promise<Contribution | null> {
   const amount = toMoney(o.amount);
   if (!amount) {
-    logEvent("warn", { msg: "order_without_amount", provider: "opencollective" });
+    logEvent("warn", { msg: "order_without_amount", provider: "open-collective" });
     return null;
   }
   const frequency = mapFrequency(o.frequency);
   return {
-    id: await contributionId("opencollective", o.id),
-    provider: "opencollective",
+    id: await contributionId("open-collective", o.id),
+    provider: "open-collective",
     target: targetToString(target),
     sponsor,
     via,
@@ -253,11 +253,11 @@ export async function normalizeContributions(
       if (c) out.push(c);
     }
   };
-  await add(me.orders?.nodes, "direct", { type: "user", provider: "opencollective", id: identity.id, handle: me.slug ?? identity.handle });
+  await add(me.orders?.nodes, "direct", { type: "user", provider: "open-collective", id: identity.id, handle: me.slug ?? identity.handle });
   for (const m of me.memberOf?.nodes ?? []) {
     const acc = m?.account;
     if (!acc || acc.id === me.id) continue;
-    await add(acc.orders?.nodes, "organization", { type: "organization", provider: "opencollective", id: acc.id, handle: acc.slug });
+    await add(acc.orders?.nodes, "organization", { type: "organization", provider: "open-collective", id: acc.id, handle: acc.slug });
   }
   return out;
 }
@@ -282,7 +282,7 @@ export function normalizeTargetInfo(data: OcTargetData, target: Target, ocBase =
   }
   return {
     target: targetToString(target),
-    provider: "opencollective",
+    provider: "open-collective",
     account: target.account,
     exists,
     displayName: acc ? acc.name || acc.slug : null,
@@ -299,28 +299,28 @@ export function normalizeTargetInfo(data: OcTargetData, target: Target, ocBase =
 
 const AUTH_CODES = new Set(["UNAUTHENTICATED", "Unauthorized", "UNAUTHORIZED"]);
 
-export function opencollectiveAdapter(env: Env): ProviderAdapter {
+export function openCollectiveAdapter(env: Env): ProviderAdapter {
   const urls = providerUrls(env);
 
   async function graphql<T>(token: string | null, query: string, variables: Record<string, unknown>): Promise<GraphQLResponse<T>> {
     const headers: Record<string, string> = { "Content-Type": "application/json", Accept: "application/json" };
     if (token) headers.Authorization = `Bearer ${token}`;
-    const res = await providerFetch("opencollective", `${urls.ocApi}/graphql/v2`, {
+    const res = await providerFetch("open-collective", `${urls.ocApi}/graphql/v2`, {
       method: "POST",
       headers,
       body: JSON.stringify({ query, variables }),
     });
-    if (res.status === 401 && token) throw new ProviderAuthError("opencollective", "token rejected", 401);
-    if (!res.ok) throw new ProviderError("opencollective", `GraphQL HTTP ${res.status}`, res.status);
-    const body = await readJson<GraphQLResponse<T>>("opencollective", res);
+    if (res.status === 401 && token) throw new ProviderAuthError("open-collective", "token rejected", 401);
+    if (!res.ok) throw new ProviderError("open-collective", `GraphQL HTTP ${res.status}`, res.status);
+    const body = await readJson<GraphQLResponse<T>>("open-collective", res);
     if (token && (body.errors ?? []).some((e) => AUTH_CODES.has(e.extensions?.code ?? ""))) {
-      throw new ProviderAuthError("opencollective");
+      throw new ProviderAuthError("open-collective");
     }
     return body;
   }
 
   return {
-    provider: "opencollective",
+    provider: "open-collective",
     // OC's OAuth server (node-oauth2-server model) stores codeChallenge/codeChallengeMethod.
     supportsPkce: true,
 
@@ -337,7 +337,7 @@ export function opencollectiveAdapter(env: Env): ProviderAdapter {
     },
 
     async exchangeCode(code, redirectUri, codeVerifier): Promise<ProviderToken> {
-      const res = await providerFetch("opencollective", `${urls.ocBase}/oauth/token`, {
+      const res = await providerFetch("open-collective", `${urls.ocBase}/oauth/token`, {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -349,9 +349,9 @@ export function opencollectiveAdapter(env: Env): ProviderAdapter {
           code_verifier: codeVerifier,
         }),
       });
-      if (!res.ok) throw new OAuthExchangeError("opencollective", `token HTTP ${res.status}`, res.status);
-      const body = await readJson<{ access_token?: string; expires_in?: number; error?: string }>("opencollective", res);
-      if (body.error || !body.access_token) throw new OAuthExchangeError("opencollective", `token error: ${body.error ?? "no token"}`);
+      if (!res.ok) throw new OAuthExchangeError("open-collective", `token HTTP ${res.status}`, res.status);
+      const body = await readJson<{ access_token?: string; expires_in?: number; error?: string }>("open-collective", res);
+      if (body.error || !body.access_token) throw new OAuthExchangeError("open-collective", `token error: ${body.error ?? "no token"}`);
       const ttl = typeof body.expires_in === "number" && body.expires_in > 0 ? body.expires_in : DEFAULT_TOKEN_TTL;
       return { accessToken: body.access_token, expiresAt: Math.floor(Date.now() / 1000) + ttl };
     },
@@ -359,7 +359,7 @@ export function opencollectiveAdapter(env: Env): ProviderAdapter {
     async fetchIdentity(token): Promise<ProviderIdentity> {
       const body = await graphql<{ me: { id: string; slug: string } | null }>(token, ME_QUERY, {});
       const me = body.data?.me;
-      if (!me) throw new ProviderAuthError("opencollective", "me is null");
+      if (!me) throw new ProviderAuthError("open-collective", "me is null");
       return { id: me.id, handle: me.slug };
     },
 
@@ -369,21 +369,21 @@ export function opencollectiveAdapter(env: Env): ProviderAdapter {
       // NotFound, which nulls `me`. There can be no contributions to it, so that's an empty result,
       // not a provider outage.
       if (body.data && body.data.target === null) return [];
-      if (body.data && body.data.me === null && !body.errors?.length) throw new ProviderAuthError("opencollective", "me is null");
-      if (!body.data?.me) throw new ProviderError("opencollective", "me missing in response");
+      if (body.data && body.data.me === null && !body.errors?.length) throw new ProviderAuthError("open-collective", "me is null");
+      if (!body.data?.me) throw new ProviderError("open-collective", "me missing in response");
       return normalizeContributions(body.data, identity, target);
     },
 
     async fetchTargetInfo(target) {
       const body = await graphql<OcTargetData>(null, TARGET_QUERY, { slug: target.account });
-      if (!body.data) throw new ProviderError("opencollective", "no data in target response");
+      if (!body.data) throw new ProviderError("open-collective", "no data in target response");
       return normalizeTargetInfo(body.data, target, urls.ocBase);
     },
 
     async ping() {
       try {
         const res = await providerFetch(
-          "opencollective",
+          "open-collective",
           `${urls.ocApi}/graphql/v2`,
           { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: "{ __typename }" }) },
           3000,

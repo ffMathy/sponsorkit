@@ -44,7 +44,7 @@ export type CheckoutPlan =
 
 export const PROVIDER_LABEL: Record<Provider, string> = {
   github: "GitHub Sponsors",
-  opencollective: "Open Collective",
+  "open-collective": "Open Collective",
 };
 
 export const FREQUENCY_LABEL: Record<Frequency, string> = {

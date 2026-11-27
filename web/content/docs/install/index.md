@@ -39,7 +39,7 @@ pip install sponsorkit
 ```
 
 ```bash tab="Go" key="go"
-go get github.com/ffMathy/sponsorkit/sdks/go@v0.1.0
+go get github.com/ffMathy/sponsorkit/sdks/go@v0.2.0
 ```
 
 ```bash tab="Rust" key="rust"

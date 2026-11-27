@@ -181,7 +181,7 @@ async function consentAndAuthorize(popup, { provider, label, requests }) {
 describe("split deployment (site on its own origin, API-only Worker)", () => {
   test("sign-in: app → consent popup on the site → POST start → provider → callback → /connect/done/ → SDK exchange", async () => {
     stack.fake.addSponsorship({ provider: "github", cents: 500 });
-    stack.fake.addSponsorship({ provider: "opencollective", cents: 1000, frequency: "YEARLY" });
+    stack.fake.addSponsorship({ provider: "open-collective", cents: 1000, frequency: "YEARLY" });
     const { context, requests } = await newContext();
     try {
       const page = await openApp(context);
@@ -236,13 +236,13 @@ describe("split deployment (site on its own origin, API-only Worker)", () => {
       await step("second popup opens /connect/ with add=1", popup2, () =>
         popup2.waitForURL((u) => u.href.startsWith(`${SITE_BASE_URL}/connect/?`) && u.searchParams.get("add") === "1", { timeout: STEP_TIMEOUT }),
       );
-      await consentAndAuthorize(popup2, { provider: "opencollective", label: /Continue with Open Collective/, requests });
+      await consentAndAuthorize(popup2, { provider: "open-collective", label: /Continue with Open Collective/, requests });
       const result2 = await appResult(page, "signInOc");
-      assert.ok(result2.ok, `signIn({ provider: "opencollective" }) resolved: ${JSON.stringify(result2)}`);
+      assert.ok(result2.ok, `signIn({ provider: "open-collective" }) resolved: ${JSON.stringify(result2)}`);
       const byProvider = Object.fromEntries(result2.value.contributions.map((c) => [c.provider, c]));
-      assert.deepEqual(Object.keys(byProvider).sort(), ["github", "opencollective"]);
-      assert.equal(byProvider.opencollective.frequency, "yearly");
-      assert.deepEqual(byProvider.opencollective.amount, { value: 1000, currency: "USD" });
+      assert.deepEqual(Object.keys(byProvider).sort(), ["github", "open-collective"]);
+      assert.equal(byProvider["open-collective"].frequency, "yearly");
+      assert.deepEqual(byProvider["open-collective"].amount, { value: 1000, currency: "USD" });
     } finally {
       await context.close();
     }
@@ -349,14 +349,14 @@ describe("split deployment (site on its own origin, API-only Worker)", () => {
     const { context } = await newContext();
     try {
       const page = await openApp(context);
-      const url = await page.evaluate(() => window.sk.checkoutUrl({ provider: "opencollective", amount: 1000, frequency: "monthly" }));
+      const url = await page.evaluate(() => window.sk.checkoutUrl({ provider: "open-collective", amount: 1000, frequency: "monthly" }));
       assert.ok(url.startsWith(`${SITE_BASE_URL}/checkout/?`), `checkoutUrl() is on the site: ${url}`);
       await page.goto(url);
       await step("redirect to Open Collective", page, () =>
         page.waitForURL((u) => u.href.startsWith("https://opencollective.com/"), { timeout: STEP_TIMEOUT }),
       );
       const oc = new URL(page.url());
-      assert.equal(oc.pathname, `/${MAINTAINER.opencollective}/donate`);
+      assert.equal(oc.pathname, `/${MAINTAINER["open-collective"]}/donate`);
       assert.equal(oc.searchParams.get("amount"), "10");
       assert.equal(oc.searchParams.get("interval"), "month");
       assert.equal(oc.searchParams.get("redirect"), `${SITE_BASE_URL}/checkout/thanks/`);

@@ -47,7 +47,7 @@ self-hosted instance, to its own site), and `title` and `detail` are for humans 
 | Code | Status | Meaning |
 |---|---|---|
 | `invalid_request` | 400 | The request body is not JSON, doesn't have the expected shape, or names a session with a different target set. |
-| `invalid_target` | 400 | A `github` or `opencollective` parameter is malformed, or neither was given. |
+| `invalid_target` | 400 | A `github` or `open-collective` parameter is malformed, or neither was given. |
 | `invalid_code` | 400 | The sign-in code is malformed, expired or tampered with, or the code verifier doesn't match. |
 | `session_invalid` | 401 | The session token is missing, malformed, tampered with, expired or sealed with an unknown key. |
 | `rate_limited` | 429 | Too many requests. Wait for the number of seconds in `Retry-After`. |
@@ -76,11 +76,11 @@ Public metadata about the accounts that receive contributions: whether they exis
 avatar, currency and tiers. The consent and checkout pages use it, and SDKs use it for the dev-time check that
 your targets exist. No authentication.
 
-**Query parameters:** `github=<login>` and/or `opencollective=<slug>`. At least one is required. Values are
+**Query parameters:** `github=<login>` and/or `open-collective=<slug>`. At least one is required. Values are
 trimmed and lowercased.
 
 ```bash
-curl "https://api.sponsorkit.io/api/v1/targets?github=octocat&opencollective=my-project"
+curl "https://api.sponsorkit.io/api/v1/targets?github=octocat&open-collective=my-project"
 ```
 
 ```json title="200 OK"
@@ -108,8 +108,8 @@ curl "https://api.sponsorkit.io/api/v1/targets?github=octocat&opencollective=my-
       ]
     },
     {
-      "target": "opencollective:my-project",
-      "provider": "opencollective",
+      "target": "open-collective:my-project",
+      "provider": "open-collective",
       "account": "my-project",
       "exists": true,
       "displayName": "My Project",
@@ -223,12 +223,12 @@ curl https://api.sponsorkit.io/api/v1/contributions \
   "signedIn": true,
   "disabled": false,
   "mock": false,
-  "targets": ["github:octocat", "opencollective:my-project"],
+  "targets": ["github:octocat", "open-collective:my-project"],
   "supporter": {
     "id": "sup_q5u2nh7s3lvkx4w3a6c2ybmzr4fo2e3d",
     "identities": [
       { "provider": "github", "id": "1234567", "handle": "mona", "needsReconnect": false },
-      { "provider": "opencollective", "id": "98765", "handle": "mona", "needsReconnect": true }
+      { "provider": "open-collective", "id": "98765", "handle": "mona", "needsReconnect": true }
     ]
   },
   "contributions": [
@@ -255,7 +255,7 @@ curl https://api.sponsorkit.io/api/v1/contributions \
   "fetchedAt": "2026-11-17T18:00:00.000Z",
   "stale": true,
   "fromCache": false,
-  "unavailable": ["opencollective"]
+  "unavailable": ["open-collective"]
 }
 ```
 
@@ -292,7 +292,7 @@ curl https://api.sponsorkit.io/api/v1/health
 ```
 
 ```json title="200 OK"
-{ "ok": true, "providers": { "github": "ok", "opencollective": "degraded" } }
+{ "ok": true, "providers": { "github": "ok", "open-collective": "degraded" } }
 ```
 
 Each provider is `"ok"` or `"degraded"`.

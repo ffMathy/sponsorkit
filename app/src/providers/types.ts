@@ -19,7 +19,7 @@ export interface AuthorizeParams {
   codeChallenge: string;
 }
 
-/** Common adapter interface; every provider (github, opencollective, later patreon…) implements it. */
+/** Common adapter interface; every provider (github, open-collective, later patreon…) implements it. */
 export interface ProviderAdapter {
   readonly provider: Provider;
   /** Whether the provider's authorize/token endpoints implement PKCE. */

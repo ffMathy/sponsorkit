@@ -74,6 +74,6 @@ export function ArrowRightIcon(props: IconProps) {
   );
 }
 
-export function ProviderIcon({ provider, ...props }: IconProps & { provider: "github" | "opencollective" }) {
+export function ProviderIcon({ provider, ...props }: IconProps & { provider: "github" | "open-collective" }) {
   return provider === "github" ? <GitHubIcon {...props} /> : <OpenCollectiveIcon {...props} />;
 }

@@ -2,7 +2,7 @@
 
 export const heroSnippet = `import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "your-login", opencollective: "your-collective" });
+const sk = new Sponsorkit({ github: "your-login", openCollective: "your-collective" });
 const fc = await sk.getFinancialContribution();
 
 if (fc.signedIn && fc.active().length === 0) showSupportBanner();`;
@@ -29,7 +29,7 @@ import { Sponsorkit } from "@sponsorkit/sdk/node";
 
 const sk = new Sponsorkit({
   github: "mathiaslorenzen",        // at least one target
-  opencollective: "sponsorkit",
+  openCollective: "sponsorkit",
   appName: "my-cli",                // shown on the consent page as "says it is"
 });
 
@@ -87,7 +87,7 @@ else if (!fc.Active().Any(c => c.Amount.Currency == "USD" && c.Amount.Value >= 5
 
 from sponsorkit import Sponsorkit
 
-sk = Sponsorkit(github="mathiaslorenzen", opencollective="sponsorkit", app_name="my-cli")
+sk = Sponsorkit(github="mathiaslorenzen", open_collective="sponsorkit", app_name="my-cli")
 
 fc = sk.get_financial_contribution()          # or: await sk.aget_financial_contribution()
 
@@ -138,7 +138,7 @@ if !fc.SignedIn {
 
 let sk = Sponsorkit::new(Options {
     github: Some("mathiaslorenzen".into()),
-    opencollective: Some("sponsorkit".into()),
+    open_collective: Some("sponsorkit".into()),
     app_name: Some("my-cli".into()),
     ..Default::default()
 })?; // errors only on invalid configuration
@@ -158,7 +158,7 @@ export const resultShape = `{
   "signedIn": true,
   "disabled": false,
   "mock": false,
-  "targets": ["github:mathiaslorenzen", "opencollective:sponsorkit"],
+  "targets": ["github:mathiaslorenzen", "open-collective:sponsorkit"],
   "supporter": {
     "id": "sup_…",                       // pairwise: stable per (target set, identity)
     "identities": [{ "provider": "github", "id": "583231", "handle": "alice", "needsReconnect": false }]

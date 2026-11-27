@@ -359,7 +359,7 @@ public sealed class SponsorkitClient
 
     /// <summary>
     /// Signs the supporter in (loopback or paste-back, PROTOCOL §7). While already signed in, this adds another
-    /// identity (for example <c>new SignInOptions { Provider = "opencollective" }</c>) to the session.
+    /// identity (for example <c>new SignInOptions { Provider = "open-collective" }</c>) to the session.
     /// </summary>
     /// <param name="options">Provider and sign-in method overrides.</param>
     /// <param name="cancellationToken">Cancels the sign-in; it then throws <c>cancelled</c>.</param>
@@ -603,8 +603,8 @@ public sealed class SponsorkitClient
     private List<KeyValuePair<string, string?>> CheckoutQuery(CheckoutUrlOptions o)
     {
         // PROTOCOL §7.1 item 16: invalid options throw invalid_config, without network or disk access.
-        if (o.Provider is not null && o.Provider is not ("github" or "opencollective"))
-            throw new SponsorkitError(SponsorkitErrorCodes.InvalidConfig, $"Unknown provider \"{o.Provider}\". Use github or opencollective.");
+        if (o.Provider is not null && o.Provider is not ("github" or "open-collective"))
+            throw new SponsorkitError(SponsorkitErrorCodes.InvalidConfig, $"Unknown provider \"{o.Provider}\". Use github or open-collective.");
         ValidateProvider(o.Provider);
         if (o.Frequency is not null && o.Frequency is not (Frequencies.OneTime or Frequencies.Monthly or Frequencies.Yearly))
             throw new SponsorkitError(SponsorkitErrorCodes.InvalidConfig, $"Invalid frequency \"{o.Frequency}\". Use one_time, monthly or yearly.");

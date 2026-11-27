@@ -101,7 +101,7 @@ export const MockOption = z.union([z.string(), z.object({ contributions: z.array
 export const ConfigureArgs = z
   .object({
     github: z.string().optional(),
-    opencollective: z.string().optional(),
+    openCollective: z.string().optional(),
     appName: z.string().optional(),
     cacheTtl: z.number().int().nonnegative().optional(),
     mock: MockOption.optional(),
@@ -148,7 +148,7 @@ export const CheckoutArgs = z
   })
   .strict();
 
-const TargetOptions = z.object({ github: z.string().optional(), opencollective: z.string().optional() }).strict();
+const TargetOptions = z.object({ github: z.string().optional(), openCollective: z.string().optional() }).strict();
 
 const step = <A extends string, S extends z.ZodType>(action: A, args: S) =>
   z

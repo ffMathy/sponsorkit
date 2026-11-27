@@ -44,12 +44,12 @@ The pages call `GET /api/v1/targets` with `fetch` (CORS, no credentials, §3) an
 
 ## 1. Targets
 
-- A target is `github:<login>` or `opencollective:<slug>`. The account is **lowercased** and trimmed.
+- A target is `github:<login>` or `open-collective:<slug>`. The account is **lowercased** and trimmed.
   - GitHub login: `^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$`.
     - RE2-compatible equivalent: `^[a-z0-9](?:[a-z0-9-]{0,37}[a-z0-9])?$`, and the login must not contain `--`.
   - Open Collective slug: `^[a-z0-9][a-z0-9-]{0,254}$`.
 - A **target set** is one or more targets, with at most one per provider in v1. It is deduplicated and sorted by its string form, using byte-wise ASCII comparison.
-- **Target param:** the canonical set joined with `,`. Example: `github:mathiaslorenzen,opencollective:sponsorkit`. It is used in every URL as `targets=`, URL-encoded as normal.
+- **Target param:** the canonical set joined with `,`. Example: `github:mathiaslorenzen,open-collective:sponsorkit`. It is used in every URL as `targets=`, URL-encoded as normal.
 - **targets_hash:** lowercase hex SHA-256 of the UTF-8 target param. It is used for SDK storage keys.
 
 ## 2. PKCE
@@ -74,7 +74,7 @@ The pages call `GET /api/v1/targets` with `fetch` (CORS, no credentials, §3) an
 - **No CORS on `/api/oauth/*`.** Those endpoints are only reached by top-level browser navigations (a form POST and provider redirects), never by `fetch`, and send no `Access-Control-*` headers.
 - **No static assets on the API.** Paths outside `/api/*` return `404 not_found` as problem+json.
 
-### 3.1 `GET /api/v1/targets?github=<login>&opencollective=<slug>`
+### 3.1 `GET /api/v1/targets?github=<login>&open-collective=<slug>`
 
 At least one parameter is required. The response is `TargetsResponse`:
 
@@ -128,7 +128,7 @@ At least one parameter is required. The response is `TargetsResponse`:
 
 ### 3.4 `GET /api/v1/health`
 
-Returns `{ ok: true, providers: { github: "ok" | "degraded", opencollective: "ok" | "degraded" } }`.
+Returns `{ ok: true, providers: { github: "ok" | "degraded", open-collective: "ok" | "degraded" } }`.
 
 ## 4. Browser pages & OAuth endpoints
 
@@ -146,7 +146,7 @@ These are used as query parameters by `/connect/` and `/checkout/`, and as form 
 | `origin` | `web_message` only: the opener's origin, e.g. `https://app.example.com`. Must be `https`, or `http` only on `localhost`, `127.0.0.1` or `[::1]`. |
 | `redirect_uri` | `redirect`: an https URL, or an `http://localhost[:port]` / `http://127.0.0.1[:port]` URL.<br>`loopback`: exactly `http://127.0.0.1:<port>/callback` or `http://[::1]:<port>/callback`. |
 | `app_name` | Optional. 1–64 code points, with no control or format characters (Unicode Cc/Cf). Native apps only; shown on screen as "says it is". |
-| `provider` | Optional. `github` or `opencollective`. Skips the provider picker. |
+| `provider` | Optional. `github` or `open-collective`. Skips the provider picker. |
 | `add` | `1` when adding an identity to an existing session. This only affects the UI copy; the merge happens at `/auth/token`. |
 
 Additional rules:
@@ -189,7 +189,7 @@ Additional rules:
 4. **Create a sealed state** (§5) containing the provider, the targets, the delivery params, `sha256(browser_nonce)`, a provider PKCE verifier, an optional `continue` value (see §4.6), and `exp = now + 600 s`.
 5. **Redirect `302`** to the provider's authorize URL with `state=<sealed>`. The browser follows a `302` after a POST with a `GET`. `<origin>` is the API origin (`PUBLIC_ORIGIN`), so the callback URLs registered with the providers are on the API domain:
    - **GitHub:** `https://github.com/login/oauth/authorize?client_id=…&redirect_uri=<origin>/api/oauth/github/callback&scope=read:user%20read:org&state=…&code_challenge=…&code_challenge_method=S256&allow_signup=false`
-   - **Open Collective:** `https://opencollective.com/oauth/authorize?client_id=…&response_type=code&redirect_uri=<origin>/api/oauth/opencollective/callback&scope=orders%20incognito&state=…&code_challenge=…&code_challenge_method=S256`
+   - **Open Collective:** `https://opencollective.com/oauth/authorize?client_id=…&response_type=code&redirect_uri=<origin>/api/oauth/open-collective/callback&scope=orders%20incognito&state=…&code_challenge=…&code_challenge_method=S256`
 
 #### Security: cross-site consent start
 

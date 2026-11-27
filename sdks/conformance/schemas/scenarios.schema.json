@@ -29,7 +29,7 @@
             "github": {
               "type": "string"
             },
-            "opencollective": {
+            "openCollective": {
               "type": "string"
             }
           },
@@ -127,7 +127,7 @@
                           "type": "string",
                           "enum": [
                             "github",
-                            "opencollective"
+                            "open-collective"
                           ]
                         },
                         "target": {
@@ -147,7 +147,7 @@
                               "type": "string",
                               "enum": [
                                 "github",
-                                "opencollective"
+                                "open-collective"
                               ]
                             },
                             "id": {
@@ -333,7 +333,7 @@
                   "type": "string",
                   "enum": [
                     "github",
-                    "opencollective"
+                    "open-collective"
                   ]
                 }
               },
@@ -343,7 +343,7 @@
                   "type": "string",
                   "enum": [
                     "github",
-                    "opencollective"
+                    "open-collective"
                   ]
                 }
               },
@@ -445,7 +445,7 @@
                             "type": "string",
                             "enum": [
                               "github",
-                              "opencollective"
+                              "open-collective"
                             ]
                           },
                           "target": {
@@ -465,7 +465,7 @@
                                 "type": "string",
                                 "enum": [
                                   "github",
-                                  "opencollective"
+                                  "open-collective"
                                 ]
                               },
                               "id": {
@@ -670,7 +670,7 @@
                     "type": "string",
                     "enum": [
                       "github",
-                      "opencollective"
+                      "open-collective"
                     ]
                   },
                   "error": {
@@ -693,7 +693,7 @@
                 "type": "string",
                 "enum": [
                   "github",
-                  "opencollective"
+                  "open-collective"
                 ]
               },
               "latencyMs": {
@@ -724,7 +724,7 @@
                             "github": {
                               "type": "string"
                             },
-                            "opencollective": {
+                            "openCollective": {
                               "type": "string"
                             },
                             "appName": {
@@ -755,7 +755,7 @@
                                             "type": "string",
                                             "enum": [
                                               "github",
-                                              "opencollective"
+                                              "open-collective"
                                             ]
                                           },
                                           "target": {
@@ -775,7 +775,7 @@
                                                 "type": "string",
                                                 "enum": [
                                                   "github",
-                                                  "opencollective"
+                                                  "open-collective"
                                                 ]
                                               },
                                               "id": {
@@ -1273,7 +1273,7 @@
                               "type": "string",
                               "enum": [
                                 "github",
-                                "opencollective"
+                                "open-collective"
                               ]
                             },
                             "cancelAfter": {
@@ -1675,7 +1675,7 @@
                               "type": "string",
                               "enum": [
                                 "github",
-                                "opencollective"
+                                "open-collective"
                               ]
                             },
                             "amount": {
@@ -2411,7 +2411,7 @@
                                 "github": {
                                   "type": "string"
                                 },
-                                "opencollective": {
+                                "openCollective": {
                                   "type": "string"
                                 }
                               },
@@ -2575,7 +2575,7 @@
                                             "type": "string",
                                             "enum": [
                                               "github",
-                                              "opencollective"
+                                              "open-collective"
                                             ]
                                           },
                                           "target": {
@@ -2595,7 +2595,7 @@
                                                 "type": "string",
                                                 "enum": [
                                                   "github",
-                                                  "opencollective"
+                                                  "open-collective"
                                                 ]
                                               },
                                               "id": {
@@ -2788,7 +2788,7 @@
                                     "type": "string",
                                     "enum": [
                                       "github",
-                                      "opencollective"
+                                      "open-collective"
                                     ]
                                   }
                                 },
@@ -2805,7 +2805,7 @@
                                     "type": "string",
                                     "enum": [
                                       "github",
-                                      "opencollective"
+                                      "open-collective"
                                     ]
                                   }
                                 },
@@ -2938,7 +2938,7 @@
                                               "type": "string",
                                               "enum": [
                                                 "github",
-                                                "opencollective"
+                                                "open-collective"
                                               ]
                                             },
                                             "target": {
@@ -2958,7 +2958,7 @@
                                                   "type": "string",
                                                   "enum": [
                                                     "github",
-                                                    "opencollective"
+                                                    "open-collective"
                                                   ]
                                                 },
                                                 "id": {
@@ -3170,7 +3170,7 @@
                                       "type": "string",
                                       "enum": [
                                         "github",
-                                        "opencollective"
+                                        "open-collective"
                                       ]
                                     },
                                     "error": {
@@ -3203,7 +3203,7 @@
                                   "type": "string",
                                   "enum": [
                                     "github",
-                                    "opencollective"
+                                    "open-collective"
                                   ]
                                 },
                                 {
@@ -3364,7 +3364,7 @@
                                 "type": "string",
                                 "enum": [
                                   "github",
-                                  "opencollective"
+                                  "open-collective"
                                 ]
                               }
                             }
@@ -3799,7 +3799,7 @@
                                     "github": {
                                       "type": "string"
                                     },
-                                    "opencollective": {
+                                    "openCollective": {
                                       "type": "string"
                                     },
                                     "appName": {
@@ -3830,7 +3830,7 @@
                                                     "type": "string",
                                                     "enum": [
                                                       "github",
-                                                      "opencollective"
+                                                      "open-collective"
                                                     ]
                                                   },
                                                   "target": {
@@ -3850,7 +3850,7 @@
                                                         "type": "string",
                                                         "enum": [
                                                           "github",
-                                                          "opencollective"
+                                                          "open-collective"
                                                         ]
                                                       },
                                                       "id": {
@@ -4348,7 +4348,7 @@
                                       "type": "string",
                                       "enum": [
                                         "github",
-                                        "opencollective"
+                                        "open-collective"
                                       ]
                                     },
                                     "cancelAfter": {
@@ -4750,7 +4750,7 @@
                                       "type": "string",
                                       "enum": [
                                         "github",
-                                        "opencollective"
+                                        "open-collective"
                                       ]
                                     },
                                     "amount": {
@@ -5486,7 +5486,7 @@
                                         "github": {
                                           "type": "string"
                                         },
-                                        "opencollective": {
+                                        "openCollective": {
                                           "type": "string"
                                         }
                                       },
@@ -5650,7 +5650,7 @@
                                                     "type": "string",
                                                     "enum": [
                                                       "github",
-                                                      "opencollective"
+                                                      "open-collective"
                                                     ]
                                                   },
                                                   "target": {
@@ -5670,7 +5670,7 @@
                                                         "type": "string",
                                                         "enum": [
                                                           "github",
-                                                          "opencollective"
+                                                          "open-collective"
                                                         ]
                                                       },
                                                       "id": {
@@ -5863,7 +5863,7 @@
                                             "type": "string",
                                             "enum": [
                                               "github",
-                                              "opencollective"
+                                              "open-collective"
                                             ]
                                           }
                                         },
@@ -5880,7 +5880,7 @@
                                             "type": "string",
                                             "enum": [
                                               "github",
-                                              "opencollective"
+                                              "open-collective"
                                             ]
                                           }
                                         },
@@ -6013,7 +6013,7 @@
                                                       "type": "string",
                                                       "enum": [
                                                         "github",
-                                                        "opencollective"
+                                                        "open-collective"
                                                       ]
                                                     },
                                                     "target": {
@@ -6033,7 +6033,7 @@
                                                           "type": "string",
                                                           "enum": [
                                                             "github",
-                                                            "opencollective"
+                                                            "open-collective"
                                                           ]
                                                         },
                                                         "id": {
@@ -6245,7 +6245,7 @@
                                               "type": "string",
                                               "enum": [
                                                 "github",
-                                                "opencollective"
+                                                "open-collective"
                                               ]
                                             },
                                             "error": {
@@ -6278,7 +6278,7 @@
                                           "type": "string",
                                           "enum": [
                                             "github",
-                                            "opencollective"
+                                            "open-collective"
                                           ]
                                         },
                                         {
@@ -6439,7 +6439,7 @@
                                         "type": "string",
                                         "enum": [
                                           "github",
-                                          "opencollective"
+                                          "open-collective"
                                         ]
                                       }
                                     }
@@ -6993,7 +6993,7 @@
                                   "github": {
                                     "type": "string"
                                   },
-                                  "opencollective": {
+                                  "openCollective": {
                                     "type": "string"
                                   },
                                   "appName": {
@@ -7024,7 +7024,7 @@
                                                   "type": "string",
                                                   "enum": [
                                                     "github",
-                                                    "opencollective"
+                                                    "open-collective"
                                                   ]
                                                 },
                                                 "target": {
@@ -7044,7 +7044,7 @@
                                                       "type": "string",
                                                       "enum": [
                                                         "github",
-                                                        "opencollective"
+                                                        "open-collective"
                                                       ]
                                                     },
                                                     "id": {
@@ -7542,7 +7542,7 @@
                                     "type": "string",
                                     "enum": [
                                       "github",
-                                      "opencollective"
+                                      "open-collective"
                                     ]
                                   },
                                   "cancelAfter": {
@@ -7944,7 +7944,7 @@
                                     "type": "string",
                                     "enum": [
                                       "github",
-                                      "opencollective"
+                                      "open-collective"
                                     ]
                                   },
                                   "amount": {
@@ -8680,7 +8680,7 @@
                                       "github": {
                                         "type": "string"
                                       },
-                                      "opencollective": {
+                                      "openCollective": {
                                         "type": "string"
                                       }
                                     },
@@ -8844,7 +8844,7 @@
                                                   "type": "string",
                                                   "enum": [
                                                     "github",
-                                                    "opencollective"
+                                                    "open-collective"
                                                   ]
                                                 },
                                                 "target": {
@@ -8864,7 +8864,7 @@
                                                       "type": "string",
                                                       "enum": [
                                                         "github",
-                                                        "opencollective"
+                                                        "open-collective"
                                                       ]
                                                     },
                                                     "id": {
@@ -9057,7 +9057,7 @@
                                           "type": "string",
                                           "enum": [
                                             "github",
-                                            "opencollective"
+                                            "open-collective"
                                           ]
                                         }
                                       },
@@ -9074,7 +9074,7 @@
                                           "type": "string",
                                           "enum": [
                                             "github",
-                                            "opencollective"
+                                            "open-collective"
                                           ]
                                         }
                                       },
@@ -9207,7 +9207,7 @@
                                                     "type": "string",
                                                     "enum": [
                                                       "github",
-                                                      "opencollective"
+                                                      "open-collective"
                                                     ]
                                                   },
                                                   "target": {
@@ -9227,7 +9227,7 @@
                                                         "type": "string",
                                                         "enum": [
                                                           "github",
-                                                          "opencollective"
+                                                          "open-collective"
                                                         ]
                                                       },
                                                       "id": {
@@ -9439,7 +9439,7 @@
                                             "type": "string",
                                             "enum": [
                                               "github",
-                                              "opencollective"
+                                              "open-collective"
                                             ]
                                           },
                                           "error": {
@@ -9472,7 +9472,7 @@
                                         "type": "string",
                                         "enum": [
                                           "github",
-                                          "opencollective"
+                                          "open-collective"
                                         ]
                                       },
                                       {
@@ -9633,7 +9633,7 @@
                                       "type": "string",
                                       "enum": [
                                         "github",
-                                        "opencollective"
+                                        "open-collective"
                                       ]
                                     }
                                   }

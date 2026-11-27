@@ -6,7 +6,7 @@
  * @example
  * ```ts
  * import { Sponsorkit } from "@sponsorkit/sdk";
- * const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+ * const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
  * const fc = await sk.getFinancialContribution();
  * button.onclick = () => sk.openCheckout({ frequency: "monthly", amount: 500 });
  * ```

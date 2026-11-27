@@ -14,7 +14,7 @@ explains why this is safe.
 ```python
 from sponsorkit.server import verify_session  # also importable from sponsorkit
 
-fc = verify_session(token, {"github": "octocat", "opencollective": "my-collective"})
+fc = verify_session(token, {"github": "octocat", "open-collective": "my-collective"})
 ```
 
 `verify_session()` calls `GET /api/v1/contributions` with the token, checks that the session belongs to **your**
@@ -32,7 +32,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from sponsorkit import SponsorkitError
 from sponsorkit.server import verify_session
 
-TARGETS = {"github": "octocat", "opencollective": "my-collective"}
+TARGETS = {"github": "octocat", "open-collective": "my-collective"}
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 | Argument | Default | Meaning |
 |---|---|---|
 | `token` | required | The session token (`sks_…`) from the client. Surrounding whitespace is ignored. |
-| `targets` | required | Your targets as `{"github": …, "opencollective": …}`, a target string such as `"github:octocat,opencollective:my-collective"`, or a list of target strings. Normalized the same way as the client's options. |
+| `targets` | required | Your targets as `{"github": …, "open-collective": …}`, a target string such as `"github:octocat,open-collective:my-collective"`, or a list of target strings. Normalized the same way as the client's options. |
 | `api_base_url` | `"https://api.sponsorkit.io"` | For self-hosting and tests. |
 | `request_timeout` | `30.0` | Seconds for the HTTP request; `0` disables the timeout. |
 | `http_client` | a new client per call | An `httpx.Client` (`httpx.AsyncClient` for `averify_session`) to reuse connections, proxies or a test transport. Sponsorkit doesn't close it. |
@@ -119,7 +119,7 @@ import httpx
 
 from sponsorkit import FileStorage, Sponsorkit, default_storage_dir
 
-sk = Sponsorkit(github="octocat", opencollective="my-collective", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-collective", app_name="my-cli")
 
 
 def session_token(sk: Sponsorkit) -> str | None:

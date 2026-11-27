@@ -42,11 +42,11 @@ import "@sponsorkit/sdk/elements";
 ```
 
 ```html title="index.html"
-<sponsorkit-button github="octocat" opencollective="my-project" amount="500" frequency="monthly">
+<sponsorkit-button github="octocat" open-collective="my-project" amount="500" frequency="monthly">
   Sponsor ♥
 </sponsorkit-button>
 
-<sponsorkit-badge github="octocat" opencollective="my-project"></sponsorkit-badge>
+<sponsorkit-badge github="octocat" open-collective="my-project"></sponsorkit-badge>
 ```
 
 The import has side effects (it calls `customElements.define`), so import it from your entry module rather
@@ -56,13 +56,13 @@ than lazily from a component that may never load.
 
 | Attribute | Element | Meaning |
 |---|---|---|
-| `github`, `opencollective` | both | Your accounts. At least one is required. |
+| `github`, `open-collective` | both | Your accounts. At least one is required. |
 | `api-base-url` | both | Your own Sponsorkit API origin, if you [self-host](../reference-http/self-hosting.md). |
 | `site-base-url` | both | Your own Sponsorkit site (consent and checkout pages), if you self-host it somewhere other than the API origin. Defaults to `api-base-url` when only that is set. |
 | `amount` | button | Suggested amount in minor units (`500` is $5.00). |
 | `currency` | button | ISO 4217 code, e.g. `USD` or `EUR`. |
 | `frequency` | button | `one_time`, `monthly` or `yearly`. |
-| `provider` | button | `github` or `opencollective`, to skip the provider chooser. |
+| `provider` | button | `github` or `open-collective`, to skip the provider chooser. |
 | `label` | button | Accessible name (`aria-label`) when the visible content isn't descriptive. |
 
 The element's content replaces the default label ("Sponsor ♥" and "Supporter ♥"). The badge toggles the
@@ -119,7 +119,7 @@ import "@sponsorkit/sdk/elements";
 
 const sk = new Sponsorkit({
   github: "octocat",
-  opencollective: "my-project",
+  openCollective: "my-project",
   returnTo: `${location.origin}/account`,
 });
 
@@ -144,7 +144,7 @@ Use the `Sponsorkit` class for your own buttons and logic:
 ```ts title="account.ts"
 import { Sponsorkit, isSponsorkitError } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-project" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-project" });
 
 const status = document.querySelector<HTMLElement>("#status");
 const signInButton = document.querySelector<HTMLButtonElement>("#sign-in");
@@ -192,7 +192,7 @@ import { Sponsorkit } from "@sponsorkit/sdk";
 
 export const sk = new Sponsorkit({
   github: "octocat",
-  opencollective: "my-project",
+  openCollective: "my-project",
   // An https URL of your app (http is allowed only for localhost, 127.0.0.1 and [::1]).
   returnTo: "https://app.example.com/account",
 });
@@ -214,7 +214,7 @@ import { Sponsorkit, isSponsorkitError } from "@sponsorkit/sdk";
 
 const sk = new Sponsorkit({
   github: "octocat",
-  opencollective: "my-project",
+  openCollective: "my-project",
   returnTo: "https://app.example.com/account",
 });
 

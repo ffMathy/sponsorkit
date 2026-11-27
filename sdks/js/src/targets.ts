@@ -17,7 +17,7 @@ const OC_SLUG = /^[a-z0-9][a-z0-9-]{0,254}$/;
 
 /** Normalizes and validates one target. Throws `invalid_config` when malformed. */
 export function normalizeTarget(provider: string, account: string): Target {
-  if (provider !== "github" && provider !== "opencollective") {
+  if (provider !== "github" && provider !== "open-collective") {
     throw new SponsorkitError("invalid_config", `Unknown provider "${provider}"`);
   }
   if (typeof account !== "string") throw new SponsorkitError("invalid_config", `Invalid ${provider} account`);
@@ -27,7 +27,7 @@ export function normalizeTarget(provider: string, account: string): Target {
   return { provider, account: a };
 }
 
-/** `github:<login>` / `opencollective:<slug>`. */
+/** `github:<login>` / `open-collective:<slug>`. */
 export function targetToString(t: Target): string {
   return `${t.provider}:${t.account}`;
 }
@@ -44,14 +44,14 @@ export function canonicalTargets(targets: readonly Target[]): Target[] {
   const map = new Map<string, Target>();
   for (const t of targets) map.set(targetToString(t), t);
   const sorted = [...map.entries()].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)).map(([, t]) => t);
-  if (sorted.length === 0) throw new SponsorkitError("invalid_config", "At least one target (github or opencollective) is required");
+  if (sorted.length === 0) throw new SponsorkitError("invalid_config", "At least one target (github or openCollective) is required");
   if (new Set(sorted.map((t) => t.provider)).size !== sorted.length) {
     throw new SponsorkitError("invalid_config", "At most one target per provider is supported");
   }
   return sorted;
 }
 
-/** Builds the canonical target set from `{ github?, opencollective? }`, a target param string, or a list of target strings. */
+/** Builds the canonical target set from `{ github?, openCollective? }`, a target param string, or a list of target strings. */
 export function targetsFrom(input: TargetOptions | string | readonly string[]): Target[] {
   if (typeof input === "string") return canonicalTargets(input.split(",").filter(Boolean).map(parseTarget));
   if (Array.isArray(input)) return canonicalTargets((input as readonly string[]).map(parseTarget));
@@ -59,11 +59,11 @@ export function targetsFrom(input: TargetOptions | string | readonly string[]): 
   const opts = input as TargetOptions;
   const out: Target[] = [];
   if (opts.github !== undefined && opts.github !== null) out.push(normalizeTarget("github", opts.github));
-  if (opts.opencollective !== undefined && opts.opencollective !== null) out.push(normalizeTarget("opencollective", opts.opencollective));
+  if (opts.openCollective !== undefined && opts.openCollective !== null) out.push(normalizeTarget("open-collective", opts.openCollective));
   return canonicalTargets(out);
 }
 
-/** The canonical target param: `github:x,opencollective:y`. */
+/** The canonical target param: `github:x,open-collective:y`. */
 export function targetsParam(targets: readonly Target[]): string {
   return canonicalTargets(targets).map(targetToString).join(",");
 }
