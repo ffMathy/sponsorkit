@@ -7,12 +7,12 @@ order: 10
 
 Each section below covers one language. The commands assume a published release.
 
-:::danger[Not released yet]
-No Sponsorkit SDK is on npm, NuGet, PyPI or crates.io yet (Go modules are fetched from GitHub and work
-today). Some of these package names aren't reserved yet, so a package someone else publishes under them would
-not be this project. Until the first release is announced in the
-[repository](https://github.com/ffMathy/sponsorkit), use [build from source](from-source.md) instead of
-the registry commands on this page.
+:::danger[Only .NET is released so far]
+`Sponsorkit` is [on NuGet](https://www.nuget.org/packages/Sponsorkit), and Go modules are fetched from GitHub;
+both work today. No Sponsorkit SDK is on npm, PyPI or crates.io yet. Some of those package names aren't
+reserved yet, so a package someone else publishes under them would not be this project. Until their first
+release is announced in the [repository](https://github.com/ffMathy/sponsorkit), use
+[build from source](from-source.md) instead of the npm, PyPI and crates.io commands on this page.
 :::
 
 ## JavaScript / TypeScript {#javascript}
@@ -101,9 +101,7 @@ versions; until the first npm release, bundle a local build instead.
 ## .NET {#dotnet}
 
 The `Sponsorkit` NuGet package targets `netstandard2.0` and `net8.0`. On .NET 8 and later it has no dependencies;
-the `netstandard2.0` build depends on `System.Text.Json`.
-
-**After the first release.** Until then, [build from source](from-source.md#dotnet).
+the `netstandard2.0` build depends on `System.Text.Json`. It is [on NuGet](https://www.nuget.org/packages/Sponsorkit).
 
 :::tabs{group="nuget"}
 ```bash tab=".NET CLI" key="dotnet-cli"

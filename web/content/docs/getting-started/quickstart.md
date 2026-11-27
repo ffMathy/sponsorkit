@@ -15,10 +15,10 @@ as-is against the SDK.
 
 ## Install
 
-No SDK has been released to npm, NuGet, PyPI or crates.io yet, so install it from the repository. Don't
-install `@sponsorkit/sdk`, `Sponsorkit` or `sponsorkit` from a registry until the first release is announced:
-those names may not be reserved yet. [Install](../install/index.md) explains why, and lists the registry
-commands to use after the release.
+The .NET SDK is on NuGet. The others aren't on npm, PyPI or crates.io yet, so install them from the
+repository. Don't install `@sponsorkit/sdk` or `sponsorkit` from a registry until their first release is
+announced: those names may not be reserved yet. [Install](../install/index.md) explains why, and lists the
+registry commands to use after the release.
 
 :::tabs
 ```bash tab="JavaScript" key="js"
@@ -29,10 +29,8 @@ npm install ../sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
 ```
 
 ```bash tab=".NET" key="dotnet"
-git clone https://github.com/ffMathy/sponsorkit.git
-dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
 dotnet new console -n my-cli && cd my-cli
-dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
+dotnet add package Sponsorkit
 ```
 
 ```bash tab="Python" key="python"

@@ -14,15 +14,13 @@ This page builds `my-cli`, a console app with four commands:
 
 ## Create the project
 
-The package isn't on NuGet yet, so pack it from the repository into a local folder first;
-[Install](index.md#install) explains this and lists the registry commands to use after the first release:
+Create a console app and add the package from NuGet; [Install](index.md#install) lists the other ways to
+reference it:
 
 ```bash title="Terminal"
-git clone https://github.com/ffMathy/sponsorkit.git
-dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
 dotnet new console -n my-cli
 cd my-cli
-dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
+dotnet add package Sponsorkit
 ```
 
 The console template enables implicit usings, so `System`, `System.Linq`, `System.Threading` and

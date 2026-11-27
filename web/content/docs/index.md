@@ -11,13 +11,12 @@ Sponsorkit tells your software whether the current user supports you on GitHub S
 and helps them start. You write the rule; Sponsorkit reports the facts.
 
 :::warning[Project status: pre-release]
-- **The SDKs aren't published yet.** `@sponsorkit/sdk`, `Sponsorkit` and `sponsorkit` are not on npm, NuGet,
-  PyPI or crates.io, and some of those names aren't reserved yet, so don't install them from a registry.
-  [Install from source](install/from-source.md) until the first release is announced. (The Go module is
-  fetched straight from GitHub.)
-- **The hosted service isn't deployed yet.** Real sign-ins, checks and checkout links that point at the hosted
-  API (`api.sponsorkit.io`) don't work today. Use [mock mode](guides/mock-mode.md), which needs no network, or
-  [host the service yourself](reference-http/self-hosting.md) with your own OAuth apps.
+- **Only the .NET SDK is published so far.** `Sponsorkit` 0.1.0 is [on NuGet](https://www.nuget.org/packages/Sponsorkit).
+  `@sponsorkit/sdk` and `sponsorkit` are not on npm, PyPI or crates.io yet, and some of those names aren't
+  reserved yet, so don't install them from a registry: [install from source](install/from-source.md) until
+  their first release is announced. (The Go module is fetched straight from GitHub.)
+- **The hosted service is live** at `api.sponsorkit.io`. Some provider behaviour has only been tested against
+  stubbed provider responses so far; [mock mode](guides/mock-mode.md) needs no network at all.
 :::
 
 ## Start here
