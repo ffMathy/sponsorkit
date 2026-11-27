@@ -27,14 +27,14 @@ are relative to the API origin. SDKs take both as options, `siteBaseUrl` and `ap
 
 ## Targets
 
-A **target** is an account that receives contributions, written `github:<login>` or `opencollective:<slug>`. The
+A **target** is an account that receives contributions, written `github:<login>` or `open-collective:<slug>`. The
 account is trimmed and lowercased, and must be a valid GitHub login or Open Collective slug.
 
 A **target set** has one or more targets, at most one per provider. Its canonical form is deduplicated, sorted by
 the string form (byte-wise ASCII) and joined with commas:
 
 ```text
-github:octocat,opencollective:my-project
+github:octocat,open-collective:my-project
 ```
 
 That string is the `targets` parameter in every URL. Its lowercase hex SHA-256 is the **targets hash**, which

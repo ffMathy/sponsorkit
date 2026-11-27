@@ -68,6 +68,6 @@ describe("ids", () => {
     const id = await contributionId("github", "S_abc");
     const digest = base64urlEncode(new Uint8Array(await crypto.subtle.digest("SHA-256", utf8("github:S_abc"))));
     expect(id).toBe(`con_github_${digest.slice(0, 22)}`);
-    expect(await contributionId("opencollective", "S_abc")).not.toBe(id);
+    expect(await contributionId("open-collective", "S_abc")).not.toBe(id);
   });
 });

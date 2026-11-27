@@ -229,7 +229,7 @@ fn options_from(args: &Value, ctx: &Ctx) -> Result<Options, StepError> {
         .unwrap_or_default();
     Ok(Options {
         github: str_opt(&args["github"]),
-        opencollective: str_opt(&args["opencollective"]),
+        open_collective: str_opt(&args["openCollective"]),
         app_name: str_opt(&args["appName"]),
         cache_ttl: secs(&args["cacheTtl"]),
         mock,
@@ -372,7 +372,7 @@ async fn exec_on(step: &Value, sk: Option<Sponsorkit>, ctx_base: &str) -> StepRe
         "verifySession" => {
             let base = args["apiBaseUrl"].as_str().unwrap_or(ctx_base).to_string();
             let t = &args["targets"];
-            let targets = Targets { github: str_opt(&t["github"]), opencollective: str_opt(&t["opencollective"]) };
+            let targets = Targets { github: str_opt(&t["github"]), open_collective: str_opt(&t["openCollective"]) };
             let r = server::verify_session_with(
                 args["token"].as_str().unwrap(),
                 &targets,

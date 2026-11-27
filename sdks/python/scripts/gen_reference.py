@@ -1399,7 +1399,7 @@ FIELD_NOTES: dict[str, dict[str, str]] = {
         ),
     },
     "Contribution": {
-        "provider": "`github` or `opencollective`.",
+        "provider": "`github` or `open-collective`.",
         "sponsor": "Who pays: the supporter or one of their organizations.",
         "via": "`direct` for the supporter's own contribution, `organization` for one made by an "
         "organization "
@@ -1422,13 +1422,13 @@ FIELD_NOTES: dict[str, dict[str, str]] = {
     },
     "SponsorEntity": {
         "type": "`user` or `organization`.",
-        "provider": "`github` or `opencollective`.",
+        "provider": "`github` or `open-collective`.",
         "id": "The provider's id for the account.",
         "handle": "The provider login or slug, when known.",
     },
     "Tier": {"id": "The provider's tier id.", "name": "The tier's display name."},
     "Identity": {
-        "provider": "`github` or `opencollective`.",
+        "provider": "`github` or `open-collective`.",
         "id": "The provider's id for the account.",
         "handle": "The provider login or slug, when known.",
     },
@@ -1441,7 +1441,7 @@ FIELD_NOTES: dict[str, dict[str, str]] = {
         "contribution": "The detected contribution when `status` is `contributed`.",
     },
     "Target": {
-        "provider": "`github` or `opencollective`.",
+        "provider": "`github` or `open-collective`.",
         "account": "The normalized (lowercased, trimmed) login or slug.",
     },
     "MockData": {"contributions": "The contributions mock mode reports for a signed-in supporter."},

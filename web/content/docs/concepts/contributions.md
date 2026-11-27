@@ -13,7 +13,7 @@ only you know what should count.
   "signedIn": true,
   "disabled": false,
   "mock": false,
-  "targets": ["github:octocat", "opencollective:my-collective"],
+  "targets": ["github:octocat", "open-collective:my-collective"],
   "supporter": {
     "id": "sup_…",
     "identities": [{ "provider": "github", "id": "583231", "handle": "alice", "needsReconnect": false }]
@@ -66,7 +66,7 @@ empty. [Caching & freshness](caching.md) explains `stale` and `fromCache`.
 | Field | Meaning |
 |---|---|
 | `supporter.id` | `sup_…`, a pairwise id: stable for the same person and the same target set, and different for apps with other targets, so apps can't correlate users. Derived from the session's first identity. |
-| `identities[].provider` | `github` or `opencollective`. |
+| `identities[].provider` | `github` or `open-collective`. |
 | `identities[].id` | The provider's immutable user id. |
 | `identities[].handle` | The login or slug, or `null`. Handles can change; key your data on `supporter.id` or `id`. |
 | `identities[].needsReconnect` | The provider permission expired or was revoked; see [reconnecting](sessions.md#reconnecting-an-identity). |
@@ -76,7 +76,7 @@ empty. [Caching & freshness](caching.md) explains `stale` and `fromCache`.
 | Field | Values | Meaning |
 |---|---|---|
 | `id` | `con_<provider>_…` | Stable, derived from the provider's own id. |
-| `provider` | `github`, `opencollective` | Where the contribution was made. |
+| `provider` | `github`, `open-collective` | Where the contribution was made. |
 | `target` | e.g. `github:octocat` | Which of your targets it goes to. |
 | `sponsor` | `{ type, provider, id, handle }` | Who pays: `type` is `user`, or `organization` for [organization sponsorships](organizations.md). |
 | `via` | `direct`, `organization` | Whether the supporter pays personally or through an organization. |

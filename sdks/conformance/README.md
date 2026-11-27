@@ -74,11 +74,11 @@ The API follows PROTOCOL §3:
 
 Its data is deterministic.
 
-- **Targets:** `github:sponsorkit-conformance` and `opencollective:sponsorkit-conformance` exist (`fixtures/targets-response.json`). Any other well-formed account is returned with `exists: false`. The OC collective's currency is EUR. GitHub tiers are $5/$10/$25 monthly and a $10 one-time tier.
+- **Targets:** `github:sponsorkit-conformance` and `open-collective:sponsorkit-conformance` exist (`fixtures/targets-response.json`). Any other well-formed account is returned with `exists: false`. The OC collective's currency is EUR. GitHub tiers are $5/$10/$25 monthly and a $10 one-time tier.
 - **Identities:** sign-in always yields the same identity per provider:
   - GitHub: `583231` / `conformance-user`;
   - Open Collective: `rvelxbzm-o9n8y05w-wq9op3dg` / `conformance-user`.
-- **Contributions:** the default pool is `github-direct-monthly`, `github-org-one-time` and `opencollective-monthly` (`fixtures/contributions.json`). A result contains the pool entries whose provider has an identity in the session and whose target is in the session's target set.
+- **Contributions:** the default pool is `github-direct-monthly`, `github-org-one-time` and `open-collective-monthly` (`fixtures/contributions.json`). A result contains the pool entries whose provider has an identity in the session and whose target is in the session's target set.
 - **Sessions:** `sks_…` tokens are opaque random strings. The server remembers them in memory and they are valid for 180 days. Adding an identity issues a new token. The old one stays valid (stateless renewal semantics).
 - **Codes:** `skc_…` tokens are bound to the challenge, target set and delivery. They expire after 60 s, or 600 s for `paste`.
   - At `/auth/token` the server checks `base64url(sha256(codeVerifier)) == challenge` (S256). Otherwise it answers `400 invalid_code`.
@@ -156,7 +156,7 @@ All control endpoints take and return JSON.
 {
   "version": 1,
   "variables": { "$BASE_URL": "runtime: …", "$TARGETS_HASH": "3363d3…", … },
-  "defaults": { "targets": { "github": "sponsorkit-conformance", "opencollective": "sponsorkit-conformance" }, "appName": "conformance-app" },
+  "defaults": { "targets": { "github": "sponsorkit-conformance", "open-collective": "sponsorkit-conformance" }, "appName": "conformance-app" },
   "scenarios": [
     {
       "id": "session-renewal", "title": "…", "description": "…", "category": "session",
@@ -211,7 +211,7 @@ These are the SDK actions; map each one to your SDK's idiomatic API. Return valu
 
 | `action` | `args` | Run as | Return value compared |
 |---|---|---|---|
-| `configure` | `github?`, `opencollective?`, `appName?`, `cacheTtl?`, `mock?`, `apiBaseUrl`, `siteBaseUrl?`, `storageDir`, `signInMethod?`, `env`, `processEnv?`, `devChecks?`, `signInTimeout?` (s), `interactive?` | Construct a **new** SDK instance, replacing the current one.<br>• Always pass `env` as the SDK's `env` override (§4); it replaces the process environment.<br>• `processEnv`: first set these variables in the real process environment, and keep them until the scenario ends (§3.1).<br>• `siteBaseUrl`, `devChecks`, `signInTimeout`, `interactive`: pass the option only when present (for `siteBaseUrl`, an empty string is present and must be passed: it counts as unset in the SDK). When absent, the SDK uses its default; for `devChecks`, run the harness without the language's implicit development signal (JS `NODE_ENV=development`, Python dev mode). | — |
+| `configure` | `github?`, `openCollective?`, `appName?`, `cacheTtl?`, `mock?`, `apiBaseUrl`, `siteBaseUrl?`, `storageDir`, `signInMethod?`, `env`, `processEnv?`, `devChecks?`, `signInTimeout?` (s), `interactive?` | Construct a **new** SDK instance, replacing the current one.<br>• Always pass `env` as the SDK's `env` override (§4); it replaces the process environment.<br>• `processEnv`: first set these variables in the real process environment, and keep them until the scenario ends (§3.1).<br>• `siteBaseUrl`, `devChecks`, `signInTimeout`, `interactive`: pass the option only when present (for `siteBaseUrl`, an empty string is present and must be passed: it counts as unset in the SDK). When absent, the SDK uses its default; for `devChecks`, run the harness without the language's implicit development signal (JS `NODE_ENV=development`, Python dev mode). | — |
 | `restart` | — | Drop the instance and reset per-process state (nag run memo, dev-check memo, `Retry-After` memo). Construct a new instance with the last `configure` args. This simulates the next run of the app. | — |
 | `signIn` | `method: "loopback" \| "paste"`, `provider?`, `cancelAfter?` (s) | `signIn({ provider })` with the sign-in method forced to `method`. When `cancelAfter` is set, pass a cancellation primitive and fire it that many seconds after the call starts. | — |
 | `isSignedIn` | — | `isSignedIn()` | boolean |

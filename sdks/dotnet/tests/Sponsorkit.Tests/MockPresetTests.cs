@@ -36,7 +36,7 @@ public sealed class MockPresetTests
         Assert.True(fc.SignedIn);
         Assert.Null(fc.FetchedAt);
         Assert.Null(fc.Unavailable);
-        Assert.Equal(["github:octocat", "opencollective:my-collective"], fc.Targets);
+        Assert.Equal(["github:octocat", "open-collective:my-collective"], fc.Targets);
         Assert.Equal("sup_mock", fc.Supporter!.Id);
         Assert.Equal("github", fc.Supporter.Identities.Single().Provider);
         var c = Assert.Single(fc.Contributions);
@@ -46,11 +46,11 @@ public sealed class MockPresetTests
     }
 
     [Fact]
-    public async Task Opencollective_only_uses_its_target()
+    public async Task OpenCollective_only_uses_its_target()
     {
         var fc = await Client("active-monthly", github: null).GetFinancialContributionAsync();
-        Assert.Equal("con_opencollective_mock_active_monthly", fc.Contributions.Single().Id);
-        Assert.Equal("opencollective:my-collective", fc.Contributions.Single().Target);
+        Assert.Equal("con_open-collective_mock_active_monthly", fc.Contributions.Single().Id);
+        Assert.Equal("open-collective:my-collective", fc.Contributions.Single().Target);
     }
 
     [Fact]
@@ -80,9 +80,9 @@ public sealed class MockPresetTests
     public async Task Checkout_simulates_a_contribution()
     {
         var sk = Client("signed-out");
-        var r = await sk.OpenCheckoutAsync(new CheckoutOptions { Provider = "opencollective", Amount = 1000, Currency = "EUR", Frequency = Frequencies.Yearly });
+        var r = await sk.OpenCheckoutAsync(new CheckoutOptions { Provider = "open-collective", Amount = 1000, Currency = "EUR", Frequency = Frequencies.Yearly });
         Assert.Equal(CheckoutStatus.Contributed, r.Status);
-        Assert.Equal("con_opencollective_mock_checkout", r.Contribution!.Id);
+        Assert.Equal("con_open-collective_mock_checkout", r.Contribution!.Id);
         Assert.Equal("yearly", r.Contribution.Frequency);
         Assert.Equal("recurring", r.Contribution.Kind);
         Assert.Equal("active", r.Contribution.Status);
@@ -147,8 +147,8 @@ public sealed class MockPresetTests
     public void Checkout_url_is_offline_and_validates_provider()
     {
         var sk = Client("none");
-        Assert.Equal("https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copencollective%3Amy-collective&frequency=monthly",
+        Assert.Equal("https://ffmathy.github.io/sponsorkit/checkout/?targets=github%3Aoctocat%2Copen-collective%3Amy-collective&frequency=monthly",
             sk.CheckoutUrl(new CheckoutUrlOptions { Frequency = Frequencies.Monthly }));
-        Assert.Equal(SponsorkitErrorCodes.InvalidConfig, Assert.Throws<SponsorkitError>(() => Client("none", oc: null).CheckoutUrl(new CheckoutUrlOptions { Provider = "opencollective" })).Code);
+        Assert.Equal(SponsorkitErrorCodes.InvalidConfig, Assert.Throws<SponsorkitError>(() => Client("none", oc: null).CheckoutUrl(new CheckoutUrlOptions { Provider = "open-collective" })).Code);
     }
 }

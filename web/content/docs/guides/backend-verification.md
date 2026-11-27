@@ -31,7 +31,7 @@ import { isSponsorkitError, verifySession } from "@sponsorkit/sdk/server";
 export async function handleDownload(request: Request): Promise<Response> {
   const token = request.headers.get("X-Sponsorkit-Session") ?? "";
   try {
-    const fc = await verifySession(token, { github: "octocat", opencollective: "my-project" });
+    const fc = await verifySession(token, { github: "octocat", openCollective: "my-project" });
     if (fc.active().length === 0) return new Response("Sponsors only", { status: 403 });
     return new Response(`Here you go, ${fc.supporter?.id}`);
   } catch (e) {
@@ -77,7 +77,7 @@ from sponsorkit import SponsorkitError, verify_session
 
 def handle_download(token: str) -> tuple[int, str]:
     try:
-        fc = verify_session(token, {"github": "octocat", "opencollective": "my-project"})
+        fc = verify_session(token, {"github": "octocat", "open-collective": "my-project"})
     except SponsorkitError as e:
         if e.code in ("session_invalid", "targets_mismatch"):
             return 401, "Please sign in again"
@@ -141,7 +141,7 @@ func main() {
 use sponsorkit::{ErrorCode, Targets, server::verify_session};
 
 async fn handle_download(token: &str) -> (u16, String) {
-    let targets = Targets::github("octocat").with_opencollective("my-project");
+    let targets = Targets::github("octocat").with_open_collective("my-project");
     match verify_session(token, &targets).await {
         Ok(fc) if fc.active().is_empty() => (403, "Sponsors only".into()),
         Ok(fc) => {
@@ -197,7 +197,7 @@ Every SDK accepts the API origin (default `https://api.sponsorkit.io`; change it
 | Go | `sponsorkit.VerifySession(ctx, token, targets, sponsorkit.WithAPIBaseURL(…), sponsorkit.WithHTTPClient(…), sponsorkit.WithRequestTimeout(…))` |
 | Rust | `server::verify_session_with(token, &targets, VerifyOptions { api_base_url, http_client, request_timeout })` |
 
-In JavaScript, `targets` can also be a canonical target string such as `"github:octocat,opencollective:my-project"`.
+In JavaScript, `targets` can also be a canonical target string such as `"github:octocat,open-collective:my-project"`.
 
 ## Send the token from the client
 
@@ -208,7 +208,7 @@ own backend, over HTTPS.
 ```ts title="client.ts"
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-project" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-project" });
 
 export async function download(): Promise<Response> {
   const token = await sk.getSessionToken(); // null when signed out
@@ -280,5 +280,5 @@ curl https://api.sponsorkit.io/api/v1/contributions \
 ```
 
 Then compare the `targets` array in the response with your own canonical targets (lowercased, sorted, for example
-`["github:octocat", "opencollective:my-project"]`), and treat `401` as `session_invalid`. The response is
+`["github:octocat", "open-collective:my-project"]`), and treat `401` as `session_invalid`. The response is
 described in the [HTTP API reference](../reference-http/http-api.md#get-contributions).

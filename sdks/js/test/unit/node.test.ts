@@ -94,7 +94,7 @@ describe("configuration", () => {
     expect(self.checkoutUrl()).toBe("https://kit.example/checkout/?targets=github%3Aoctocat");
     const split = new Sponsorkit({ github: "octocat", env: {}, apiBaseUrl: "https://api.kit.example", siteBaseUrl: "https://kit.example/pages/" });
     expect(split.checkoutUrl()).toBe("https://kit.example/pages/checkout/?targets=github%3Aoctocat");
-    expect(() => sk.checkoutUrl({ provider: "opencollective" })).toThrow(/No opencollective target/);
+    expect(() => sk.checkoutUrl({ provider: "open-collective" })).toThrow(/No open-collective target/);
     expect(() => sk.checkoutUrl({ amount: 1.5 })).toThrow(SponsorkitError);
     expect(() => sk.checkoutUrl({ frequency: "weekly" as never })).toThrow(SponsorkitError);
     for (const bad of [{ amount: 0 }, { amount: -500 }, { currency: "EURO" }, { provider: "patreon" as never }]) {
@@ -169,7 +169,7 @@ describe("sign-in", () => {
     delete process.env.SSH_TTY;
     const sk = new Sponsorkit({
       github: "sponsorkit-conformance",
-      opencollective: "sponsorkit-conformance",
+      openCollective: "sponsorkit-conformance",
       appName: "unit",
       storageDir: await tempDir(),
       env: {},
@@ -304,7 +304,7 @@ describe("sign-in", () => {
   test("a loopback bind failure falls back to paste-back in auto mode and is a SponsorkitError otherwise", async () => {
     const { fn } = fakeFetch({ "POST /api/v1/auth/token": tokenOk });
     const prompts: string[] = [];
-    const base = { github: "sponsorkit-conformance", opencollective: "sponsorkit-conformance", env: {}, fetch: fn, output: { write() {} } };
+    const base = { github: "sponsorkit-conformance", openCollective: "sponsorkit-conformance", env: {}, fetch: fn, output: { write() {} } };
     const savedEnv = { DISPLAY: process.env.DISPLAY, SSH_CONNECTION: process.env.SSH_CONNECTION, SSH_TTY: process.env.SSH_TTY };
     process.env.DISPLAY = ":0";
     delete process.env.SSH_CONNECTION;
@@ -344,7 +344,7 @@ describe("sign-in", () => {
 
   test("signIn rejects an unconfigured provider", async () => {
     const sk = new Sponsorkit({ github: "octocat", env: {}, storageDir: await tempDir() });
-    await expect(sk.signIn({ provider: "opencollective" })).rejects.toMatchObject({ code: "invalid_config" });
+    await expect(sk.signIn({ provider: "open-collective" })).rejects.toMatchObject({ code: "invalid_config" });
   });
 });
 
@@ -392,7 +392,7 @@ describe("checkout", () => {
     });
     const sk = new Sponsorkit({
       github: "sponsorkit-conformance",
-      opencollective: "sponsorkit-conformance",
+      openCollective: "sponsorkit-conformance",
       storageDir: await tempDir(),
       env: {},
       fetch: fn,
@@ -432,7 +432,7 @@ describe("cache and clock", () => {
     });
     const sk = new Sponsorkit({
       github: "sponsorkit-conformance",
-      opencollective: "sponsorkit-conformance",
+      openCollective: "sponsorkit-conformance",
       storageDir: await tempDir(),
       env: {},
       fetch: fn,
@@ -459,7 +459,7 @@ describe("cache and clock", () => {
     });
     const sk = new Sponsorkit({
       github: "sponsorkit-conformance",
-      opencollective: "sponsorkit-conformance",
+      openCollective: "sponsorkit-conformance",
       storageDir: await tempDir(),
       env: {},
       fetch: fn,
@@ -516,7 +516,7 @@ describe("nag", () => {
 describe("verifySession", () => {
   test("accepts target params in any form and reports outages as network_error", async () => {
     const ok = fakeFetch({ "GET /api/v1/contributions": () => json(fullResult) });
-    const fc = await verifySession("sks_t", "opencollective:sponsorkit-conformance,github:sponsorkit-conformance", { fetch: ok.fn });
+    const fc = await verifySession("sks_t", "open-collective:sponsorkit-conformance,github:sponsorkit-conformance", { fetch: ok.fn });
     expect(fc.active().length).toBeGreaterThan(0);
     expect(ok.calls[0]?.auth).toBe("Bearer sks_t");
     await expect(verifySession("sks_t", { github: "other" }, { fetch: ok.fn })).rejects.toMatchObject({ code: "targets_mismatch" });

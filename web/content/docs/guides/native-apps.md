@@ -280,7 +280,7 @@ async fn main() -> Result<(), sponsorkit::Error> {
 Python's async variants (`asign_in`, `aopen_checkout`) also stop when the awaiting task is cancelled. In Rust,
 dropping the future (for example with `tokio::time::timeout`) stops everything too, but yields no result.
 
-Signing in while already signed in **adds** an identity: pass a provider (`{ provider: "opencollective" }`) to
+Signing in while already signed in **adds** an identity: pass a provider (`{ provider: "open-collective" }`) to
 connect a second account to the same session. The same call reconnects an identity flagged `needsReconnect`.
 See [Sessions](../concepts/sessions.md).
 

@@ -37,7 +37,7 @@ from .targets import Target, coerce_targets, targets_param
 __all__ = ["TargetsArg", "averify_session", "verify_session"]
 
 TargetsArg: TypeAlias = "Mapping[str, str | None] | str | Iterable[str | Target]"
-"""Targets as ``{"github": ..., "opencollective": ...}``, a target param, or a list of target strings."""
+"""Targets as ``{"github": ..., "open_collective": ...}``, a target param, or a list of target strings."""
 
 
 def _prepare(token: str, targets: TargetsArg, api_base_url: str) -> tuple[str, str, dict[str, str]]:

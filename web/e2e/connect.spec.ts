@@ -21,7 +21,7 @@ test.describe("/connect/ consent screen (PROTOCOL §4.2)", () => {
   test("renders targets, the requesting origin, consent text and provider buttons", async ({ page, context, baseURL }) => {
     const api = await mockApi(context);
     const params = {
-      targets: "opencollective:sponsorkit,github:octocat",
+      targets: "open-collective:sponsorkit,github:octocat",
       challenge: CHALLENGE,
       delivery: "web_message",
       origin: "https://app.example.com",
@@ -35,16 +35,16 @@ test.describe("/connect/ consent screen (PROTOCOL §4.2)", () => {
     await expect(gh).toContainText("The Octocat");
     await expect(gh).toContainText("@octocat");
     await expect(gh.locator("img")).toHaveAttribute("src", "https://avatars.githubusercontent.com/u/583231?v=4");
-    await expect(page.getByTestId("target-opencollective")).toContainText("Sponsorkit Collective");
+    await expect(page.getByTestId("target-open-collective")).toContainText("Sponsorkit Collective");
 
     await expect(page.getByTestId("consent-text")).toHaveText(
       "An app wants to know whether you sponsor @octocat on GitHub and Sponsorkit Collective on Open Collective. It will see the amount, frequency and status of those contributions only, including private ones. Nothing else about your account is shared, and Sponsorkit stores nothing.",
     );
-    expect(api.targetQueries).toContain("?github=octocat&opencollective=sponsorkit");
+    expect(api.targetQueries).toContain("?github=octocat&open-collective=sponsorkit");
 
     // One button per provider, each submitting a top-level form POST to <API>/api/oauth/<provider>/start
     // with the same params as hidden fields (PROTOCOL §4.2 step 3).
-    await expect(page.getByTestId("continue-opencollective")).toBeVisible();
+    await expect(page.getByTestId("continue-open-collective")).toBeVisible();
     const form = await startForm(page, "github");
     expect(form).toEqual({
       method: "post",
@@ -53,7 +53,7 @@ test.describe("/connect/ consent screen (PROTOCOL §4.2)", () => {
       target: "_self",
       hiddenOnly: true,
       fields: [
-        ["targets", "github:octocat,opencollective:sponsorkit"],
+        ["targets", "github:octocat,open-collective:sponsorkit"],
         ["challenge", CHALLENGE],
         ["delivery", "web_message"],
         ["origin", "https://app.example.com"],
@@ -74,7 +74,7 @@ test.describe("/connect/ consent screen (PROTOCOL §4.2)", () => {
     // strict-origin: Referer is the origin only, never the page's path and query.
     expect(start.headers["referer"]).toBe(`${new URL(baseURL!).origin}/`);
     expect(Object.fromEntries(new URLSearchParams(start.body ?? ""))).toEqual({
-      targets: "github:octocat,opencollective:sponsorkit",
+      targets: "github:octocat,open-collective:sponsorkit",
       challenge: CHALLENGE,
       delivery: "web_message",
       origin: "https://app.example.com",
@@ -87,7 +87,7 @@ test.describe("/connect/ consent screen (PROTOCOL §4.2)", () => {
       p(`/connect/?${q({ targets: "github:octocat", challenge: CHALLENGE, delivery: "loopback", redirect_uri: "http://127.0.0.1:53682/callback", app_name: "my-cli" })}`),
     );
     await expect(page.getByTestId("requester")).toHaveText("says it is “my-cli”");
-    await expect(page.getByTestId("continue-opencollective")).toHaveCount(0);
+    await expect(page.getByTestId("continue-open-collective")).toHaveCount(0);
 
     await page.goto(p(`/connect/?${q({ targets: "github:octocat", challenge: CHALLENGE, delivery: "paste" })}`));
     await expect(page.getByTestId("requester")).toContainText("didn’t give its name");
@@ -105,13 +105,13 @@ test.describe("/connect/ consent screen (PROTOCOL §4.2)", () => {
   test("provider param shows only that provider; add=1 changes the copy", async ({ page, context }) => {
     await mockApi(context);
     await page.goto(
-      p(`/connect/?${q({ targets: "github:octocat,opencollective:sponsorkit", challenge: CHALLENGE, delivery: "paste", provider: "opencollective", add: "1" })}`),
+      p(`/connect/?${q({ targets: "github:octocat,open-collective:sponsorkit", challenge: CHALLENGE, delivery: "paste", provider: "open-collective", add: "1" })}`),
     );
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Connect another account");
     await expect(page.getByTestId("continue-github")).toHaveCount(0);
-    const form = await startForm(page, "opencollective");
-    expect(form.action).toBe(`${API}/api/oauth/opencollective/start`);
-    expect(Object.fromEntries(form.fields)).toMatchObject({ add: "1", provider: "opencollective", delivery: "paste" });
+    const form = await startForm(page, "open-collective");
+    expect(form.action).toBe(`${API}/api/oauth/open-collective/start`);
+    expect(Object.fromEntries(form.fields)).toMatchObject({ add: "1", provider: "open-collective", delivery: "paste" });
   });
 
   test("shows an error for invalid params", async ({ page, context }) => {

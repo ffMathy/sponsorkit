@@ -86,10 +86,10 @@ test.describe("/connect/done/ (PROTOCOL §4.5)", () => {
   });
 
   test("paste with continue offers Continue to checkout", async ({ page }) => {
-    await page.goto(p(`/connect/done/#paste=${CODE}&continue=${encodeURIComponent("targets=opencollective:sponsorkit&amount=500")}`));
+    await page.goto(p(`/connect/done/#paste=${CODE}&continue=${encodeURIComponent("targets=open-collective:sponsorkit&amount=500")}`));
     await expect(page.getByTestId("continue-checkout")).toHaveAttribute(
       "href",
-      p("/checkout/?targets=opencollective%3Asponsorkit&amount=500&step=choose"),
+      p("/checkout/?targets=open-collective%3Asponsorkit&amount=500&step=choose"),
     );
   });
 

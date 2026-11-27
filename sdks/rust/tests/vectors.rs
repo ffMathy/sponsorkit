@@ -24,7 +24,7 @@ fn targets_hash_vectors() {
         let input = &case["input"];
         let set = Targets {
             github: input["github"].as_str().map(str::to_owned),
-            opencollective: input["opencollective"].as_str().map(str::to_owned),
+            open_collective: input["openCollective"].as_str().map(str::to_owned),
         }
         .canonical()
         .unwrap();
@@ -79,7 +79,7 @@ fn embedded_mock_presets_are_identical_to_the_kit() {
 
 #[test]
 fn mock_presets_expand_per_rules() {
-    let set = TargetSet::parse("opencollective:sponsorkit,github:octocat").unwrap();
+    let set = TargetSet::parse("open-collective:sponsorkit,github:octocat").unwrap();
     let presets = fixture("mock-presets.json");
     for p in MockPreset::ALL {
         let r = mock_result(&set, &Mock::Preset(p));
@@ -90,7 +90,7 @@ fn mock_presets_expand_per_rules() {
         assert_eq!(v["mock"], json!(true));
         assert_eq!(v["disabled"], json!(false));
         assert_eq!(v["fetchedAt"], Value::Null);
-        assert_eq!(v["targets"], json!(["github:octocat", "opencollective:sponsorkit"]));
+        assert_eq!(v["targets"], json!(["github:octocat", "open-collective:sponsorkit"]));
         assert!(v.get("unavailable").is_none());
         if signed_in {
             assert_eq!(
@@ -118,7 +118,7 @@ fn mock_presets_expand_per_rules() {
 async fn mock_mode_flow_without_io() {
     let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("mock-no-io-{}", std::process::id()));
     let sk = Sponsorkit::new(Options {
-        opencollective: Some("sponsorkit".into()),
+        open_collective: Some("sponsorkit".into()),
         mock: Some(MockPreset::SignedOut.into()),
         storage_dir: Some(dir.clone()),
         api_base_url: Some("http://127.0.0.1:9".into()),
@@ -138,7 +138,7 @@ async fn mock_mode_flow_without_io() {
         .await
         .unwrap();
     let c = out.contribution().unwrap();
-    assert_eq!(c.id, "con_opencollective_mock_checkout");
+    assert_eq!(c.id, "con_open-collective_mock_checkout");
     assert_eq!(c.amount.value, 1500);
     let fc: ContributionResult = sk.get_financial_contribution(GetOptions::default()).await.unwrap();
     assert_eq!(fc.active().len(), 1);

@@ -114,8 +114,8 @@ describe("mock presets", () => {
 
   test.each([
     ["github:octocat"],
-    ["opencollective:webpack"],
-    ["github:sponsorkit-conformance,opencollective:sponsorkit-conformance"],
+    ["open-collective:webpack"],
+    ["github:sponsorkit-conformance,open-collective:sponsorkit-conformance"],
   ])("every preset expands to a valid result for %s", (param) => {
     const targets = param.split(",").map(parseTargetString);
     for (const name of MOCK_PRESET_NAMES) {
@@ -136,9 +136,9 @@ describe("mock presets", () => {
   test("checkout simulation", () => {
     const targets = DEFAULT_TARGETS_PARAM.split(",").map(parseTargetString);
     expect(mockCheckoutContribution(targets)).toMatchObject({ provider: "github", amount: { value: 500, currency: "USD" }, frequency: "monthly", kind: "recurring", status: "active" });
-    expect(mockCheckoutContribution(targets, { provider: "opencollective", frequency: "one_time", amount: 700, currency: "EUR" })).toMatchObject({
-      id: "con_opencollective_mock_checkout",
-      target: "opencollective:sponsorkit-conformance",
+    expect(mockCheckoutContribution(targets, { provider: "open-collective", frequency: "one_time", amount: 700, currency: "EUR" })).toMatchObject({
+      id: "con_open-collective_mock_checkout",
+      target: "open-collective:sponsorkit-conformance",
       kind: "one_time",
       status: "paid",
       amount: { value: 700, currency: "EUR" },
@@ -176,7 +176,7 @@ describe("scenarios.json", () => {
 
   test("server output matches fixtures/contribution-result.json (except fetchedAt)", async () => {
     const fake = new FakeSponsorkit();
-    const { sessionToken } = await fake.mintSession({ targets: DEFAULT_TARGETS_PARAM, identities: ["github", "opencollective"] });
+    const { sessionToken } = await fake.mintSession({ targets: DEFAULT_TARGETS_PARAM, identities: ["github", "open-collective"] });
     const res = await fake.fetch(new Request("http://127.0.0.1/api/v1/contributions", { headers: { authorization: `Bearer ${sessionToken}` } }));
     const body = ContributionResult.parse(await res.json());
     const fixture = ContributionResult.parse(await readJson("fixtures/contribution-result.json"));

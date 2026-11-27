@@ -52,7 +52,7 @@ Each `Contribution` has:
 | Property | Meaning |
 |---|---|
 | `Id` | Stable id, derived from the provider and its own id. |
-| `Provider`, `Target` | `github` or `opencollective`, and the target it was made to (`github:octocat`). |
+| `Provider`, `Target` | `github` or `open-collective`, and the target it was made to (`github:octocat`). |
 | `Sponsor` | Who pays: `Type` (`user` or `organization`), `Provider`, `Id`, `Handle`. |
 | `Via` | `direct`, or `organization` when an organization the supporter belongs to pays. |
 | `Kind` | `recurring` or `one_time` (`ContributionKinds`). |
@@ -80,7 +80,7 @@ The helpers filter `Contributions` and return a new list. None of them aggregate
 | `Active()` | Contributions with status `active`. |
 | `Recurring()` | `Kind == "recurring"`, any status. |
 | `OneTime()` | `Kind == "one_time"`, any status. |
-| `ByProvider(provider)` | Contributions made through `github` or `opencollective`. |
+| `ByProvider(provider)` | Contributions made through `github` or `open-collective`. |
 | `Direct()` | Contributions the supporter pays personally, excluding [organization sponsorships](../../concepts/organizations.md). |
 
 Write your rule with them and LINQ. For example, "an active sponsorship of at least $5 a month, paid personally,

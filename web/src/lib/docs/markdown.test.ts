@@ -133,9 +133,9 @@ describe("callouts", () => {
     expect(c.html).toContain("Do not.");
   });
   it("rejects unknown container directives but keeps text directives as text", async () => {
-    const c = await html(":::nope\nx\n:::\n\nTargets look like github:octocat and opencollective:sponsorkit.");
+    const c = await html(":::nope\nx\n:::\n\nTargets look like github:octocat and open-collective:sponsorkit.");
     expect(c.diagnostics.map((d) => d.message)).toEqual([expect.stringContaining('unknown directive ":::nope"')]);
-    expect(c.html).toContain("github:octocat and opencollective:sponsorkit");
+    expect(c.html).toContain("github:octocat and open-collective:sponsorkit");
   });
 });
 

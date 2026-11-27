@@ -40,7 +40,7 @@ prominently, you can mention it:
 ```ts title="status.ts"
 import { Sponsorkit } from "@sponsorkit/sdk/node";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-project", appName: "my-cli" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-project", appName: "my-cli" });
 
 const fc = await sk.getFinancialContribution();
 if (!fc.signedIn) {
@@ -76,7 +76,7 @@ else
 ```python title="status.py"
 from sponsorkit import Sponsorkit
 
-sk = Sponsorkit(github="octocat", opencollective="my-project", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-project", app_name="my-cli")
 
 fc = sk.get_financial_contribution()
 if not fc.signed_in:
@@ -138,7 +138,7 @@ use sponsorkit::{GetOptions, Options, Sponsorkit};
 async fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),
-        opencollective: Some("my-project".into()),
+        open_collective: Some("my-project".into()),
         app_name: Some("my-cli".into()),
         ..Default::default()
     })?;

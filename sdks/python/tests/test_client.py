@@ -29,7 +29,7 @@ from sponsorkit.server import averify_session
 
 FIXTURES = Path(__file__).resolve().parents[2] / "conformance" / "fixtures"
 RESULT: dict[str, Any] = json.loads((FIXTURES / "contribution-result.json").read_text())
-HASH = "3363d36356e472dab64ce744efd4e8bad412dd7f152bfd357ba96aa97180ac0e"
+HASH = "d41971f853895a51b5595de369c3e4bef09f41c92851eb9eb38032c2954cf981"
 T0 = datetime(2026, 11, 16, 12, 0, tzinfo=timezone.utc)
 
 
@@ -75,7 +75,7 @@ def make(api: Api | None = None, **kw: Any) -> Sponsorkit:
     kw.setdefault("env", {})
     return Sponsorkit(
         github="sponsorkit-conformance",
-        opencollective="sponsorkit-conformance",
+        open_collective="sponsorkit-conformance",
         http_client=api.client() if api else None,
         **kw,
     )
@@ -177,7 +177,7 @@ def test_base_url_defaulting(kwargs: dict[str, Any], api: str, site: str) -> Non
 
 def test_properties_and_checkout_url_validation(tmp_path: Path) -> None:
     sk = make(storage_dir=tmp_path / "s", api_base_url="http://example.test/")
-    assert sk.targets == ("github:sponsorkit-conformance", "opencollective:sponsorkit-conformance")
+    assert sk.targets == ("github:sponsorkit-conformance", "open-collective:sponsorkit-conformance")
     assert sk.targets_hash == HASH
     assert (
         sk.checkout_url()
@@ -199,7 +199,7 @@ def test_properties_and_checkout_url_validation(tmp_path: Path) -> None:
 def test_provider_must_be_configured(tmp_path: Path) -> None:
     sk = Sponsorkit(github="octocat", storage_dir=tmp_path, env={})
     with pytest.raises(SponsorkitError) as e:
-        sk.checkout_url(provider="opencollective")
+        sk.checkout_url(provider="open-collective")
     assert e.value.code == "invalid_config"
 
 
@@ -504,7 +504,7 @@ def test_adding_identity_to_a_dead_session_starts_fresh(
         sign_in_method="paste",
         prompt_for_code=_paste_prompt,
     )
-    sk.sign_in("opencollective")
+    sk.sign_in("open-collective")
     token = json.loads(storage.read(HASH) or "")["sessionToken"]
     assert token == fake("GET", "/__control")["lastSessionToken"]
 
@@ -583,7 +583,7 @@ def test_verify_session_errors() -> None:
         with pytest.raises(SponsorkitError) as e:
             verify_session(
                 "sks_x",
-                "github:sponsorkit-conformance,opencollective:sponsorkit-conformance",
+                "github:sponsorkit-conformance,open-collective:sponsorkit-conformance",
                 http_client=api.client(),
             )
         assert e.value.code == code
@@ -598,7 +598,7 @@ async def test_averify_session_with_client() -> None:
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         r = await averify_session(
             "sks_ok",
-            ["opencollective:sponsorkit-conformance", "github:sponsorkit-conformance"],
+            ["open-collective:sponsorkit-conformance", "github:sponsorkit-conformance"],
             http_client=client,
         )
     assert r.signed_in and len(r.contributions) == 3
@@ -661,7 +661,7 @@ def test_checkout_url_rejects_invalid_options(kwargs: dict[str, Any]) -> None:
 def test_checkout_url_rejects_unconfigured_provider() -> None:
     sk = Sponsorkit(github="sponsorkit-conformance", env={})
     with pytest.raises(SponsorkitError) as e:
-        sk.checkout_url(provider="opencollective")
+        sk.checkout_url(provider="open-collective")
     assert e.value.code == "invalid_config"
 
 
@@ -884,7 +884,7 @@ def _run_gated(storage: MemoryStorage, response: httpx.Response, during: Callabl
     gate = _Gate(response)
     sk = Sponsorkit(
         github="sponsorkit-conformance",
-        opencollective="sponsorkit-conformance",
+        open_collective="sponsorkit-conformance",
         env={},
         storage=storage,
         http_client=httpx.Client(transport=httpx.MockTransport(gate.handler)),
@@ -948,7 +948,7 @@ def test_verify_session_malformed_contribution_item_is_network_error() -> None:
     with pytest.raises(SponsorkitError) as e:
         verify_session(
             "sks_x",
-            "github:sponsorkit-conformance,opencollective:sponsorkit-conformance",
+            "github:sponsorkit-conformance,open-collective:sponsorkit-conformance",
             http_client=api.client(),
         )
     assert e.value.code == "network_error"

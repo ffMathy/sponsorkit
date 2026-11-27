@@ -14,7 +14,7 @@ their contributions until something new shows up.
 ```ts title="sponsor.ts"
 import { Sponsorkit, SponsorkitError } from "@sponsorkit/sdk/node";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-project", appName: "my-cli" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-project", appName: "my-cli" });
 
 try {
   const result = await sk.openCheckout({ frequency: "monthly", amount: 500 });
@@ -70,7 +70,7 @@ import sys
 
 from sponsorkit import Sponsorkit, SponsorkitError
 
-sk = Sponsorkit(github="octocat", opencollective="my-project", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-project", app_name="my-cli")
 
 try:
     result = sk.open_checkout(frequency="monthly", amount=500)
@@ -131,7 +131,7 @@ use sponsorkit::{CheckoutOptions, ErrorCode, Frequency, Options, Sponsorkit};
 async fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),
-        opencollective: Some("my-project".into()),
+        open_collective: Some("my-project".into()),
         app_name: Some("my-cli".into()),
         ..Default::default()
     })?;
@@ -206,7 +206,7 @@ The names follow each language: `CheckoutStatus.Contributed` in .NET, `sponsorki
 | `frequency` | none | `one_time`, `monthly` or `yearly`. |
 | `amount` | none | Positive integer in minor units: `500` is $5.00. |
 | `currency` | none | ISO 4217 code such as `USD` or `EUR`. Python requires it in uppercase. |
-| `provider` | none | `github` or `opencollective`, to preselect a provider. It must be one of your targets. |
+| `provider` | none | `github` or `open-collective`, to preselect a provider. It must be one of your targets. |
 | `timeout` | 10 minutes | How long to poll for the new contribution. It starts after sign-in; sign-in has its own `signInTimeout`. |
 | `pollInterval` | `checkoutPollInterval` (60 s) | Seconds between checks. |
 | cancellation | none | `signal` (JS), `CancellationToken` (.NET, Rust), `cancel` (Python), `ctx` (Go). |

@@ -85,7 +85,7 @@ class ReferenceSdk implements SdkInstance {
     private readonly hooks: TestHooks,
   ) {
     try {
-      this.targets = targetsFromOptions({ github: cfg.github, opencollective: cfg.opencollective });
+      this.targets = targetsFromOptions({ github: cfg.github, openCollective: cfg.openCollective });
     } catch (e) {
       if (e instanceof InvalidTargetError) throw new SponsorkitError("invalid_config", e.message);
       throw e;

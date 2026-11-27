@@ -186,7 +186,7 @@ class Sponsorkit:
 
         from sponsorkit import Sponsorkit
 
-        sk = Sponsorkit(github="octocat", opencollective="my-project", app_name="my-cli")
+        sk = Sponsorkit(github="octocat", open_collective="my-project", app_name="my-cli")
         fc = sk.get_financial_contribution()
         if fc.signed_in and not fc.active():
             print(f"Enjoying my-cli? Support it: {sk.checkout_url(frequency='monthly')}")
@@ -196,7 +196,7 @@ class Sponsorkit:
 
     Args:
         github: GitHub Sponsors login to check (user or organization).
-        opencollective: Open Collective collective slug to check. At least one target is required.
+        open_collective: Open Collective collective slug to check. At least one target is required.
         app_name: Shown on the consent page as "says it is" (up to 64 characters).
         cache_ttl: Seconds a result is served from the local cache without calling the API (minimum 60).
         mock: A mock preset name (``signed-out``, ``none``, ``active-monthly``, ``one-time``,
@@ -239,7 +239,7 @@ class Sponsorkit:
     def __init__(
         self,
         github: str | None = None,
-        opencollective: str | None = None,
+        open_collective: str | None = None,
         *,
         app_name: str | None = None,
         cache_ttl: float = 3600,
@@ -261,7 +261,7 @@ class Sponsorkit:
         http_client: httpx.Client | None = None,
         timeout: float | None = None,
     ) -> None:
-        self._targets: tuple[Target, ...] = targets_from_options(github, opencollective)
+        self._targets: tuple[Target, ...] = targets_from_options(github, open_collective)
         self._param = targets_param(self._targets)
         self._hash = targets_hash(self._targets)
         self._env: Mapping[str, str] = os.environ if env is None else env

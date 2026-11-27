@@ -94,7 +94,7 @@ func hashParam(param string) string {
 }
 
 // TargetsParam returns the canonical target param, e.g.
-// "github:octocat,opencollective:webpack" (PROTOCOL §1). It returns an
+// "github:octocat,open-collective:webpack" (PROTOCOL §1). It returns an
 // invalid_config *Error for malformed or missing targets.
 func TargetsParam(t Targets) (string, error) {
 	ts, err := canonicalTargets(t)

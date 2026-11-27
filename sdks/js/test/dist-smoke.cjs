@@ -5,10 +5,10 @@ const { verifySession } = require("@sponsorkit/sdk/server");
 const core = require("@sponsorkit/sdk");
 
 (async () => {
-  const sk = new Sponsorkit({ opencollective: "my-collective", mock: "one-time", env: {} });
+  const sk = new Sponsorkit({ openCollective: "my-collective", mock: "one-time", env: {} });
   const fc = await sk.getFinancialContribution();
   assert.equal(fc.oneTime().length, 1);
-  assert.equal(fc.contributions[0].target, "opencollective:my-collective");
+  assert.equal(fc.contributions[0].target, "open-collective:my-collective");
   assert.ok(new core.Sponsorkit({ github: "x", env: {} }));
   assert.throws(
     () => new Sponsorkit({}),

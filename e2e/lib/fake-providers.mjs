@@ -47,16 +47,16 @@ export function startFakeProviders({ port = FAKE.port, host = FAKE.host } = {}) 
 
   function addSponsorship(input) {
     const id = ++seq;
-    if (input.provider === "opencollective") {
+    if (input.provider === "open-collective") {
       const s = {
-        provider: "opencollective",
+        provider: "open-collective",
         id: `oc-order-${id}`,
         status: input.status ?? "ACTIVE",
         frequency: input.frequency ?? "MONTHLY",
         createdAt: input.createdAt ?? new Date().toISOString(),
         cents: input.cents ?? 500,
         currency: input.currency ?? "USD",
-        to: input.to ?? MAINTAINER.opencollective,
+        to: input.to ?? MAINTAINER["open-collective"],
       };
       sponsorships.push(s);
       return s;
@@ -107,12 +107,12 @@ export function startFakeProviders({ port = FAKE.port, host = FAKE.host } = {}) 
     if (p.get("redirect_uri") !== expectedRedirect) problems.push(`redirect_uri ${p.get("redirect_uri")} (expected ${expectedRedirect})`);
     if (p.get("code_challenge_method") !== "S256" || !p.get("code_challenge")) problems.push("missing PKCE S256 challenge");
     if (!p.get("state")) problems.push("missing state");
-    if (provider === "opencollective" && p.get("response_type") !== "code") problems.push("response_type");
+    if (provider === "open-collective" && p.get("response_type") !== "code") problems.push("response_type");
     record("authorize", { provider, ok: problems.length === 0, problems });
     if (problems.length) return html(res, 400, `<h1 id="error">Bad authorize request</h1><pre>${esc(problems.join("\n"))}</pre>`);
 
     const code = `fake_code_${b64url(randomBytes(12))}`;
-    const user = provider === "github" ? SUPPORTER.github : SUPPORTER.opencollective;
+    const user = provider === "github" ? SUPPORTER.github : SUPPORTER["open-collective"];
     codes.set(code, { provider, clientId: client.id, redirectUri: p.get("redirect_uri"), challenge: p.get("code_challenge"), user, exp: Date.now() + 600_000 });
     const back = new URL(p.get("redirect_uri"));
     back.searchParams.set("code", code);
@@ -140,7 +140,7 @@ export function startFakeProviders({ port = FAKE.port, host = FAKE.host } = {}) 
       return json(res, provider === "github" ? 200 : 400, { error });
     };
     if (form.get("client_id") !== client.id || form.get("client_secret") !== client.secret) return fail("incorrect_client_credentials");
-    if (provider === "opencollective" && form.get("grant_type") !== "authorization_code") return fail("unsupported_grant_type");
+    if (provider === "open-collective" && form.get("grant_type") !== "authorization_code") return fail("unsupported_grant_type");
     if (!entry || entry.provider !== provider || entry.exp < Date.now()) return fail("bad_verification_code");
     codes.delete(form.get("code"));
     if (form.get("redirect_uri") !== entry.redirectUri) return fail("redirect_uri_mismatch");
@@ -215,7 +215,7 @@ export function startFakeProviders({ port = FAKE.port, host = FAKE.host } = {}) 
       amount,
       totalContributed: amount,
       tier: null,
-      fromAccount: { id: SUPPORTER.opencollective.id, slug: SUPPORTER.opencollective.slug, type: "INDIVIDUAL", isIncognito: false },
+      fromAccount: { id: SUPPORTER["open-collective"].id, slug: SUPPORTER["open-collective"].slug, type: "INDIVIDUAL", isIncognito: false },
       toAccount: { slug: s.to },
     };
   }
@@ -224,11 +224,11 @@ export function startFakeProviders({ port = FAKE.port, host = FAKE.host } = {}) 
     const { query = "", variables = {} } = JSON.parse((await readBody(req)) || "{}");
     const tok = bearer(req);
     const op = /query (Sponsorkit\w+)/.exec(query)?.[1] ?? (query.includes("__typename") ? "ping" : "unknown");
-    record("graphql", { provider: "opencollective", op });
+    record("graphql", { provider: "open-collective", op });
     if (op === "ping") return json(res, 200, { data: { __typename: "Query" } });
     if (op === "SponsorkitTarget") {
       const slug = String(variables.slug ?? "").toLowerCase();
-      if (slug !== MAINTAINER.opencollective) return json(res, 200, { data: { account: null } });
+      if (slug !== MAINTAINER["open-collective"]) return json(res, 200, { data: { account: null } });
       return json(res, 200, {
         data: {
           account: {
@@ -246,13 +246,13 @@ export function startFakeProviders({ port = FAKE.port, host = FAKE.host } = {}) 
       });
     }
     const session = tok ? tokens.get(tok) : null;
-    if (!session || session.provider !== "opencollective") return json(res, 401, { errors: [{ message: "Unauthorized", extensions: { code: "UNAUTHENTICATED" } }] });
+    if (!session || session.provider !== "open-collective") return json(res, 401, { errors: [{ message: "Unauthorized", extensions: { code: "UNAUTHENTICATED" } }] });
     const me = { id: session.user.id, slug: session.user.slug };
     if (op === "SponsorkitMe") return json(res, 200, { data: { me } });
     if (op === "SponsorkitContributions") {
       const slug = String(variables.slug ?? "").toLowerCase();
-      if (slug !== MAINTAINER.opencollective) return json(res, 200, { data: { target: null, me: null } });
-      const nodes = sponsorships.filter((s) => s.provider === "opencollective" && s.to === slug).map(ocOrderNode);
+      if (slug !== MAINTAINER["open-collective"]) return json(res, 200, { data: { target: null, me: null } });
+      const nodes = sponsorships.filter((s) => s.provider === "open-collective" && s.to === slug).map(ocOrderNode);
       return json(res, 200, { data: { target: { id: "oc-collective-1" }, me: { ...me, orders: { nodes }, memberOf: { nodes: [] } } } });
     }
     json(res, 200, { errors: [{ message: `fake: unknown operation ${op}` }] });
@@ -275,9 +275,9 @@ export function startFakeProviders({ port = FAKE.port, host = FAKE.host } = {}) 
           res.writeHead(200, { "Content-Type": "text/plain" });
           return res.end("Keep it logically awesome.");
         case "GET /oc/oauth/authorize":
-          return authorize("opencollective", url, res);
+          return authorize("open-collective", url, res);
         case "POST /oc/oauth/token":
-          return await token("opencollective", req, res);
+          return await token("open-collective", req, res);
         case "POST /oc-api/graphql/v2":
           return await ocGraphql(req, res);
         case "POST /__control/reset":

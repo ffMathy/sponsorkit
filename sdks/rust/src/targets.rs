@@ -1,7 +1,7 @@
 //! Targets and target sets (PROTOCOL §1).
 //!
 //! A target is an account that receives contributions: `github:<login>` or
-//! `opencollective:<slug>`. A target set holds at most one target per provider
+//! `open-collective:<slug>`. A target set holds at most one target per provider
 //! and has a canonical string form (the *target param*), whose SHA-256 is the
 //! *targets hash* used as the local storage key.
 
@@ -20,24 +20,24 @@ pub enum Provider {
     #[serde(rename = "github")]
     GitHub,
     /// Open Collective.
-    #[serde(rename = "opencollective")]
+    #[serde(rename = "open-collective")]
     OpenCollective,
 }
 
 impl Provider {
-    /// The wire spelling: `"github"` or `"opencollective"`.
+    /// The wire spelling: `"github"` or `"open-collective"`.
     pub fn as_str(self) -> &'static str {
         match self {
             Provider::GitHub => "github",
-            Provider::OpenCollective => "opencollective",
+            Provider::OpenCollective => "open-collective",
         }
     }
 
-    /// Parses `"github"` or `"opencollective"`.
+    /// Parses `"github"` or `"open-collective"`.
     pub fn parse(s: &str) -> Option<Provider> {
         match s {
             "github" => Some(Provider::GitHub),
-            "opencollective" => Some(Provider::OpenCollective),
+            "open-collective" => Some(Provider::OpenCollective),
             _ => None,
         }
     }
@@ -130,7 +130,7 @@ impl Target {
     }
 }
 
-/// The accounts to check, as given by the maintainer (`{ github, opencollective }`).
+/// The accounts to check, as given by the maintainer (`{ github, open_collective }`).
 ///
 /// Used by [`crate::server::verify_session`]; [`crate::Options`] has the same two fields.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
@@ -138,18 +138,18 @@ pub struct Targets {
     /// GitHub Sponsors login (user or organization).
     pub github: Option<String>,
     /// Open Collective collective slug.
-    pub opencollective: Option<String>,
+    pub open_collective: Option<String>,
 }
 
 impl Targets {
     /// A target set with only a GitHub login.
     pub fn github(login: impl Into<String>) -> Self {
-        Targets { github: Some(login.into()), opencollective: None }
+        Targets { github: Some(login.into()), open_collective: None }
     }
 
     /// A target set with only an Open Collective slug.
-    pub fn opencollective(slug: impl Into<String>) -> Self {
-        Targets { github: None, opencollective: Some(slug.into()) }
+    pub fn open_collective(slug: impl Into<String>) -> Self {
+        Targets { github: None, open_collective: Some(slug.into()) }
     }
 
     /// Adds (or replaces) the GitHub login.
@@ -159,8 +159,8 @@ impl Targets {
     }
 
     /// Adds (or replaces) the Open Collective slug.
-    pub fn with_opencollective(mut self, slug: impl Into<String>) -> Self {
-        self.opencollective = Some(slug.into());
+    pub fn with_open_collective(mut self, slug: impl Into<String>) -> Self {
+        self.open_collective = Some(slug.into());
         self
     }
 
@@ -170,7 +170,7 @@ impl Targets {
         if let Some(g) = self.github.as_deref().filter(|s| !s.is_empty()) {
             out.push(Target::new(Provider::GitHub, g)?);
         }
-        if let Some(o) = self.opencollective.as_deref().filter(|s| !s.is_empty()) {
+        if let Some(o) = self.open_collective.as_deref().filter(|s| !s.is_empty()) {
             out.push(Target::new(Provider::OpenCollective, o)?);
         }
         TargetSet::new(out)
@@ -191,7 +191,7 @@ impl TargetSet {
         t.sort_by_key(|x| x.to_string());
         t.dedup();
         if t.is_empty() {
-            return Err(Error::invalid_config("At least one target (github or opencollective) is required"));
+            return Err(Error::invalid_config("At least one target (github or open_collective) is required"));
         }
         if t.windows(2).any(|w| w[0].provider == w[1].provider) {
             return Err(Error::invalid_config("At most one target per provider is supported"));
@@ -220,7 +220,7 @@ impl TargetSet {
         self.targets.iter().find(|t| t.provider == provider)
     }
 
-    /// The canonical target strings, e.g. `["github:x", "opencollective:y"]`.
+    /// The canonical target strings, e.g. `["github:x", "open-collective:y"]`.
     pub fn strings(&self) -> Vec<String> {
         self.targets.iter().map(|t| t.to_string()).collect()
     }
@@ -260,8 +260,8 @@ mod tests {
 
     #[test]
     fn parse_roundtrip() {
-        let s = TargetSet::parse("opencollective:y,github:X").unwrap();
-        assert_eq!(s.param(), "github:x,opencollective:y");
+        let s = TargetSet::parse("open-collective:y,github:X").unwrap();
+        assert_eq!(s.param(), "github:x,open-collective:y");
         assert!(TargetSet::parse("github:a,github:b").is_err());
         assert!(TargetSet::parse("").is_err());
     }

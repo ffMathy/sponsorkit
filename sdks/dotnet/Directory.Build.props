@@ -9,7 +9,7 @@
     <Deterministic>true</Deterministic>
     <Authors>Sponsorkit contributors</Authors>
     <Copyright>Copyright (c) Sponsorkit contributors</Copyright>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://ffmathy.github.io/sponsorkit</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ffMathy/sponsorkit</RepositoryUrl>

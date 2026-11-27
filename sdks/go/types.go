@@ -10,7 +10,7 @@ const (
 	// GitHub is GitHub Sponsors.
 	GitHub Provider = "github"
 	// OpenCollective is Open Collective.
-	OpenCollective Provider = "opencollective"
+	OpenCollective Provider = "open-collective"
 )
 
 // Frequency is how often a contribution is charged.

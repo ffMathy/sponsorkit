@@ -59,11 +59,11 @@ describe("validators", () => {
 describe("parseConnectParams (PROTOCOL §4.1)", () => {
   it("parses a web_message request and canonicalizes targets", () => {
     const r = parseConnectParams(
-      qs({ targets: "opencollective:Sponsorkit,github:Octocat", challenge: CHALLENGE, delivery: "web_message", origin: "https://app.example.com" }),
+      qs({ targets: "open-collective:Sponsorkit,github:Octocat", challenge: CHALLENGE, delivery: "web_message", origin: "https://app.example.com" }),
     );
     expect(r.ok).toBe(true);
     if (!r.ok) return;
-    expect(r.value.targetsParam).toBe("github:octocat,opencollective:sponsorkit");
+    expect(r.value.targetsParam).toBe("github:octocat,open-collective:sponsorkit");
     expect(r.value.origin).toBe("https://app.example.com");
     expect(r.value.add).toBe(false);
     expect(requesterOf(r.value)).toEqual({ kind: "web", origin: "https://app.example.com" });
@@ -120,7 +120,7 @@ describe("parseConnectParams (PROTOCOL §4.1)", () => {
   it("checks provider is in the target set", () => {
     const base = { targets: "github:octocat", challenge: CHALLENGE, delivery: "paste" };
     expect(parseConnectParams(qs({ ...base, provider: "github" })).ok).toBe(true);
-    expect(parseConnectParams(qs({ ...base, provider: "opencollective" })).ok).toBe(false);
+    expect(parseConnectParams(qs({ ...base, provider: "open-collective" })).ok).toBe(false);
     expect(parseConnectParams(qs({ ...base, provider: "patreon" })).ok).toBe(false);
   });
 
@@ -151,17 +151,17 @@ describe("buildStartForm (PROTOCOL §4.2 step 3)", () => {
   it("is root-relative for a same-origin API and carries continue last", () => {
     const r = parseConnectParams(
       qs({
-        targets: "github:octocat,opencollective:sponsorkit",
+        targets: "github:octocat,open-collective:sponsorkit",
         challenge: CHALLENGE,
         delivery: "loopback",
         redirect_uri: "http://127.0.0.1:53682/callback",
         app_name: "my-cli",
-        provider: "opencollective",
+        provider: "open-collective",
       }),
     );
     if (!r.ok) throw new Error("parse failed");
-    const form = buildStartForm("", "opencollective", r.value, "targets=x&amount=500");
-    expect(form.action).toBe("/api/oauth/opencollective/start");
+    const form = buildStartForm("", "open-collective", r.value, "targets=x&amount=500");
+    expect(form.action).toBe("/api/oauth/open-collective/start");
     expect(form.fields.map(([n]) => n)).toEqual(["targets", "challenge", "delivery", "redirect_uri", "app_name", "provider", "continue"]);
     expect(Object.fromEntries(form.fields)).toMatchObject({
       redirect_uri: "http://127.0.0.1:53682/callback",
@@ -205,24 +205,24 @@ describe("parseCheckoutParams (PROTOCOL §4.6)", () => {
   it("builds continue without sign-in params", () => {
     const r = parseCheckoutParams(
       qs({
-        targets: "opencollective:sponsorkit,github:octocat",
+        targets: "open-collective:sponsorkit,github:octocat",
         challenge: CHALLENGE,
         delivery: "paste",
         app_name: "my cli",
         amount: "500",
         currency: "EUR",
         frequency: "yearly",
-        provider: "opencollective",
+        provider: "open-collective",
       }),
     );
     if (!r.ok) throw new Error("parse failed");
     const cont = new URLSearchParams(buildContinue(r.value));
     expect(Object.fromEntries(cont)).toEqual({
-      targets: "github:octocat,opencollective:sponsorkit",
+      targets: "github:octocat,open-collective:sponsorkit",
       amount: "500",
       currency: "EUR",
       frequency: "yearly",
-      provider: "opencollective",
+      provider: "open-collective",
       app_name: "my cli",
     });
   });
@@ -230,8 +230,8 @@ describe("parseCheckoutParams (PROTOCOL §4.6)", () => {
 
 describe("targetsQuery", () => {
   it("maps targets to /api/v1/targets params", () => {
-    const r = parseCheckoutParams(qs({ targets: "github:octocat,opencollective:sponsorkit" }));
+    const r = parseCheckoutParams(qs({ targets: "github:octocat,open-collective:sponsorkit" }));
     if (!r.ok) throw new Error("parse failed");
-    expect(targetsQuery(r.value.targets)).toBe("github=octocat&opencollective=sponsorkit");
+    expect(targetsQuery(r.value.targets)).toBe("github=octocat&open-collective=sponsorkit");
   });
 });

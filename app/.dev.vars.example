@@ -5,7 +5,7 @@
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 
-# Open Collective OAuth app (callback URL: <PUBLIC_ORIGIN>/api/oauth/opencollective/callback)
+# Open Collective OAuth app (callback URL: <PUBLIC_ORIGIN>/api/oauth/open-collective/callback)
 OPENCOLLECTIVE_CLIENT_ID=
 OPENCOLLECTIVE_CLIENT_SECRET=
 

@@ -25,7 +25,7 @@ afterEach(async () => {
 const json = (body: unknown, init: ResponseInit = {}) =>
   new Response(JSON.stringify(body), { ...init, headers: { "content-type": "application/json", ...(init.headers as object) } });
 const tokenOk = (token = "sks_new") => json({ sessionToken: token, expiresAt: "2030-01-01T00:00:00Z", result: fullResult });
-const TARGETS = { github: "sponsorkit-conformance", opencollective: "sponsorkit-conformance" };
+const TARGETS = { github: "sponsorkit-conformance", openCollective: "sponsorkit-conformance" };
 const quiet = { output: { write() {} }, env: {} };
 
 /** A paste-back client on a private in-memory map, with `fetch` routed by `"METHOD /path"`. */

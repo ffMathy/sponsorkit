@@ -14,7 +14,7 @@ import { Sponsorkit } from "@sponsorkit/sdk";
 
 const sk = new Sponsorkit({
   github: "octocat",               // GitHub user or organization login
-  opencollective: "my-collective", // Open Collective collective slug
+  openCollective: "my-collective", // Open Collective collective slug
   cacheTtl: 3600,                  // seconds a cached result is served without calling the API
   requestTimeout: 30,              // seconds before an API request is abandoned
 });
@@ -30,7 +30,7 @@ These come from [`SponsorkitCoreOptions`](/docs/reference/js/sdk/sponsorkitcoreo
 | Option | Type | Default | What it does |
 |---|---|---|---|
 | `github` | `string` | none | GitHub user or organization login that receives sponsorships. |
-| `opencollective` | `string` | none | Open Collective collective slug that receives contributions. At least one of `github` and `opencollective` is required. |
+| `openCollective` | `string` | none | Open Collective collective slug that receives contributions. At least one of `github` and `openCollective` is required. |
 | `cacheTtl` | `number` | `3600` | Seconds a cached result is served without calling the API. Values below `60` are raised to `60`; negative values throw `invalid_config`. |
 | `mock` | `MockOption` | none | Mock mode: a preset name or `{ contributions }`. Overrides `SPONSORKIT_MOCK`. See [Testing](testing.md). |
 | `storage` | `SponsorkitStorage` or Web Storage object | platform default | Where the session token, cache and nag state live. See [Platform notes](platform-notes.md#where-state-is-stored). |
@@ -120,7 +120,7 @@ After construction a client exposes what it resolved:
 
 | Property | Type | Meaning |
 |---|---|---|
-| `targets` | `readonly string[]` | Canonical target strings, e.g. `["github:octocat", "opencollective:my-collective"]`. |
+| `targets` | `readonly string[]` | Canonical target strings, e.g. `["github:octocat", "open-collective:my-collective"]`. |
 | `targetsParam` | `string` | The same, comma-separated. |
 | `apiBaseUrl` | `string` | The API origin in use. |
 | `siteBaseUrl` | `string` | The site base URL in use (pages and checkout links). |

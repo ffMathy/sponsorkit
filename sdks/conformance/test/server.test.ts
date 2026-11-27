@@ -57,7 +57,7 @@ async function exchange(code: string, codeVerifier: string, sessionToken?: strin
   return post("/api/v1/auth/token", { code, codeVerifier, ...(sessionToken ? { sessionToken } : {}) });
 }
 
-async function signIn(provider?: "github" | "opencollective", sessionToken?: string): Promise<string> {
+async function signIn(provider?: "github" | "open-collective", sessionToken?: string): Promise<string> {
   const { verifier, challenge } = await pkce();
   const res = await fetch(connectUrl({ challenge, delivery: "paste", ...(provider ? { provider } : {}) }));
   const code = (await res.text()).trim();
@@ -83,7 +83,7 @@ describe("CLI", () => {
       const m = /^LISTENING (\d+)\n$/.exec(text);
       expect(m).not.toBeNull();
       const res = await fetch(`http://127.0.0.1:${m![1]}/api/v1/health`);
-      expect(await res.json()).toEqual({ ok: true, providers: { github: "ok", opencollective: "ok" } });
+      expect(await res.json()).toEqual({ ok: true, providers: { github: "ok", "open-collective": "ok" } });
       const st = (await (await fetch(`http://127.0.0.1:${m![1]}/__control`)).json()) as { siteBaseUrl: string };
       expect(st.siteBaseUrl).toMatch(/^http:\/\/127\.0\.0\.1:\d+\/sponsorkit$/);
       expect(st.siteBaseUrl).not.toContain(`:${m![1]}/`);
@@ -145,7 +145,7 @@ describe("common HTTP behaviour", () => {
 
 describe("GET /api/v1/targets", () => {
   test("known and unknown targets, canonical order, cacheable", async () => {
-    const res = await fetch(`${base}/api/v1/targets?opencollective=Sponsorkit-Conformance&github=sponsorkit-conformance`);
+    const res = await fetch(`${base}/api/v1/targets?open-collective=Sponsorkit-Conformance&github=sponsorkit-conformance`);
     expect(res.status).toBe(200);
     expect(res.headers.get("cache-control")).toBe("public, max-age=3600");
     const body = TargetsResponse.parse(await res.json());
@@ -156,7 +156,7 @@ describe("GET /api/v1/targets", () => {
   });
 
   test("malformed or missing parameters are invalid_target", async () => {
-    for (const q of ["github=-bad-", "opencollective=bad%20slug", ""]) {
+    for (const q of ["github=-bad-", "open-collective=bad%20slug", ""]) {
       const res = await fetch(`${base}/api/v1/targets?${q}`);
       expect(res.status).toBe(400);
       expect(Problem.parse(await res.json()).code).toBe("invalid_target");
@@ -254,7 +254,7 @@ describe("/connect and PKCE", () => {
       expect(res.status).toBe(400);
       expect(res.headers.get("content-type")).toStartWith("text/html");
     }
-    const nonCanonical = await fetch(`${base}/connect?${new URLSearchParams({ targets: "opencollective:sponsorkit-conformance,github:sponsorkit-conformance", challenge, delivery: "paste" })}`);
+    const nonCanonical = await fetch(`${base}/connect?${new URLSearchParams({ targets: "open-collective:sponsorkit-conformance,github:sponsorkit-conformance", challenge, delivery: "paste" })}`);
     expect(nonCanonical.status).toBe(400);
     expect(await nonCanonical.text()).toContain("canonical");
   });
@@ -293,17 +293,17 @@ describe("sessions", () => {
 
   test("adding a second identity merges into a new token", async () => {
     const first = await signIn();
-    const second = await signIn("opencollective", first);
+    const second = await signIn("open-collective", first);
     expect(second).not.toBe(first);
     const result = ContributionResult.parse(await (await contributions(second)).json());
-    expect(result.supporter?.identities.map((i) => i.provider)).toEqual(["github", "opencollective"]);
+    expect(result.supporter?.identities.map((i) => i.provider)).toEqual(["github", "open-collective"]);
     expect(result.contributions.map((c) => c.id).sort()).toEqual(
-      ["github-direct-monthly", "github-org-one-time", "opencollective-monthly"].map((n) => NAMED_CONTRIBUTIONS[n]!.id).sort(),
+      ["github-direct-monthly", "github-org-one-time", "open-collective-monthly"].map((n) => NAMED_CONTRIBUTIONS[n]!.id).sort(),
     );
     // Re-adding the same provider replaces the identity rather than duplicating it.
     const third = await signIn("github", second);
     const again = ContributionResult.parse(await (await contributions(third)).json());
-    expect(again.supporter?.identities.map((i) => i.provider)).toEqual(["github", "opencollective"]);
+    expect(again.supporter?.identities.map((i) => i.provider)).toEqual(["github", "open-collective"]);
     // The supporter id is stable for the same first identity and target set.
     expect(again.supporter?.id).toBe(result.supporter!.id);
   });
@@ -311,7 +311,7 @@ describe("sessions", () => {
   test("a session for a different target set cannot be extended", async () => {
     const minted = (await (await post("/__control/sessions", { targets: "github:sponsorkit-conformance", identities: ["github"] })).json()) as { sessionToken: string };
     const { verifier, challenge } = await pkce();
-    const code = (await (await fetch(connectUrl({ challenge, delivery: "paste", provider: "opencollective" }))).text()).trim();
+    const code = (await (await fetch(connectUrl({ challenge, delivery: "paste", provider: "open-collective" }))).text()).trim();
     const res = await exchange(code, verifier, minted.sessionToken);
     expect(res.status).toBe(400);
     expect(Problem.parse(await res.json()).code).toBe("invalid_request");
@@ -341,19 +341,19 @@ describe("sessions", () => {
   });
 
   test("minted sessions", async () => {
-    const res = await post("/__control/sessions", { targets: DEFAULT_TARGETS_PARAM, identities: ["opencollective"] });
+    const res = await post("/__control/sessions", { targets: DEFAULT_TARGETS_PARAM, identities: ["open-collective"] });
     const { sessionToken, expiresAt } = (await res.json()) as { sessionToken: string; expiresAt: string };
     expect(Date.parse(expiresAt) - Date.now()).toBeGreaterThan(179 * 86400_000);
     const result = ContributionResult.parse(await (await contributions(sessionToken)).json());
-    expect(result.contributions.map((c) => c.provider)).toEqual(["opencollective"]);
-    const bad = await post("/__control/sessions", { targets: "github:sponsorkit-conformance", identities: ["opencollective"] });
+    expect(result.contributions.map((c) => c.provider)).toEqual(["open-collective"]);
+    const bad = await post("/__control/sessions", { targets: "github:sponsorkit-conformance", identities: ["open-collective"] });
     expect(bad.status).toBe(400);
   });
 });
 
 describe("control scenarios", () => {
   test("contributions fixture override by name or object", async () => {
-    await control({ contributions: ["github-cancelled", NAMED_CONTRIBUTIONS["opencollective-monthly"]] });
+    await control({ contributions: ["github-cancelled", NAMED_CONTRIBUTIONS["open-collective-monthly"]] });
     const token = await signIn();
     const result = ContributionResult.parse(await (await contributions(token)).json());
     expect(result.contributions.map((c) => c.status)).toEqual(["cancelled"]);
@@ -385,13 +385,13 @@ describe("control scenarios", () => {
 
   test("partial outage of one provider", async () => {
     const first = await signIn();
-    const token = await signIn("opencollective", first);
-    await control({ outage: ["opencollective"] });
+    const token = await signIn("open-collective", first);
+    await control({ outage: ["open-collective"] });
     const result = ContributionResult.parse(await (await contributions(token)).json());
     expect(result.stale).toBe(true);
-    expect(result.unavailable).toEqual(["opencollective"]);
+    expect(result.unavailable).toEqual(["open-collective"]);
     expect(result.contributions.every((c) => c.provider === "github")).toBe(true);
-    expect(await (await fetch(`${base}/api/v1/health`)).json()).toEqual({ ok: true, providers: { github: "ok", opencollective: "degraded" } });
+    expect(await (await fetch(`${base}/api/v1/health`)).json()).toEqual({ ok: true, providers: { github: "ok", "open-collective": "degraded" } });
     // An outage of a provider the session has no identity for is not reported.
     const ghOnly = await signIn();
     const r2 = ContributionResult.parse(await (await contributions(ghOnly)).json());
@@ -511,11 +511,11 @@ describe("/checkout", () => {
 
   test("Open Collective donate URL", async () => {
     const t = providerTarget(await checkout({ amount: "550", currency: "EUR", frequency: "yearly" }));
-    expect(t.provider).toBe("opencollective");
+    expect(t.provider).toBe("open-collective");
     const u = new URL(t.to!);
     expect(u.origin + u.pathname).toBe("https://opencollective.com/sponsorkit-conformance/donate");
     expect(Object.fromEntries(u.searchParams)).toEqual({ amount: "5.5", interval: "year", redirect: `${base}/checkout/thanks/` });
-    const oneTime = new URL(providerTarget(await checkout({ provider: "opencollective", frequency: "one_time" })).to!);
+    const oneTime = new URL(providerTarget(await checkout({ provider: "open-collective", frequency: "one_time" })).to!);
     expect(Object.fromEntries(oneTime.searchParams)).toEqual({ redirect: `${base}/checkout/thanks/` });
   });
 
@@ -523,8 +523,8 @@ describe("/checkout", () => {
     const both = await checkout({ amount: "500" });
     expect(both.status).toBe(200);
     expect(await both.text()).toContain("Choose a provider");
-    await control({ checkoutChoice: "opencollective" });
-    expect(providerTarget(await checkout({ amount: "500" })).provider).toBe("opencollective");
+    await control({ checkoutChoice: "open-collective" });
+    expect(providerTarget(await checkout({ amount: "500" })).provider).toBe("open-collective");
     const none = await checkout({ currency: "JPY" });
     expect(none.status).toBe(200);
     expect(await none.text()).toContain("No provider");
@@ -592,7 +592,7 @@ describe("separate site origin", () => {
     expect(w.headers.get("location")).toStartWith(sitePath("/connect/done/#code=skc_"));
     const paste = await fetch(`${siteBase}/checkout/?${new URLSearchParams({ targets: DEFAULT_TARGETS_PARAM, amount: "500", challenge, delivery: "paste" })}`);
     expect(paste.headers.get("sponsorkit-conformance-continue")).toBe(`${sitePath("/checkout/")}?${new URLSearchParams({ targets: DEFAULT_TARGETS_PARAM, amount: "500" })}&step=choose`);
-    const oc = await fetch(`${siteBase}/checkout/?${new URLSearchParams({ targets: DEFAULT_TARGETS_PARAM, provider: "opencollective" })}`, { redirect: "manual" });
+    const oc = await fetch(`${siteBase}/checkout/?${new URLSearchParams({ targets: DEFAULT_TARGETS_PARAM, provider: "open-collective" })}`, { redirect: "manual" });
     const to = new URL(new URL(oc.headers.get("location")!, siteBase).searchParams.get("to")!);
     expect(to.searchParams.get("redirect")).toBe(`${siteBase}/checkout/thanks/`);
   });

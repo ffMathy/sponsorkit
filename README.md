@@ -7,7 +7,7 @@ Sponsorkit lets open source maintainers build financial contributions straight i
 ```ts
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "your-login", opencollective: "your-collective" });
+const sk = new Sponsorkit({ github: "your-login", openCollective: "your-collective" });
 const fc = await sk.getFinancialContribution();
 if (fc.signedIn && fc.active().length === 0) showAd();
 ```

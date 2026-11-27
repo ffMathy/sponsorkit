@@ -28,7 +28,7 @@ result so it's easy to [test with mock mode](testing.md#testing-your-rule):
 ```python title="rules.py"
 from sponsorkit import ContributionResult, Sponsorkit
 
-sk = Sponsorkit(github="octocat", opencollective="my-collective")
+sk = Sponsorkit(github="octocat", open_collective="my-collective")
 
 
 def is_supporter(fc: ContributionResult) -> bool:
@@ -95,7 +95,7 @@ Each `Contribution` has:
 | Attribute | Type | Meaning |
 |---|---|---|
 | `id` | `str` | Stable id, `con_<provider>_…`. |
-| `provider` | `"github" \| "opencollective"` | Where it was made. |
+| `provider` | `"github" \| "open-collective"` | Where it was made. |
 | `target` | `str` | Which of your targets, e.g. `"github:octocat"`. |
 | `sponsor` | `SponsorEntity` | Who pays: `type` (`"user"` or `"organization"`), `provider`, `id`, `handle`. |
 | `via` | `"direct" \| "organization"` | Whether the person or one of their organizations pays. |

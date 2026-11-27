@@ -49,7 +49,7 @@ fn is_supporter(fc: &ContributionResult) -> bool {
 async fn main() -> ExitCode {
     let sk = match Sponsorkit::new(Options {
         github: Some("octocat".into()),
-        opencollective: Some("my-collective".into()),
+        open_collective: Some("my-collective".into()),
         app_name: Some("my-cli".into()),
         ..Default::default()
     }) {

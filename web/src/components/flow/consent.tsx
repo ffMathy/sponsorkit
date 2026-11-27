@@ -10,12 +10,12 @@ import type { TargetsState } from "./use-targets";
 
 const BUTTON_LABEL: Record<Provider, string> = {
   github: "Continue with GitHub",
-  opencollective: "Continue with Open Collective",
+  "open-collective": "Continue with Open Collective",
 };
 
 const PROVIDER_SHORT: Record<Provider, string> = {
   github: "GitHub",
-  opencollective: "Open Collective",
+  "open-collective": "Open Collective",
 };
 
 /**

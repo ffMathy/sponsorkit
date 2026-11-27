@@ -9,7 +9,7 @@ import { startAppServer, startSiteServer } from "./static.mjs";
 /** Options the app page passes to `new Sponsorkit()` (PROTOCOL §7: apiBaseUrl + siteBaseUrl). */
 export const SDK_OPTIONS = {
   github: MAINTAINER.github,
-  opencollective: MAINTAINER.opencollective,
+  openCollective: MAINTAINER["open-collective"],
   apiBaseUrl: API_ORIGIN,
   siteBaseUrl: SITE_BASE_URL,
   checkoutPollInterval: 0.5,

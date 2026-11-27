@@ -96,7 +96,7 @@ result includes contributions from both providers.
 
 :::tabs
 ```ts
-await sk.signIn({ provider: "opencollective" });
+await sk.signIn({ provider: "open-collective" });
 ```
 
 ```csharp
@@ -104,7 +104,7 @@ await sk.SignInAsync(new SignInOptions { Provider = Providers.OpenCollective });
 ```
 
 ```python
-sk.sign_in("opencollective")
+sk.sign_in("open-collective")
 ```
 
 ```go

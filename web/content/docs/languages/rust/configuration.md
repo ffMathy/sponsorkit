@@ -18,7 +18,7 @@ use sponsorkit::{Options, SignInMethod, Sponsorkit};
 fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),
-        opencollective: Some("my-collective".into()),
+        open_collective: Some("my-collective".into()),
         app_name: Some("my-cli".into()),
         cache_ttl: Some(Duration::from_secs(6 * 3600)), // contributions rarely change
         sign_in_method: SignInMethod::Auto,             // loopback, falling back to paste-back
@@ -26,7 +26,7 @@ fn main() -> Result<(), sponsorkit::Error> {
         request_timeout: Some(Duration::from_secs(10)),
         ..Default::default()
     })?;
-    println!("{}", sk.targets().param()); // github:octocat,opencollective:my-collective
+    println!("{}", sk.targets().param()); // github:octocat,open-collective:my-collective
     Ok(())
 }
 ```
@@ -40,10 +40,10 @@ fn main() -> Result<(), sponsorkit::Error> {
 | Field | Type | Default | Meaning |
 |---|---|---|---|
 | `github` | `Option<String>` | `None` | The GitHub user or organization login that receives sponsorships. |
-| `opencollective` | `Option<String>` | `None` | The Open Collective slug that receives contributions. |
+| `open_collective` | `Option<String>` | `None` | The Open Collective slug that receives contributions. |
 | `app_name` | `Option<String>` | `None` | Shown on the consent page as "*app_name* says it is…". At most 64 characters; an empty string counts as unset. |
 
-At least one of `github` and `opencollective` is required. Accounts are trimmed and lowercased, and must be valid
+At least one of `github` and `open_collective` is required. Accounts are trimmed and lowercased, and must be valid
 logins or slugs; see [targets](../../concepts/targets.md). The target set is sealed into every session, so
 changing it later signs users out of your app ([why](../../concepts/targets.md#target-sets-are-sealed-into-sessions)).
 `sk.targets()` returns the canonical [`TargetSet`](/docs/reference/rust/targetset).
@@ -93,7 +93,7 @@ pub type BoxFuture<T> = Pin<Box<dyn Future<Output = T> + Send + 'static>>;
 
 `Sponsorkit::new` returns `Err` with [`ErrorCode::InvalidConfig`](errors.md#error-codes) when:
 
-- neither `github` nor `opencollective` is set, or a target isn't a valid login or slug (checked even when
+- neither `github` nor `open_collective` is set, or a target isn't a valid login or slug (checked even when
   `SPONSORKIT_DISABLE` is set, so the mistake doesn't hide);
 - `app_name` is longer than 64 characters;
 - `api_base_url` isn't an `http(s)` origin, or `site_base_url` isn't an `http(s)` URL;

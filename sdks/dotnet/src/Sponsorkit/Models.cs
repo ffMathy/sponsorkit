@@ -13,7 +13,7 @@ public static class Providers
     public const string GitHub = "github";
 
     /// <summary>Open Collective.</summary>
-    public const string OpenCollective = "opencollective";
+    public const string OpenCollective = "open-collective";
 }
 
 /// <summary>Contribution frequencies (<see cref="Contribution.Frequency"/> and checkout options).</summary>
@@ -284,7 +284,7 @@ public sealed class ContributionResult
     public IReadOnlyList<Contribution> OneTime() => Contributions.Where(c => c.Kind == ContributionKinds.OneTime).ToList();
 
     /// <summary>Contributions made through the given provider (see <see cref="Providers"/>).</summary>
-    /// <param name="provider"><c>github</c> or <c>opencollective</c>.</param>
+    /// <param name="provider"><c>github</c> or <c>open-collective</c>.</param>
     public IReadOnlyList<Contribution> ByProvider(string provider) => Contributions.Where(c => c.Provider == provider).ToList();
 
     /// <summary>Contributions paid by the supporter personally (excludes organization sponsorships).</summary>

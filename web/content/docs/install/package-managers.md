@@ -52,7 +52,7 @@ Import from the entry point that matches where your code runs:
 
 The `node` entry uses Node built-ins (`node:http`, `node:fs`, `node:child_process`), so under Deno it asks for
 network, environment, file and subprocess permissions. Deno can also import it without `deno add`:
-`import { Sponsorkit } from "npm:@sponsorkit/sdk@0.1.0/node";`.
+`import { Sponsorkit } from "npm:@sponsorkit/sdk@0.2.0/node";`.
 
 ### Browsers without a bundler {#cdn}
 
@@ -62,9 +62,9 @@ modules. Pin an exact version in the URL:
 :::tabs{group="cdn"}
 ```html tab="esm.sh" key="esm-sh"
 <script type="module">
-  import { Sponsorkit } from "https://esm.sh/@sponsorkit/sdk@0.1.0";
+  import { Sponsorkit } from "https://esm.sh/@sponsorkit/sdk@0.2.0";
 
-  const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+  const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
   const fc = await sk.getFinancialContribution();
   if (fc.active().length === 0) document.querySelector("#sponsor-banner").hidden = false;
   document.querySelector("#sign-in").onclick = () => sk.signIn(); // popup: call it from the click
@@ -73,9 +73,9 @@ modules. Pin an exact version in the URL:
 
 ```html tab="jsDelivr" key="jsdelivr"
 <script type="module">
-  import { Sponsorkit } from "https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@0.1.0/dist/index.js";
+  import { Sponsorkit } from "https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@0.2.0/dist/index.js";
 
-  const sk = new Sponsorkit({ github: "octocat", opencollective: "my-collective" });
+  const sk = new Sponsorkit({ github: "octocat", openCollective: "my-collective" });
   const fc = await sk.getFinancialContribution();
   if (fc.active().length === 0) document.querySelector("#sponsor-banner").hidden = false;
   document.querySelector("#sign-in").onclick = () => sk.signIn(); // popup: call it from the click
@@ -86,13 +86,13 @@ modules. Pin an exact version in the URL:
 The web components register themselves when their module loads:
 
 ```html title="index.html"
-<script type="module" src="https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@0.1.0/dist/elements.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@sponsorkit/sdk@0.2.0/dist/elements.js"></script>
 
 <sponsorkit-button github="octocat" amount="500" frequency="monthly">Sponsor</sponsorkit-button>
 <sponsorkit-badge github="octocat"></sponsorkit-badge>
 ```
 
-With esm.sh, the same module is `https://esm.sh/@sponsorkit/sdk@0.1.0/elements`. CDNs only serve published
+With esm.sh, the same module is `https://esm.sh/@sponsorkit/sdk@0.2.0/elements`. CDNs only serve published
 versions.
 
 ## .NET {#dotnet}
@@ -107,14 +107,14 @@ dotnet add package Sponsorkit
 
 ```xml tab="PackageReference" key="packagereference"
 <ItemGroup>
-  <PackageReference Include="Sponsorkit" Version="0.1.0" />
+  <PackageReference Include="Sponsorkit" Version="0.2.0" />
 </ItemGroup>
 ```
 
 ```xml tab="Central Package Management" key="cpm"
 <!-- Directory.Packages.props -->
 <ItemGroup>
-  <PackageVersion Include="Sponsorkit" Version="0.1.0" />
+  <PackageVersion Include="Sponsorkit" Version="0.2.0" />
 </ItemGroup>
 
 <!-- your .csproj -->
@@ -151,7 +151,7 @@ poetry add sponsorkit
 ```toml tab="pyproject.toml" key="pyproject"
 [project]
 dependencies = [
-  "sponsorkit>=0.1,<0.2",
+  "sponsorkit>=0.2,<0.3",
 ]
 ```
 :::

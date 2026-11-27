@@ -6,7 +6,7 @@ import { initialMockState, MOCK_PRESET_DATA, MOCK_PRESETS, mockCheckoutContribut
 import { Sponsorkit } from "../../src/node/index";
 import { targetsFrom } from "../../src/targets";
 
-const targetSets = [{ github: "octocat" }, { opencollective: "my-collective" }, { github: "octocat", opencollective: "my-collective" }];
+const targetSets = [{ github: "octocat" }, { openCollective: "my-collective" }, { github: "octocat", openCollective: "my-collective" }];
 
 describe("mock presets (SPEC §7.4)", () => {
   test("embedded data is identical to the conformance fixture", () => {
@@ -24,7 +24,7 @@ describe("mock presets (SPEC §7.4)", () => {
     test(`checkout contribution for ${Object.keys(set).join("+")}`, () => {
       for (const opts of [
         {},
-        { provider: "opencollective" as const, amount: 1200, currency: "EUR", frequency: "yearly" as const },
+        { provider: "open-collective" as const, amount: 1200, currency: "EUR", frequency: "yearly" as const },
         { frequency: "one_time" as const },
       ]) {
         expect(mockCheckoutContribution(targetsFrom(set), opts)).toEqual(refCheckout(targetsFromOptions(set), opts));

@@ -159,7 +159,7 @@ function appPage(options) {
     window.results[name].then((r) => { document.getElementById("out").textContent = name + ": " + JSON.stringify(r, null, 2); });
   };
   document.getElementById("signin").onclick = () => settle("signIn", sk.signIn({ provider: "github" }));
-  document.getElementById("signin-oc").onclick = () => settle("signInOc", sk.signIn({ provider: "opencollective" }));
+  document.getElementById("signin-oc").onclick = () => settle("signInOc", sk.signIn({ provider: "open-collective" }));
   document.getElementById("checkout").onclick = () =>
     settle("checkout", sk.openCheckout({ provider: "github", frequency: "monthly", amount: 500, timeout: 60 }));
   window.appReady = true;

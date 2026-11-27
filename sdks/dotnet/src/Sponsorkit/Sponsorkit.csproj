@@ -8,7 +8,7 @@
     <PackageId>Sponsorkit</PackageId>
     <Title>Sponsorkit</Title>
     <Description>Build financial contributions (GitHub Sponsors, Open Collective) directly into your .NET app: check what the current user contributes, open a checkout, and nag politely. No account, no keys, no setup.</Description>
-    <PackageTags>sponsorkit;sponsors;github-sponsors;opencollective;open-source;funding;donations</PackageTags>
+    <PackageTags>sponsorkit;sponsors;github-sponsors;open-collective;open-source;funding;donations</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

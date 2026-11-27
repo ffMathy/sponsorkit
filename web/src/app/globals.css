@@ -372,17 +372,17 @@ hr {
   --btn-fg: var(--bg);
   --btn-bg-hover: var(--github-hover);
 }
-.btn-opencollective {
+.btn-open-collective {
   --btn-bg: var(--oc);
   --btn-fg: #ffffff;
   --btn-bg-hover: var(--oc-hover);
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .btn-opencollective {
+  :root:not([data-theme="light"]) .btn-open-collective {
     --btn-fg: #0b1430;
   }
 }
-:root[data-theme="dark"] .btn-opencollective {
+:root[data-theme="dark"] .btn-open-collective {
   --btn-fg: #0b1430;
 }
 

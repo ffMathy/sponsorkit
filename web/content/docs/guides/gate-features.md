@@ -17,7 +17,7 @@ filter it:
 ```ts title="ad.ts"
 import { Sponsorkit } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-project" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-project" });
 
 const fc = await sk.getFinancialContribution();
 const isSupporter = fc.active().some((c) => c.amount.currency === "USD" && c.amount.value >= 500);
@@ -47,7 +47,7 @@ if (!isSupporter)
 ```python title="app.py"
 from sponsorkit import Sponsorkit
 
-sk = Sponsorkit(github="octocat", opencollective="my-project", app_name="my-app")
+sk = Sponsorkit(github="octocat", open_collective="my-project", app_name="my-app")
 
 fc = sk.get_financial_contribution()
 is_supporter = any(c.amount.currency == "USD" and c.amount.value >= 500 for c in fc.active())
@@ -96,7 +96,7 @@ use sponsorkit::{GetOptions, Options, Sponsorkit};
 async fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),
-        opencollective: Some("my-project".into()),
+        open_collective: Some("my-project".into()),
         app_name: Some("my-app".into()),
         ..Default::default()
     })?;
@@ -141,7 +141,7 @@ fresh result, so you can re-apply your rule straight away:
 ```ts title="sign-in.ts"
 import { Sponsorkit, isSponsorkitError } from "@sponsorkit/sdk";
 
-const sk = new Sponsorkit({ github: "octocat", opencollective: "my-project" });
+const sk = new Sponsorkit({ github: "octocat", openCollective: "my-project" });
 const ad = document.querySelector<HTMLElement>("#ad");
 
 // Call signIn() directly from the click handler so the popup isn't blocked.
@@ -246,7 +246,7 @@ plain code:
 | `active()` | Contributions with status `active` (running recurring sponsorships). |
 | `recurring()` | Monthly and yearly contributions, whatever their status. |
 | `oneTime()` | One-time contributions, whatever their status. A completed one has status `paid`. |
-| `byProvider(p)` | Contributions on `github` or `opencollective`. |
+| `byProvider(p)` | Contributions on `github` or `open-collective`. |
 | `direct()` | Contributions the person made themselves, without those from their organizations. |
 
 Method names follow each language's conventions: `Active()` in .NET and Go, `active()` in Python and Rust,

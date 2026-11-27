@@ -78,7 +78,7 @@ pub struct Options {
     /// GitHub Sponsors login that receives contributions.
     pub github: Option<String>,
     /// Open Collective collective slug that receives contributions.
-    pub opencollective: Option<String>,
+    pub open_collective: Option<String>,
     /// Your app's name, shown on the consent page as "says it is" (max 64 characters).
     pub app_name: Option<String>,
     /// How long a cached result is served without calling the API.
@@ -144,7 +144,7 @@ impl fmt::Debug for Options {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Options")
             .field("github", &self.github)
-            .field("opencollective", &self.opencollective)
+            .field("open_collective", &self.open_collective)
             .field("app_name", &self.app_name)
             .field("cache_ttl", &self.cache_ttl)
             .field("mock", &self.mock)
@@ -323,7 +323,7 @@ impl Sponsorkit {
             Sponsorkit::reset_process_state();
         }
         let targets =
-            Targets { github: options.github.clone(), opencollective: options.opencollective.clone() }.canonical()?;
+            Targets { github: options.github.clone(), open_collective: options.open_collective.clone() }.canonical()?;
         let env = options.env.clone();
         let lookup = |name: &str| -> Option<String> {
             match &env {

@@ -474,14 +474,14 @@ export class FakeSponsorkit {
     this.consumeFail("targets");
     const out: Target[] = [];
     for (const [key, value] of url.searchParams) {
-      if (key !== "github" && key !== "opencollective") continue;
+      if (key !== "github" && key !== "open-collective") continue;
       try {
         out.push(normalizeTarget(key, value));
       } catch (e) {
         throw new HttpProblem(400, "invalid_target", e instanceof Error ? e.message : String(e));
       }
     }
-    if (out.length === 0) throw new HttpProblem(400, "invalid_target", "At least one of github= or opencollective= is required");
+    if (out.length === 0) throw new HttpProblem(400, "invalid_target", "At least one of github= or open-collective= is required");
     let canonical: Target[];
     try {
       canonical = targetsFromParam(out.map(targetToString).join(","));
@@ -499,7 +499,7 @@ export class FakeSponsorkit {
       ok: true,
       providers: {
         github: outage.has("github") ? "degraded" : "ok",
-        opencollective: outage.has("opencollective") ? "degraded" : "ok",
+        "open-collective": outage.has("open-collective") ? "degraded" : "ok",
       },
     });
   }

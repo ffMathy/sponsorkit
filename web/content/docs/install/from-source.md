@@ -31,13 +31,13 @@ git clone https://github.com/ffMathy/sponsorkit.git
 cd sponsorkit
 bun install
 bun run --cwd sdks/js build
-cd sdks/js && npm pack          # writes sponsorkit-sdk-0.1.0.tgz
+cd sdks/js && npm pack          # writes sponsorkit-sdk-0.2.0.tgz
 ```
 
 Then, in your project:
 
 ```bash title="Terminal"
-npm install /path/to/sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
+npm install /path/to/sponsorkit/sdks/js/sponsorkit-sdk-0.2.0.tgz
 ```
 
 The tarball is exactly what `npm publish` would upload, so imports, types and entry points behave like the
@@ -50,10 +50,10 @@ Pack the library into a folder and use that folder as a package source:
 
 ```bash title="Terminal"
 git clone https://github.com/ffMathy/sponsorkit.git
-dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.1.0-local.1
+dotnet pack sponsorkit/sdks/dotnet/src/Sponsorkit -c Release -o ~/local-nuget -p:Version=0.2.0-local.1
 
 cd my-app
-dotnet add package Sponsorkit --version 0.1.0-local.1 --source ~/local-nuget
+dotnet add package Sponsorkit --version 0.2.0-local.1 --source ~/local-nuget
 ```
 
 Give each local build its own version, as with `-p:Version` above. NuGet caches packages by id and version

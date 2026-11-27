@@ -41,11 +41,12 @@ VECTORS = fixture("vectors.json")
 
 @pytest.mark.parametrize("vector", VECTORS["targetSets"], ids=lambda v: v["param"])
 def test_targets_hash_vectors(vector: dict[str, Any]) -> None:
-    targets = targets_from_options(vector["input"].get("github"), vector["input"].get("opencollective"))
+    options = {("open_collective" if k == "openCollective" else k): v for k, v in vector["input"].items()}
+    targets = targets_from_options(options.get("github"), options.get("open_collective"))
     assert targets_param(targets) == vector["param"]
     assert targets_hash(targets) == vector["targetsHash"]
     assert targets_from_param(vector["param"]) == targets
-    assert coerce_targets(vector["input"]) == targets
+    assert coerce_targets(options) == targets
 
 
 @pytest.mark.parametrize("vector", VECTORS["invalidTargets"], ids=lambda v: f"{v['provider']}:{v['account']}")
@@ -62,9 +63,9 @@ def test_target_set_rules() -> None:
         coerce_targets(["github:a", "github:b"])
     with pytest.raises(SponsorkitError):
         coerce_targets({"patreon": "x"})
-    assert coerce_targets(["opencollective:B", "github:A", "github:a"]) == (
+    assert coerce_targets(["open-collective:B", "github:A", "github:a"]) == (
         Target("github", "a"),
-        Target("opencollective", "b"),
+        Target("open-collective", "b"),
     )
     assert str(Target("github", "octocat")) == "github:octocat"
 
@@ -98,7 +99,7 @@ def test_mock_presets_expand_for_the_first_canonical_target(name: str) -> None:
     targets = targets_from_options("octocat", "my-collective")
     r = mock_result(targets, parse_mock_option(name))
     assert r.mock and not r.disabled and not r.stale and not r.from_cache and r.fetched_at is None
-    assert r.targets == ("github:octocat", "opencollective:my-collective")
+    assert r.targets == ("github:octocat", "open-collective:my-collective")
     assert r.signed_in == (name != "signed-out")
     assert (r.supporter is not None) == r.signed_in
     for c in r.contributions:
@@ -108,12 +109,12 @@ def test_mock_presets_expand_for_the_first_canonical_target(name: str) -> None:
     assert "unavailable" not in r.to_dict()
 
 
-def test_mock_preset_with_opencollective_only() -> None:
-    r = mock_result(targets_from_options(opencollective="Coll"), "org")
-    assert r.contributions[0].id == "con_opencollective_mock_org"
-    assert r.contributions[0].target == "opencollective:coll"
+def test_mock_preset_with_open_collective_only() -> None:
+    r = mock_result(targets_from_options(open_collective="Coll"), "org")
+    assert r.contributions[0].id == "con_open-collective_mock_org"
+    assert r.contributions[0].target == "open-collective:coll"
     assert r.contributions[0].via == "organization"
-    assert r.supporter is not None and r.supporter.identities[0].provider == "opencollective"
+    assert r.supporter is not None and r.supporter.identities[0].provider == "open-collective"
 
 
 def test_mock_checkout_contribution_rules() -> None:
@@ -128,9 +129,9 @@ def test_mock_checkout_contribution_rules() -> None:
         "active",
     )
     c = mock_checkout_contribution(
-        targets, provider="opencollective", amount=1500, currency="EUR", frequency="one_time"
+        targets, provider="open-collective", amount=1500, currency="EUR", frequency="one_time"
     )
-    assert c.id == "con_opencollective_mock_checkout"
+    assert c.id == "con_open-collective_mock_checkout"
     assert (c.amount.value, c.amount.currency, c.kind, c.status) == (1500, "EUR", "one_time", "paid")
 
 
@@ -177,7 +178,7 @@ def test_result_helpers() -> None:
     assert len(r.recurring()) + len(r.one_time()) == len(ids)
     assert all(c.provider == "github" for c in r.by_provider("github"))
     assert all(c.via == "direct" for c in r.direct())
-    assert len(r.by_provider("github")) + len(r.by_provider("opencollective")) == len(ids)
+    assert len(r.by_provider("github")) + len(r.by_provider("open-collective")) == len(ids)
 
 
 def test_unknown_status_maps_to_pending() -> None:

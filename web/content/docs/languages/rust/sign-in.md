@@ -97,7 +97,7 @@ use sponsorkit::{GetOptions, Options, Provider, SignInOptions, Sponsorkit};
 async fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),
-        opencollective: Some("my-collective".into()),
+        open_collective: Some("my-collective".into()),
         ..Default::default()
     })?;
 

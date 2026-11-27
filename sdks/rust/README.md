@@ -32,7 +32,7 @@ use sponsorkit::{CheckoutOptions, Frequency, GetOptions, Options, Sponsorkit};
 async fn main() -> Result<(), sponsorkit::Error> {
     let sk = Sponsorkit::new(Options {
         github: Some("octocat".into()),          // at least one target
-        opencollective: Some("sponsorkit".into()),
+        open_collective: Some("sponsorkit".into()),
         app_name: Some("my-cli".into()),          // shown on the consent page ("says it is")
         ..Default::default()
     })?;
@@ -69,7 +69,7 @@ malformed (even when disabled), or the mock preset is unknown.
 
 | `Options` field | Default | Meaning |
 |---|---|---|
-| `github`, `opencollective` | – | The accounts that receive contributions. At least one. Trimmed and lowercased. |
+| `github`, `open_collective` | – | The accounts that receive contributions. At least one. Trimmed and lowercased. |
 | `app_name` | – | Your app's name on the consent page (max 64 chars). |
 | `cache_ttl` | 1 h (min 60 s) | How long a cached result is served without calling the API. |
 | `mock` | – | `Mock::Preset(MockPreset::…)` or `Mock::Contributions(vec![…])`. Beats `SPONSORKIT_MOCK`. |

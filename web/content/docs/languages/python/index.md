@@ -51,13 +51,13 @@ Any build backend (Hatch, setuptools, Flit, PDM, Poetry 2) reads the standard `[
 ```toml title="pyproject.toml"
 [project]
 dependencies = [
-  "sponsorkit>=0.1,<0.2",
+  "sponsorkit>=0.2,<0.3",
 ]
 ```
 :::
 :::tab[requirements.txt]{key="requirements"}
 ```text title="requirements.txt"
-sponsorkit>=0.1,<0.2
+sponsorkit>=0.2,<0.3
 ```
 :::
 ::::
@@ -69,7 +69,7 @@ Check the install without signing in or touching the network:
 
 ```bash title="Terminal"
 SPONSORKIT_MOCK=active-monthly python -c "import sponsorkit as s; print(s.__version__, len(s.Sponsorkit(github='octocat').get_financial_contribution().active()))"
-# 0.1.0 1
+# 0.2.0 1
 ```
 
 Sponsorkit is a library: declare it as a dependency of your own tool instead of installing it with `pipx`.
@@ -80,7 +80,7 @@ When your users run `pipx install your-tool` or `uv tool install your-tool`, it 
 ```python title="my_cli.py"
 from sponsorkit import Sponsorkit
 
-sk = Sponsorkit(github="octocat", opencollective="my-collective", app_name="my-cli")
+sk = Sponsorkit(github="octocat", open_collective="my-collective", app_name="my-cli")
 
 fc = sk.get_financial_contribution()  # cached for an hour; never raises because of the network
 if fc.active():

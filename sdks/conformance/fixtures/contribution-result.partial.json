@@ -4,10 +4,10 @@
   "mock": false,
   "targets": [
     "github:sponsorkit-conformance",
-    "opencollective:sponsorkit-conformance"
+    "open-collective:sponsorkit-conformance"
   ],
   "supporter": {
-    "id": "sup_a4ab3d6pwlxvnsytl6f4ab3ctr",
+    "id": "sup_fdcxd5lrehf4hfnqmtj26jrpbi",
     "identities": [
       {
         "provider": "github",
@@ -16,7 +16,7 @@
         "needsReconnect": false
       },
       {
-        "provider": "opencollective",
+        "provider": "open-collective",
         "id": "rvelxbzm-o9n8y05w-wq9op3dg",
         "handle": "conformance-user",
         "needsReconnect": false
@@ -89,6 +89,6 @@
   "stale": true,
   "fromCache": false,
   "unavailable": [
-    "opencollective"
+    "open-collective"
   ]
 }

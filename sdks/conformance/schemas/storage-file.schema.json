@@ -59,7 +59,7 @@
                                 "type": "string",
                                 "enum": [
                                   "github",
-                                  "opencollective"
+                                  "open-collective"
                                 ]
                               },
                               "id": {
@@ -108,7 +108,7 @@
                         "type": "string",
                         "enum": [
                           "github",
-                          "opencollective"
+                          "open-collective"
                         ]
                       },
                       "target": {
@@ -128,7 +128,7 @@
                             "type": "string",
                             "enum": [
                               "github",
-                              "opencollective"
+                              "open-collective"
                             ]
                           },
                           "id": {
@@ -329,7 +329,7 @@
                     "type": "string",
                     "enum": [
                       "github",
-                      "opencollective"
+                      "open-collective"
                     ]
                   }
                 }

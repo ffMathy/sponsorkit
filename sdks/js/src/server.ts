@@ -39,7 +39,7 @@ export interface VerifySessionOptions {
  * - `network_error`: Sponsorkit could not be reached, answered 5xx or 429, or sent an unexpected response.
  *   `retryAfter` holds the seconds from `Retry-After` when the API sent one (e.g. on 429).
  *
- * @param targets `{ github?, opencollective? }`, a canonical target param, or a list of target strings.
+ * @param targets `{ github?, openCollective? }`, a canonical target param, or a list of target strings.
  */
 export async function verifySession(
   token: string,

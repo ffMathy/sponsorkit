@@ -49,7 +49,7 @@ export interface SdkAdapter {
   create(config: ConfigureArgs, hooks: TestHooks): SdkInstance | Promise<SdkInstance>;
   /** `restart` step: forget all per-process state (nag run memo, dev-check memo, Retry-After memo). */
   resetProcessState(): void | Promise<void>;
-  verifySession(token: string, targets: { github?: string; opencollective?: string }, opts: { apiBaseUrl: string }): Promise<ContributionResult>;
+  verifySession(token: string, targets: { github?: string; openCollective?: string }, opts: { apiBaseUrl: string }): Promise<ContributionResult>;
   /** The SponsorkitError code of a thrown value, or undefined if it is not a SponsorkitError. */
   errorCode(error: unknown): string | undefined;
   /** The `retryAfter` (seconds) of a thrown SponsorkitError, or undefined when it carries none. */

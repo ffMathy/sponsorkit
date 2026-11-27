@@ -1,7 +1,7 @@
 """Targets and target sets (PROTOCOL §1).
 
 A target is an account a maintainer receives sponsorships on: ``github:<login>`` or
-``opencollective:<slug>``. A *target set* is canonical: deduplicated, sorted by string form,
+``open-collective:<slug>``. A *target set* is canonical: deduplicated, sorted by string form,
 with at most one target per provider.
 """
 
@@ -28,10 +28,13 @@ __all__ = [
     "targets_param",
 ]
 
-Provider = Literal["github", "opencollective"]
+Provider = Literal["github", "open-collective"]
 """A contribution provider."""
 
-PROVIDERS: tuple[Provider, ...] = ("github", "opencollective")
+PROVIDERS: tuple[Provider, ...] = ("github", "open-collective")
+
+# The keys a targets mapping (verify_session) accepts, like the constructor's keyword arguments.
+TARGET_OPTION_KEYS: tuple[str, ...] = ("github", "open_collective")
 
 _GITHUB_LOGIN = re.compile(r"^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$")
 _OC_SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{0,254}$")
@@ -78,36 +81,37 @@ def canonical_targets(targets: Iterable[Target]) -> tuple[Target, ...]:
     by_string = {str(t): t for t in targets}
     ordered = tuple(by_string[k] for k in sorted(by_string, key=lambda s: s.encode("ascii")))
     if not ordered:
-        raise _invalid("At least one target (github or opencollective) is required")
+        raise _invalid("At least one target (github or open_collective) is required")
     if len({t.provider for t in ordered}) != len(ordered):
         raise _invalid("At most one target per provider is supported")
     return ordered
 
 
-def targets_from_options(github: str | None = None, opencollective: str | None = None) -> tuple[Target, ...]:
-    """Build a canonical target set from ``github=`` / ``opencollective=`` handles."""
+def targets_from_options(github: str | None = None, open_collective: str | None = None) -> tuple[Target, ...]:
+    """Build a canonical target set from ``github=`` / ``open_collective=`` handles."""
     out: list[Target] = []
     if github:
         out.append(normalize_target("github", github))
-    if opencollective:
-        out.append(normalize_target("opencollective", opencollective))
+    if open_collective:
+        out.append(normalize_target("open-collective", open_collective))
     return canonical_targets(out)
 
 
 def targets_from_param(param: str) -> tuple[Target, ...]:
-    """Parse a target param such as ``"github:x,opencollective:y"``."""
+    """Parse a target param such as ``"github:x,open-collective:y"``."""
     return canonical_targets(parse_target(p) for p in param.split(",") if p)
 
 
 def coerce_targets(
     targets: Mapping[str, str | None] | str | Iterable[str | Target],
 ) -> tuple[Target, ...]:
-    """Accept a ``{"github": ..., "opencollective": ...}`` mapping, a target param or a list of targets."""
+    """Accept a ``{"github": ..., "open_collective": ...}`` mapping, a target param or a list of targets."""
     if isinstance(targets, Mapping):
-        unknown = set(targets) - set(PROVIDERS)
+        unknown = set(targets) - set(TARGET_OPTION_KEYS)
         if unknown:
-            raise _invalid(f"Unknown provider(s): {', '.join(sorted(unknown))}")
-        return targets_from_options(targets.get("github"), targets.get("opencollective"))
+            names = ", ".join(sorted(unknown))
+            raise _invalid(f"Unknown target option(s): {names}; use github and open_collective")
+        return targets_from_options(targets.get("github"), targets.get("open_collective"))
     if isinstance(targets, str):
         return targets_from_param(targets)
     return canonical_targets(t if isinstance(t, Target) else parse_target(t) for t in targets)

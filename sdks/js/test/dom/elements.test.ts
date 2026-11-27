@@ -63,6 +63,15 @@ describe("custom elements", () => {
     for (const k of Object.keys(elementDefaults)) delete (elementDefaults as Record<string, unknown>)[k];
   });
 
+  test("the open-collective attribute names the Open Collective target", async () => {
+    const { elementDefaults } = await load();
+    Object.assign(elementDefaults, { env: {}, mock: "active-monthly" });
+    document.body.innerHTML = '<sponsorkit-badge github="octocat" open-collective="My-Collective"></sponsorkit-badge>';
+    const badge = document.querySelector("sponsorkit-badge") as HTMLElement & { client: { targets: string[] } | null };
+    expect(badge.client?.targets).toEqual(["github:octocat", "open-collective:my-collective"]);
+    for (const k of Object.keys(elementDefaults)) delete (elementDefaults as Record<string, unknown>)[k];
+  });
+
   test("<sponsorkit-badge> shows only for supporters with an active contribution", async () => {
     const { elementDefaults } = await load();
     Object.assign(elementDefaults, { env: {}, mock: "active-monthly" });

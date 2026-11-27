@@ -5,7 +5,7 @@ sidebar_label: Configuration
 order: 10
 ---
 
-All configuration goes into the `Sponsorkit` constructor. Only `github` and `opencollective` are positional;
+All configuration goes into the `Sponsorkit` constructor. Only `github` and `open_collective` are positional;
 everything else is keyword-only. The constructor validates everything up front and does no I/O: a missing
 target or a malformed option raises `SponsorkitError` with code `invalid_config` on that line, even when
 Sponsorkit is disabled, so mistakes show up the first time you run your program rather than at sign-in.
@@ -17,14 +17,14 @@ from sponsorkit import Sponsorkit
 
 sk = Sponsorkit(
     github="octocat",
-    opencollective="my-collective",
+    open_collective="my-collective",
     app_name="my-cli",
     cache_ttl=6 * 3600,  # seconds; values below 60 are raised to 60
     storage_dir=Path.home() / ".my-cli" / "sponsorkit",
     sign_in_timeout=120,
     request_timeout=10,
 )
-print(sk.targets)  # ('github:octocat', 'opencollective:my-collective')
+print(sk.targets)  # ('github:octocat', 'open-collective:my-collective')
 ```
 
 ## Options
@@ -32,7 +32,7 @@ print(sk.targets)  # ('github:octocat', 'opencollective:my-collective')
 | Option | Default | What it does |
 |---|---|---|
 | `github` | `None` | GitHub Sponsors login (user or organization) to check. Case and surrounding whitespace are normalized. |
-| `opencollective` | `None` | Open Collective collective slug to check. At least one of `github` and `opencollective` is required. |
+| `open_collective` | `None` | Open Collective collective slug to check. At least one of `github` and `open_collective` is required. |
 | `app_name` | `None` | Your app's name, shown on the consent page as "says it is". At most 64 characters. |
 | `cache_ttl` | `3600` | Seconds a result is served from the local cache without asking the API. Values below `60` are raised to `60`; a single call can ask for fresher data. See [Contributions](contributions.md#caching). |
 | `mock` | `None` | Mock mode: a preset name (`"signed-out"`, `"none"`, `"active-monthly"`, `"one-time"`, `"cancelled"`, `"org"`) or `{"contributions": [...]}`. No network or disk access. Takes precedence over `SPONSORKIT_MOCK`. See [Testing](testing.md#mock-mode). |
@@ -106,8 +106,8 @@ to choose [paste-back](sign-in.md#choosing-a-method). `BROWSER` selects the brow
 
 | Property | Example | Meaning |
 |---|---|---|
-| `targets` | `("github:octocat", "opencollective:my-collective")` | The canonical, sorted target strings. |
-| `targets_param` | `"github:octocat,opencollective:my-collective"` | The same, joined, as used in URLs. |
+| `targets` | `("github:octocat", "open-collective:my-collective")` | The canonical, sorted target strings. |
+| `targets_param` | `"github:octocat,open-collective:my-collective"` | The same, joined, as used in URLs. |
 | `targets_hash` | 64 hex characters | SHA-256 of `targets_param`: the name of the state file. |
 | `disabled` | `False` | Whether `SPONSORKIT_DISABLE` is set. |
 | `mock` | `False` | Whether mock mode is on (and not overridden by `SPONSORKIT_DISABLE`). |

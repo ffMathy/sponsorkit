@@ -54,7 +54,7 @@ Note the client ID and generate a client secret. Sponsorkit requests the `read:u
 PKCE on top of the client secret.
 
 **Open Collective.** Create an OAuth application in the developer settings of your Open Collective account, with
-the callback URL `https://sponsorkit-api.example.com/api/oauth/opencollective/callback`. Note its client ID and
+the callback URL `https://sponsorkit-api.example.com/api/oauth/open-collective/callback`. Note its client ID and
 secret. Sponsorkit requests the `orders incognito` scopes, so it can see private ("incognito") contributions to
 your targets.
 
@@ -136,7 +136,7 @@ Check it's running:
 
 ```bash
 curl https://sponsorkit-api.example.com/api/v1/health
-# {"ok":true,"providers":{"github":"ok","opencollective":"ok"}}
+# {"ok":true,"providers":{"github":"ok","open-collective":"ok"}}
 ```
 
 To change the API hostname later, change the route, `PUBLIC_ORIGIN` and both OAuth apps' callback URLs together.

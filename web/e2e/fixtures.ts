@@ -36,9 +36,9 @@ export const github: TargetInfo = {
   ],
 };
 
-export const opencollective: TargetInfo = {
-  target: "opencollective:sponsorkit",
-  provider: "opencollective",
+export const openCollective: TargetInfo = {
+  target: "open-collective:sponsorkit",
+  provider: "open-collective",
   account: "sponsorkit",
   exists: true,
   displayName: "Sponsorkit Collective",
@@ -70,7 +70,7 @@ export interface ApiMock {
  * Mocks the API origin (`/api/v1/*` with CORS, `/api/oauth/*`), provider avatars and the external
  * provider checkout pages for the whole context (so popups are covered too).
  */
-export async function mockApi(context: BrowserContext, infos: TargetInfo[] = [github, opencollective]): Promise<ApiMock> {
+export async function mockApi(context: BrowserContext, infos: TargetInfo[] = [github, openCollective]): Promise<ApiMock> {
   const mock: ApiMock = { targetQueries: [], oauth: [] };
   await context.route(`${API}/api/v1/targets?*`, async (route: Route) => {
     const url = new URL(route.request().url());
