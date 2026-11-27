@@ -10,12 +10,11 @@ order: 0
 Sponsorkit tells your software whether the current user supports you on GitHub Sponsors or Open Collective,
 and helps them start. You write the rule; Sponsorkit reports the facts.
 
-:::warning[Project status: pre-release]
-- **Four of the five SDKs are published.** Version 0.1.0 is on [npm](https://www.npmjs.com/package/@sponsorkit/sdk),
-  [NuGet](https://www.nuget.org/packages/Sponsorkit), [PyPI](https://pypi.org/project/sponsorkit/) and the
-  [Go module proxy](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go). The Rust crate isn't on
-  crates.io yet, so don't install `sponsorkit` from there: [depend on the Git repository](install/from-source.md#rust)
-  until its first release is announced.
+:::note[Project status]
+- **All five SDKs are published.** Version 1.0.0 is on [npm](https://www.npmjs.com/package/@sponsorkit/sdk),
+  [NuGet](https://www.nuget.org/packages/Sponsorkit), [PyPI](https://pypi.org/project/sponsorkit/),
+  [crates.io](https://crates.io/crates/sponsorkit) and the
+  [Go module proxy](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go). See [Install](install/index.md).
 - **The hosted service is live** at `api.sponsorkit.io`. Some provider behaviour has only been tested against
   stubbed provider responses so far; [mock mode](guides/mock-mode.md) needs no network at all.
 :::

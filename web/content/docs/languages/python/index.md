@@ -69,7 +69,7 @@ Check the install without signing in or touching the network:
 
 ```bash title="Terminal"
 SPONSORKIT_MOCK=active-monthly python -c "import sponsorkit as s; print(s.__version__, len(s.Sponsorkit(github='octocat').get_financial_contribution().active()))"
-# 0.2.0 1
+# 1.0.0 1
 ```
 
 Sponsorkit is a library: declare it as a dependency of your own tool instead of installing it with `pipx`.

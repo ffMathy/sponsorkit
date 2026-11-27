@@ -32,14 +32,14 @@ dotnet add package Sponsorkit
 
 ```xml tab="PackageReference" key="packagereference"
 <ItemGroup>
-  <PackageReference Include="Sponsorkit" Version="0.2.0" />
+  <PackageReference Include="Sponsorkit" Version="1.0.0" />
 </ItemGroup>
 ```
 
 ```xml tab="Central Package Management" key="cpm"
 <!-- Directory.Packages.props -->
 <ItemGroup>
-  <PackageVersion Include="Sponsorkit" Version="0.2.0" />
+  <PackageVersion Include="Sponsorkit" Version="1.0.0" />
 </ItemGroup>
 
 <!-- your .csproj -->
@@ -57,7 +57,7 @@ Install-Package Sponsorkit
 ```
 
 ```csharp tab="File-based app" key="file-based"
-#:package Sponsorkit@0.2.0
+#:package Sponsorkit@1.0.0
 ```
 :::
 

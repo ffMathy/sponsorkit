@@ -1,11 +1,11 @@
 name: Release SDKs
 
 # Publish an SDK by pushing a tag:
-#   sdks/js/v0.1.0       -> npm (@sponsorkit/sdk)
-#   sdks/dotnet/v0.1.0   -> NuGet (Sponsorkit)
-#   sdks/python/v0.1.0   -> PyPI (sponsorkit)
-#   sdks/rust/v0.1.0     -> crates.io (sponsorkit)
-#   sdks/go/v0.1.0       -> Go modules need no publish step (proxy.golang.org picks up the tag)
+#   sdks/js/v1.0.0       -> npm (@sponsorkit/sdk)
+#   sdks/dotnet/v1.0.0   -> NuGet (Sponsorkit)
+#   sdks/python/v1.0.0   -> PyPI (sponsorkit)
+#   sdks/rust/v1.0.0     -> crates.io (sponsorkit)
+#   sdks/go/v1.0.0       -> Go modules need no publish step (proxy.golang.org picks up the tag)
 #
 # All registries use trusted publishing (OIDC), so no long-lived tokens are stored.
 # Configure a trusted publisher for this repository + workflow on each registry first.

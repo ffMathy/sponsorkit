@@ -15,7 +15,7 @@ Website: <https://ffmathy.github.io/sponsorkit/> · Spec: `docs/SPEC.md` · Wire
 
 ```toml
 [dependencies]
-sponsorkit = "0.1"
+sponsorkit = "1"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 

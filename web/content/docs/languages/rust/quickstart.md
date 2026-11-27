@@ -14,17 +14,14 @@ This page builds `my-cli`, a command-line tool with four commands:
 
 ## Create the project
 
-`sponsorkit` isn't on crates.io yet, so add it from the Git repository. The [Git and Local path
-tabs](index.md#install) show the same thing in `Cargo.toml`.
+Add the crate from crates.io; [Install](index.md#install) shows the same thing in `Cargo.toml`.
 
 ```bash title="Terminal"
 cargo new my-cli
 cd my-cli
-cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit --branch main
+cargo add sponsorkit
 cargo add tokio --features macros,rt-multi-thread
 ```
-
-After the first release, `cargo add sponsorkit` (from crates.io) replaces the Git line.
 
 ## Write the program
 

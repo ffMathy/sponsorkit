@@ -23,7 +23,7 @@ standard library.
 
 Go modules are fetched straight from the Git repository through the module proxy, so there is no separate
 registry and no package manager besides the `go` command. The current release is
-[`v0.1.0`](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go).
+[`v1.0.0`](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go).
 
 Pick the way that suits your project:
 
@@ -36,13 +36,13 @@ go get github.com/ffMathy/sponsorkit/sdks/go@latest
 ```
 
 `go get` adds a `require` line to `go.mod` and the checksums to `go.sum`. Ask for a branch or commit with
-`@main` or `@<commit>` (Go records a pseudo-version), or for an exact version with `@v0.2.0`.
+`@main` or `@<commit>` (Go records a pseudo-version), or for an exact version with `@v1.0.0`.
 :::
 :::tab[go.mod]{key="go-mod"}
 Add the requirement by hand, then let Go fill in `go.sum`.
 
 ```text title="go.mod"
-require github.com/ffMathy/sponsorkit/sdks/go v0.2.0
+require github.com/ffMathy/sponsorkit/sdks/go v1.0.0
 ```
 
 ```bash title="Terminal"
@@ -85,7 +85,7 @@ import sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 
 :::note[Releases]
 Releases are tags named `sdks/go/vX.Y.Z`, because the module lives in a subdirectory of the repository; you ask
-for `@v0.2.0`. For an unreleased change, use `@main` or a commit; see
+for `@v1.0.0`. For an unreleased change, use `@main` or a commit; see
 [build from source](../../install/from-source.md#go) and [versions & pinning](../../install/versions.md#go).
 :::
 

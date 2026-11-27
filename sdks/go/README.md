@@ -3,7 +3,7 @@
 Build financial contributions (GitHub Sponsors and Open Collective) directly into your Go program. There is no Sponsorkit account, API key, dashboard or webhook: you name the account(s) you receive sponsorships on, and write your own rule.
 
 - **Module:** `github.com/ffMathy/sponsorkit/sdks/go` (package `sponsorkit`)
-- **Version:** 0.1.0 · **License:** MIT · **Homepage:** <https://ffmathy.github.io/sponsorkit> · **Source:** <https://github.com/ffMathy/sponsorkit>
+- **Version:** 1.0.0 · **License:** MIT · **Homepage:** <https://ffmathy.github.io/sponsorkit> · **Source:** <https://github.com/ffMathy/sponsorkit>
 - **Requirements:** Go 1.23+, standard library only.
 
 ## Install

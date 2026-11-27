@@ -145,7 +145,7 @@ func main() {
 
 | Name | Value |
 |---|---|
-| `sponsorkit.Version` | The SDK version, `"0.1.0"`. Sent in the `User-Agent` header as `sponsorkit-go/0.1.0`. |
+| `sponsorkit.Version` | The SDK version, `"1.0.0"`. Sent in the `User-Agent` header as `sponsorkit-go/1.0.0`. |
 | `sponsorkit.DefaultAPIBaseURL` | `"https://api.sponsorkit.io"`. |
 | `sponsorkit.DefaultSiteBaseURL` | `"https://ffmathy.github.io/sponsorkit"`. |
 | `sponsorkit.NoRequestTimeout` | `-1`: disables `RequestTimeout` and `WithRequestTimeout`. |

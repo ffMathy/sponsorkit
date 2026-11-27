@@ -54,7 +54,7 @@
     },
     "sdks/js": {
       "name": "@sponsorkit/sdk",
-      "version": "0.2.0",
+      "version": "1.0.0",
       "devDependencies": {
         "@biomejs/biome": "^2.6.8",
         "@happy-dom/global-registrator": "^21.0.4",

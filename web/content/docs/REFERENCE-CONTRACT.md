@@ -73,7 +73,7 @@ language fails the build instead.
 {
   "lang": "js",
   "package": "@sponsorkit/sdk",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "generator": "sdks/js/scripts/gen-docs.sh (TypeScript compiler API)",
   "generatedAt": "2026-11-17T12:00:00Z",
   "stub": false

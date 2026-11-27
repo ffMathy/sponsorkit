@@ -17,7 +17,7 @@ import (
 )
 
 // Version is the SDK version.
-const Version = "0.1.0"
+const Version = "1.0.0"
 
 // DefaultAPIBaseURL is the Sponsorkit API origin, used for every API call
 // (/api/v1/...).

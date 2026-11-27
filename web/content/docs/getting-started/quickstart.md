@@ -15,8 +15,7 @@ as-is against the SDK.
 
 ## Install
 
-Every SDK but Rust is on its package registry. The Rust crate isn't on crates.io yet, so add it from the
-repository; [Install](../install/index.md) explains why.
+Every SDK is on its package registry; [Install](../install/index.md) lists the other ways to add it.
 
 :::tabs
 ```bash tab="JavaScript" key="js"
@@ -35,18 +34,18 @@ python -m pip install sponsorkit
 
 ```bash tab="Go" key="go"
 go mod init example.com/my-cli
-go get github.com/ffMathy/sponsorkit/sdks/go@v0.2.0
+go get github.com/ffMathy/sponsorkit/sdks/go@v1.0.0
 ```
 
 ```bash tab="Rust" key="rust"
 cargo new my-cli && cd my-cli
-cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit
+cargo add sponsorkit
 cargo add tokio --features macros,rt-multi-thread
 ```
 :::
 
-Building the JavaScript SDK needs [Bun](https://bun.sh). [Build from source](../install/from-source.md) has
-more detail on each recipe, including uv, Poetry, local checkouts and pinning a commit.
+To try an unreleased change instead, [build from source](../install/from-source.md) covers Git dependencies,
+local checkouts and pinning a commit.
 
 ## Write the program
 
