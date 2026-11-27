@@ -23,24 +23,8 @@ for CommonJS) and work with `moduleResolution` set to `bundler`, `node16` or `no
 
 ## Install
 
-:::warning[Not on npm yet]
-`@sponsorkit/sdk` hasn't been published to npm yet, and the name may not be reserved, so a package someone else
-publishes under it would not be this project. Until the first release is announced, build the SDK from the
-repository and install the tarball. Building needs [Bun](https://bun.sh).
-:::
-
-```bash title="Terminal"
-git clone https://github.com/ffMathy/sponsorkit.git
-(cd sponsorkit && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
-npm install ./sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
-```
-
-pnpm, Yarn and Bun accept the same tarball path. [Build from source](../../install/from-source.md#javascript)
-explains the recipe.
-
-### After the first release {#after-the-first-release}
-
-Once `@sponsorkit/sdk` is on npm, install it with your package manager instead. These commands fail today.
+`@sponsorkit/sdk` is [on npm](https://www.npmjs.com/package/@sponsorkit/sdk). Install it with your package
+manager:
 
 ::::tabs{group="pm"}
 :::tab[npm]

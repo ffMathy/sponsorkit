@@ -11,10 +11,11 @@ Sponsorkit tells your software whether the current user supports you on GitHub S
 and helps them start. You write the rule; Sponsorkit reports the facts.
 
 :::warning[Project status: pre-release]
-- **Only the .NET SDK is published so far.** `Sponsorkit` 0.1.0 is [on NuGet](https://www.nuget.org/packages/Sponsorkit).
-  `@sponsorkit/sdk` and `sponsorkit` are not on npm, PyPI or crates.io yet, and some of those names aren't
-  reserved yet, so don't install them from a registry: [install from source](install/from-source.md) until
-  their first release is announced. (The Go module is fetched straight from GitHub.)
+- **Four of the five SDKs are published.** Version 0.1.0 is on [npm](https://www.npmjs.com/package/@sponsorkit/sdk),
+  [NuGet](https://www.nuget.org/packages/Sponsorkit), [PyPI](https://pypi.org/project/sponsorkit/) and the
+  [Go module proxy](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go). The Rust crate isn't on
+  crates.io yet, so don't install `sponsorkit` from there: [depend on the Git repository](install/from-source.md#rust)
+  until its first release is announced.
 - **The hosted service is live** at `api.sponsorkit.io`. Some provider behaviour has only been tested against
   stubbed provider responses so far; [mock mode](guides/mock-mode.md) needs no network at all.
 :::

@@ -59,7 +59,7 @@ go get github.com/ffMathy/sponsorkit/sdks/go@v0.1.0
 
 `go.mod` always records an exact version, and Go's minimal version selection never upgrades it on its own. The
 tag in the repository is `sdks/go/v0.1.0` (Go's convention for a module in a subdirectory), but you ask for
-`@v0.1.0`. Before the first tag, use a branch or commit: `@main` resolves to a pseudo-version.
+`@v0.1.0`. For an unreleased change, ask for a branch or commit: `@main` resolves to a pseudo-version.
 
 ### Rust {#rust}
 

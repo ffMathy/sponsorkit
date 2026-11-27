@@ -1,12 +1,12 @@
 ---
 title: Build from source
-description: Use an unreleased SDK from the ffMathy/sponsorkit monorepo, directly from Git where the package manager supports it, or from a local build.
+description: Use an unreleased SDK or change from the ffMathy/sponsorkit monorepo, directly from Git where the package manager supports it, or from a local build.
 order: 50
 ---
 
 All five SDKs live in one repository, [ffMathy/sponsorkit](https://github.com/ffMathy/sponsorkit),
-under `sdks/<language>/`. Use this page for an SDK whose first release hasn't reached its registry yet (every SDK but .NET), or to try a
-change that isn't released yet.
+under `sdks/<language>/`. Use this page for the Rust crate until its first release reaches crates.io, or to try a change that isn't
+released yet.
 
 How easy that is depends on the package manager:
 

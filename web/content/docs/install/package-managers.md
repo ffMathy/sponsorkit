@@ -7,20 +7,17 @@ order: 10
 
 Each section below covers one language. The commands assume a published release.
 
-:::danger[Only .NET is released so far]
-`Sponsorkit` is [on NuGet](https://www.nuget.org/packages/Sponsorkit), and Go modules are fetched from GitHub;
-both work today. No Sponsorkit SDK is on npm, PyPI or crates.io yet. Some of those package names aren't
-reserved yet, so a package someone else publishes under them would not be this project. Until their first
-release is announced in the [repository](https://github.com/ffMathy/sponsorkit), use
-[build from source](from-source.md) instead of the npm, PyPI and crates.io commands on this page.
+:::danger[Rust isn't released yet]
+The JavaScript, .NET, Python and Go SDKs are published, and every command for them on this page works. The
+Rust crate isn't on crates.io yet, and a crate someone else publishes under that name would not be this
+project. Until its first release is announced in the [repository](https://github.com/ffMathy/sponsorkit),
+[depend on the Git repository](from-source.md#rust) instead of the crates.io commands below.
 :::
 
 ## JavaScript / TypeScript {#javascript}
 
 One package, `@sponsorkit/sdk`, with no runtime dependencies. It ships ESM and CommonJS builds and its own
-TypeScript types, so there is no `@types` package to add.
-
-**After the first release.** Until then, [build from source](from-source.md#javascript).
+TypeScript types, so there is no `@types` package to add. It is [on npm](https://www.npmjs.com/package/@sponsorkit/sdk).
 
 :::tabs{group="pm"}
 ```bash tab="npm" key="npm"
@@ -60,7 +57,7 @@ network, environment, file and subprocess permissions. Deno can also import it w
 ### Browsers without a bundler {#cdn}
 
 The browser entry points only import their own files, so a CDN that mirrors npm can serve them as native ES
-modules. Pin an exact version in the URL. CDNs only serve published versions, so these work after the first npm release:
+modules. Pin an exact version in the URL:
 
 :::tabs{group="cdn"}
 ```html tab="esm.sh" key="esm-sh"
@@ -96,7 +93,7 @@ The web components register themselves when their module loads:
 ```
 
 With esm.sh, the same module is `https://esm.sh/@sponsorkit/sdk@0.1.0/elements`. CDNs only serve published
-versions; until the first npm release, bundle a local build instead.
+versions.
 
 ## .NET {#dotnet}
 
@@ -136,9 +133,7 @@ Everything lives in the `Sponsorkit` namespace; the client class is `SponsorkitC
 ## Python {#python}
 
 The `sponsorkit` distribution supports Python 3.10 and later and depends only on `httpx`. It ships type hints
-(`py.typed`).
-
-**After the first release.** Until then, [install from Git](from-source.md#python).
+(`py.typed`). It is [on PyPI](https://pypi.org/project/sponsorkit/).
 
 :::tabs{group="pypi"}
 ```bash tab="pip" key="pip"
