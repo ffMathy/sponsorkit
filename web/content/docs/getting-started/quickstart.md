@@ -15,17 +15,13 @@ as-is against the SDK.
 
 ## Install
 
-The .NET SDK is on NuGet. The others aren't on npm, PyPI or crates.io yet, so install them from the
-repository. Don't install `@sponsorkit/sdk` or `sponsorkit` from a registry until their first release is
-announced: those names may not be reserved yet. [Install](../install/index.md) explains why, and lists the
-registry commands to use after the release.
+Every SDK but Rust is on its package registry. The Rust crate isn't on crates.io yet, so add it from the
+repository; [Install](../install/index.md) explains why.
 
 :::tabs
 ```bash tab="JavaScript" key="js"
-git clone https://github.com/ffMathy/sponsorkit.git
-(cd sponsorkit && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
 mkdir my-cli && cd my-cli && npm init -y
-npm install ../sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
+npm install @sponsorkit/sdk
 ```
 
 ```bash tab=".NET" key="dotnet"
@@ -34,12 +30,12 @@ dotnet add package Sponsorkit
 ```
 
 ```bash tab="Python" key="python"
-python -m pip install "sponsorkit @ git+https://github.com/ffMathy/sponsorkit@main#subdirectory=sdks/python"
+python -m pip install sponsorkit
 ```
 
 ```bash tab="Go" key="go"
 go mod init example.com/my-cli
-go get github.com/ffMathy/sponsorkit/sdks/go@main
+go get github.com/ffMathy/sponsorkit/sdks/go@v0.1.0
 ```
 
 ```bash tab="Rust" key="rust"

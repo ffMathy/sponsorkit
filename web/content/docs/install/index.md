@@ -1,6 +1,6 @@
 ---
 title: Install
-description: Packages, supported runtimes and how to add Sponsorkit to your project, plus what to do for the SDKs that aren't published yet.
+description: Packages, supported runtimes and how to add Sponsorkit to your project, plus how to use the Rust crate before it is published.
 sidebar_label: Overview
 ---
 
@@ -16,51 +16,14 @@ Every SDK is one package with the same behaviour and the same result shape. Pick
 
 Rust apps also need a Tokio runtime, for example `cargo add tokio --features macros,rt-multi-thread`.
 
-:::danger[Only .NET is on a registry so far]
-`Sponsorkit` 0.1.0 is [on NuGet](https://www.nuget.org/packages/Sponsorkit). The other SDKs haven't been
-released yet: `@sponsorkit/sdk` and `sponsorkit` are **not** on npm, PyPI or crates.io, and some of those names
-aren't reserved yet, so a package someone else publishes under that name would not be this project. Until their
-first release is announced in the [repository](https://github.com/ffMathy/sponsorkit), install them from Git
-or from a local build as shown below, and don't install these names from a registry.
+:::danger[Rust isn't on crates.io yet]
+The JavaScript, .NET, Python and Go SDKs are published. The Rust crate `sponsorkit` is **not** on crates.io
+yet, and a crate someone else publishes under that name would not be this project. Until its first release is
+announced in the [repository](https://github.com/ffMathy/sponsorkit), depend on the Git repository as shown
+below.
 :::
 
 ## Install
-
-.NET installs from NuGet. Go fetches the module straight from GitHub. Python and Rust can depend on the Git
-repository directly. JavaScript needs a local build first. [Build from source](from-source.md) explains each
-recipe, including a local .NET build for unreleased changes.
-
-:::tabs
-```bash tab="JavaScript" key="js"
-git clone https://github.com/ffMathy/sponsorkit.git
-(cd sponsorkit && bun install && bun run --cwd sdks/js build && cd sdks/js && npm pack)
-npm install ./sponsorkit/sdks/js/sponsorkit-sdk-0.1.0.tgz
-```
-
-```bash tab=".NET" key="dotnet"
-dotnet add package Sponsorkit
-```
-
-```bash tab="Python" key="python"
-python -m pip install "sponsorkit @ git+https://github.com/ffMathy/sponsorkit@main#subdirectory=sdks/python"
-```
-
-```bash tab="Go" key="go"
-go get github.com/ffMathy/sponsorkit/sdks/go@main
-```
-
-```bash tab="Rust" key="rust"
-cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit
-```
-:::
-
-Building the JavaScript SDK needs [Bun](https://bun.sh). Run the .NET `dotnet add package` line in your
-project's folder.
-
-## After the first release
-
-Once each SDK is published to its registry, these are the commands to use. The .NET one works today; the npm,
-PyPI and crates.io ones fail with "not found" until those releases; see the warning above.
 
 :::tabs
 ```bash tab="JavaScript" key="js"
@@ -76,13 +39,17 @@ pip install sponsorkit
 ```
 
 ```bash tab="Go" key="go"
-go get github.com/ffMathy/sponsorkit/sdks/go
+go get github.com/ffMathy/sponsorkit/sdks/go@v0.1.0
 ```
 
 ```bash tab="Rust" key="rust"
-cargo add sponsorkit
+cargo add sponsorkit --git https://github.com/ffMathy/sponsorkit
 ```
 :::
+
+Run each command in your project's folder. [Package managers & CDNs](package-managers.md) has the commands for
+pnpm, Yarn, Bun, Deno, uv, Poetry, Paket and more. Once the crate is on crates.io, Rust becomes
+`cargo add sponsorkit`.
 
 ## In this section
 

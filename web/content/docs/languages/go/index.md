@@ -22,13 +22,8 @@ standard library.
 ## Install
 
 Go modules are fetched straight from the Git repository through the module proxy, so there is no separate
-registry and no package manager besides the `go` command, and installing works today.
-
-:::note[Pre-release]
-No `sdks/go/v…` release tag exists yet. Until the first release, `@latest` and `@main` resolve to the newest
-commit on `main` (Go records a pseudo-version), and exact versions such as `v0.1.0` fail.
-[Build from source](../../install/from-source.md#go) has the same recipes.
-:::
+registry and no package manager besides the `go` command. The current release is
+[`v0.1.0`](https://pkg.go.dev/github.com/ffMathy/sponsorkit/sdks/go).
 
 Pick the way that suits your project:
 
@@ -41,12 +36,10 @@ go get github.com/ffMathy/sponsorkit/sdks/go@latest
 ```
 
 `go get` adds a `require` line to `go.mod` and the checksums to `go.sum`. Ask for a branch or commit with
-`@main` or `@<commit>` (Go records a pseudo-version), or, after the first release, for an exact version with
-`@v0.1.0`.
+`@main` or `@<commit>` (Go records a pseudo-version), or for an exact version with `@v0.1.0`.
 :::
 :::tab[go.mod]{key="go-mod"}
-After the first release, add the requirement by hand, then let Go fill in `go.sum`. Until then, use `go get`
-instead, which writes the pseudo-version for you.
+Add the requirement by hand, then let Go fill in `go.sum`.
 
 ```text title="go.mod"
 require github.com/ffMathy/sponsorkit/sdks/go v0.1.0
@@ -90,11 +83,10 @@ Then import it. The package is already named `sponsorkit`; the alias only makes 
 import sponsorkit "github.com/ffMathy/sponsorkit/sdks/go"
 ```
 
-:::note[Releases and pre-releases]
-Releases are tags named `sdks/go/vX.Y.Z`, because the module lives in a subdirectory of the repository. Until
-the first such tag exists, `@latest` resolves to a pseudo-version of the newest commit and `v0.1.0` can't be
-fetched yet, so use `@main` or a commit; see [build from source](../../install/from-source.md#go) and
-[versions & pinning](../../install/versions.md#go).
+:::note[Releases]
+Releases are tags named `sdks/go/vX.Y.Z`, because the module lives in a subdirectory of the repository; you ask
+for `@v0.1.0`. For an unreleased change, use `@main` or a commit; see
+[build from source](../../install/from-source.md#go) and [versions & pinning](../../install/versions.md#go).
 :::
 
 ## A first look
